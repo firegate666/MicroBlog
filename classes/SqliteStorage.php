@@ -34,5 +34,3 @@ class SqliteStorage extends Storage
 		// TODO Auto-generated method stub
 	}
 }
-
-?>

@@ -3,7 +3,5 @@
 class HTMLResult
 {
 
-	public $result;
+	public $result = '';
 }
-
-?>

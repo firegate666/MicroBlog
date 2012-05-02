@@ -7,5 +7,3 @@ class Comment extends Model
 
 	public $content;
 }
-
-?>

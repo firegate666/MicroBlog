@@ -5,5 +5,3 @@ class Model
 
 	public $id;
 }
-
-?>

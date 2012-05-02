@@ -7,5 +7,3 @@ class Blog extends Model
 
 	public $posts = array();
 }
-
-?>

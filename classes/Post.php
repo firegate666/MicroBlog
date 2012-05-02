@@ -7,5 +7,3 @@ class Post extends Model
 
 	public $content;
 }
-
-?>

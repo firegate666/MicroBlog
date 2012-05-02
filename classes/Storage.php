@@ -11,5 +11,3 @@ abstract class Storage
 
 	public abstract function disconnet();
 }
-
-?>
