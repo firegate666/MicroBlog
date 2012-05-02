@@ -1,4 +1,4 @@
-<?php 
+<?php
 $html = <<<HTML
 <html>
 
