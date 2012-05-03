@@ -26,6 +26,14 @@ class View
 		return $this->render($wrap, array('content' => $content), null);
 	}
 
+	/**
+	 * render layout without wrap
+	 * 
+	 * @uses View::render()
+	 * @param string $layout
+	 * @param array $parameters
+	 * @return string
+	 */
 	public function renderPartial($layout, $parameters)
 	{
 		return $this->render($layout, $parameters, null);

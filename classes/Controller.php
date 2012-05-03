@@ -21,17 +21,30 @@ abstract class Controller
 	 */
 	private $view;
 
+	/**
+	 * get view renderer
+	 * 
+	 * @return View
+	 */
 	protected function getView()
 	{
 		return $this->view;
 	}
 
+	/**
+	 * 
+	 * @param ApplicationConfig $config
+	 * @param View $view
+	 */
 	public function __construct(ApplicationConfig $config, View $view)
 	{
 		$this->config = $config;
 		$this->view = $view;
 	}
 
+	/**
+	 * @return Storage
+	 */
 	protected function getStorage()
 	{
 		if (isset($this->storage))
@@ -43,6 +56,12 @@ abstract class Controller
 		return $this->storage;
 	}
 
+	/**
+	 * 
+	 * @param string $config_name
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	protected function getConfig($config_name, $default = null)
 	{
 		return $this->config->getConfig($config_name, $default);

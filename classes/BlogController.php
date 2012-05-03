@@ -19,6 +19,10 @@ class BlogController extends Controller
 	{
 	}
 
+	/*
+	 * (non-PHPdoc)
+	 * @see Controller::handle()
+	 */
 	public function handle(Request $request)
 	{
 		$action_name = 'action' . ucfirst($request->getParam('action', 'list'));

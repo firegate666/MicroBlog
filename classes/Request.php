@@ -12,6 +12,12 @@ class Request
 
 	private $postParams;
 
+	/**
+	 * 
+	 * @param array $server_vars
+	 * @param array $get_params
+	 * @param array $post_params
+	 */
 	public function __construct($server_vars, $get_params, $post_params)
 	{
 		$this->serverVars = $server_vars;
@@ -19,6 +25,12 @@ class Request
 		$this->postParams = $post_params;
 	}
 
+	/**
+	 * 
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	public function getParam($name, $default = null)
 	{
 		if (array_key_exists($name, $this->getParams))
@@ -28,6 +40,12 @@ class Request
 		return $default;
 	}
 
+	/**
+	 *
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	public function postParam($name, $default = null)
 	{
 		if (array_key_exists($name, $this->postParams))
