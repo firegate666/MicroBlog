@@ -3,3 +3,6 @@
 .settings
 
 configuration/base.ini
+
+runtime/*
+!runtime/README
