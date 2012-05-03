@@ -6,7 +6,7 @@ class ApplicationConfig
 	private $config = array();
 
 	/**
-	 * 
+	 *
 	 * @param string $path_to_config
 	 */
 	function __construct($path_to_config)
@@ -15,7 +15,7 @@ class ApplicationConfig
 	}
 
 	/**
-	 * 
+	 *
 	 * @param string $config_name
 	 * @param mixed $default
 	 * @return mixed

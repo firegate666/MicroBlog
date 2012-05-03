@@ -23,7 +23,7 @@ abstract class Controller
 
 	/**
 	 * get view renderer
-	 * 
+	 *
 	 * @return View
 	 */
 	protected function getView()
@@ -32,7 +32,7 @@ abstract class Controller
 	}
 
 	/**
-	 * 
+	 *
 	 * @param ApplicationConfig $config
 	 * @param View $view
 	 */
@@ -43,6 +43,7 @@ abstract class Controller
 	}
 
 	/**
+	 *
 	 * @return Storage
 	 */
 	protected function getStorage()
@@ -57,7 +58,7 @@ abstract class Controller
 	}
 
 	/**
-	 * 
+	 *
 	 * @param string $config_name
 	 * @param mixed $default
 	 * @return mixed

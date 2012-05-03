@@ -18,10 +18,9 @@ class BlogController extends Controller
 	public function actionComment()
 	{
 	}
-
+	
 	/*
-	 * (non-PHPdoc)
-	 * @see Controller::handle()
+	 * (non-PHPdoc) @see Controller::handle()
 	 */
 	public function handle(Request $request)
 	{

@@ -28,7 +28,7 @@ class View
 
 	/**
 	 * render layout without wrap
-	 * 
+	 *
 	 * @uses View::render()
 	 * @param string $layout
 	 * @param array $parameters

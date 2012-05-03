@@ -13,7 +13,7 @@ class Request
 	private $postParams;
 
 	/**
-	 * 
+	 *
 	 * @param array $server_vars
 	 * @param array $get_params
 	 * @param array $post_params
@@ -26,27 +26,29 @@ class Request
 	}
 
 	/**
-	 * 
+	 *
 	 * @param string $name
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public function postOrGetParam($name, $default = null) {
+	public function postOrGetParam($name, $default = null)
+	{
 		return $this->postParam($name, $this->getParam($name, $default));
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param string $name
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	public function getOrPostParam($name, $default = null) {
+	public function getOrPostParam($name, $default = null)
+	{
 		return $this->getParam($name, $this->postParam($name, $default));
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param string $name
 	 * @param mixed $default
 	 * @return mixed
