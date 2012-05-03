@@ -2,6 +2,13 @@
 
 class SqliteStorage extends Storage
 {
+	/* (non-PHPdoc)
+	 * @see Storage::find()
+	 */
+	public function find(Model $empty_model, $attributes = array(), $order = array()) {
+		// TODO Auto-generated method stub
+	}
+
 	/*
 	 * (non-PHPdoc) @see Storage::connect()
 	 */
@@ -9,7 +16,7 @@ class SqliteStorage extends Storage
 	{
 		// TODO Auto-generated method stub
 	}
-	
+
 	/*
 	 * (non-PHPdoc) @see Storage::disconnet()
 	 */
@@ -17,7 +24,7 @@ class SqliteStorage extends Storage
 	{
 		// TODO Auto-generated method stub
 	}
-	
+
 	/*
 	 * (non-PHPdoc) @see Storage::load()
 	 */
@@ -25,7 +32,7 @@ class SqliteStorage extends Storage
 	{
 		// TODO Auto-generated method stub
 	}
-	
+
 	/*
 	 * (non-PHPdoc) @see Storage::save()
 	 */
