@@ -25,4 +25,8 @@ class View
 		return $this->render($wrap, array('content' => $content), null);
 
 	}
+
+	public function renderPartial($layout, $parameters) {
+		return $this->render($layout, $parameters, null);
+	}
 }
