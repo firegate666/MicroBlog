@@ -12,11 +12,17 @@ class View
 	 * @param array $parameters
 	 * @return string
 	 */
-	public function render($layout, $parameters = array())
+	public function render($layout, $parameters = array(), $wrap = 'main')
 	{
 		extract($parameters);
 		ob_start();
 		include __DIR__ . '/../templates/' . $layout . '.php';
-		return ob_get_clean();
+		$content = ob_get_clean();
+
+		if ($wrap === null) {
+			return $content;
+		}
+		return $this->render($wrap, array('content' => $content), null);
+
 	}
 }
