@@ -2,6 +2,12 @@
 
 class SqliteStorage extends Storage
 {
+	/**
+	 * 
+	 * @var SQLite3
+	 */
+	private $sqlite;
+
 	/* (non-PHPdoc)
 	 * @see Storage::find()
 	 */
@@ -12,9 +18,10 @@ class SqliteStorage extends Storage
 	/* (non-PHPdoc)
 	 * @see Storage::__construct()
 	 */
-	public function __construct($connectionString)
+	public function __construct($connection_string)
 	{
-		// TODO Auto-generated method stub
+		$runtime_path = __DIR__ . '/../runtime/';
+		$this->sqlite = new SQLite3($runtime_path . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
 	}
 
 	/*
