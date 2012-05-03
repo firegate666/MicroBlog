@@ -31,6 +31,26 @@ class Request
 	 * @param mixed $default
 	 * @return mixed
 	 */
+	public function postOrGetParam($name, $default = null) {
+		return $this->postParam($name, $this->getParam($name, $default));
+	}
+	
+	/**
+	 * 
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function getOrPostParam($name, $default = null) {
+		return $this->getParam($name, $this->postParam($name, $default));
+	}
+	
+	/**
+	 * 
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 */
 	public function getParam($name, $default = null)
 	{
 		if (array_key_exists($name, $this->getParams))
