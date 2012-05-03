@@ -9,18 +9,10 @@ class SqliteStorage extends Storage
 		// TODO Auto-generated method stub
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::connect()
+	/* (non-PHPdoc)
+	 * @see Storage::__construct()
 	 */
-	public function connect($identifier)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	/*
-	 * (non-PHPdoc) @see Storage::disconnet()
-	 */
-	public function disconnet()
+	public function __construct($connectionString)
 	{
 		// TODO Auto-generated method stub
 	}

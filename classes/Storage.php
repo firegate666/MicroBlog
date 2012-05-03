@@ -4,6 +4,12 @@ abstract class Storage
 {
 
 	/**
+	 * 
+	 * @param string $connectionString
+	 */
+	public abstract function __construct($connectionString);
+	
+	/**
 	 * persist model
 	 *
 	 * @param Model $model
@@ -39,19 +45,4 @@ abstract class Storage
 	public function findAll(Model $empty_model, $order = array()) {
 		return $this->find($empty_model, array(), $order);
 	}
-
-	/**
-	 * connect to storage
-	 *
-	 * @param string $identifier
-	 * @return boolean
-	 */
-	public abstract function connect($identifier);
-
-	/**
-	 * disconnect from storage
-	 *
-	 * @return boolean
-	 */
-	public abstract function disconnet();
 }
