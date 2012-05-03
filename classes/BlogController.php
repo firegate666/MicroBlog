@@ -1,21 +1,13 @@
 <?php
 
-class BlogController
+class BlogController extends Controller
 {
-
-	private $config;
-
-	public function __construct(ApplicationConfig $config) {
-		$this->config = $config;
-	}
 
 	public function actionList()
 	{
-		$view = new View();
-
-		$result = new HTMLResult();
-		$result->result = $view->render('blog', array('title' => 'Dummy'));
-		return $result;
+		$result = $this->getView()->render('blog', array('title' => 'Dummy'));
+		$this->getStorage();
+		return new HTMLResult($result);
 	}
 
 	public function actionPost()

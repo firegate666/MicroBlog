@@ -1,7 +1,15 @@
 <?php
 
-class JSONResult
+class JSONResult extends Result
 {
+	/* (non-PHPdoc)
+	 * @see Result::getResult()
+	 */
+	public function getResult()
+	{
+		return json_encode($this->result);
+	}
 
-	public $result = array();
+
+	
 }

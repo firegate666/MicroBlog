@@ -1,7 +1,15 @@
 <?php
 
-class HTMLResult
+class HTMLResult extends Result
 {
+	/* (non-PHPdoc)
+	 * @see Result::getResult()
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
 
-	public $result = '';
+
+	
 }

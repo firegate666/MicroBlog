@@ -12,12 +12,12 @@ if (! class_exists($controller_name))
 	throw new LogicException('requested controller is invalid', 404);
 }
 
-$controller = new $controller_name($config);
+$controller = new $controller_name($config, new View());
 $result = $controller->handle($request);
 
 if ($result instanceof HTMLResult)
 {
 	header('Content-type: text/html; charset=UTF-8');
-	print $result->result;
+	print $result->getResult();
 	exit(0);
 }
