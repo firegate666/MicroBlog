@@ -1,3 +1,1 @@
-<li>
-	This is a dummy comment
-</li>
+<li>This is a dummy comment</li>

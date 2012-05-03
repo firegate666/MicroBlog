@@ -9,14 +9,13 @@ class Model
 
 	protected $validationMessages = null;
 
-
-
 	/**
 	 * perform model validation against rules
 	 *
 	 * @return void
 	 */
-	public function validate() {
+	public function validate()
+	{
 		$this->validationMessages = array();
 	}
 
@@ -26,14 +25,19 @@ class Model
 	 * @param string $attribute if not null, get messages for a specific attribute
 	 * @return array
 	 */
-	public function getValidationMessages($attribute = null) {
-		if ($this->validationMessages === null) {
+	public function getValidationMessages($attribute = null)
+	{
+		if ($this->validationMessages === null)
+		{
 			$this->validate();
 		}
-
-		if ($attribute === null) {
+		
+		if ($attribute === null)
+		{
 			return $this->validationMessages;
-		} else if ($attribute !== null && array_key_exists($attribute, $this->validationMessages)) {
+		}
+		else if ($attribute !== null && array_key_exists($attribute, $this->validationMessages))
+		{
 			return $this->validationMessages[$attribute];
 		}
 		return array(); // no messages
@@ -45,10 +49,14 @@ class Model
 	 * @uses Model::validate() if wasn't called before
 	 * @return boolean
 	 */
-	public function isValid() {
-		if ($this->isValid() !== null) {
+	public function isValid()
+	{
+		if ($this->isValid() !== null)
+		{
 			return $this->isValid;
-		} else if (empty($this->validationMessages)) {
+		}
+		else if (empty($this->validationMessages))
+		{
 			$this->validate();
 		}
 		$this->isValid = empty($this->validationMessages);
@@ -61,12 +69,16 @@ class Model
 	 * @param array $attributes
 	 * @return void
 	 */
-	public function setAttributes(array $attributes) {
+	public function setAttributes(array $attributes)
+	{
 		$refl_class = new ReflectionClass($this);
-		foreach($attributes as $name => $value) {
-			if ($refl_class->hasProperty($name)) {
+		foreach ($attributes as $name => $value)
+		{
+			if ($refl_class->hasProperty($name))
+			{
 				$refl = new ReflectionProperty($this, $name);
-				if ($refl->isPublic()) {
+				if ($refl->isPublic())
+				{
 					$this->{$name} = $value;
 				}
 			}

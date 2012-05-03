@@ -4,11 +4,11 @@ abstract class Storage
 {
 
 	/**
-	 * 
+	 *
 	 * @param string $connectionString
 	 */
 	public abstract function __construct($connectionString);
-	
+
 	/**
 	 * persist model
 	 *
@@ -42,7 +42,8 @@ abstract class Storage
 	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
 	 * @return array set of models
 	 */
-	public function findAll(Model $empty_model, $order = array()) {
+	public function findAll(Model $empty_model, $order = array())
+	{
 		return $this->find($empty_model, array(), $order);
 	}
 }

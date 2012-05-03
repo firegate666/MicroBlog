@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<title>Micro | Blog</title>
+<title>Micro | Blog</title>
 <body>
 
 	<div id="content">

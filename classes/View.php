@@ -18,15 +18,16 @@ class View
 		ob_start();
 		include __DIR__ . '/../templates/' . $layout . '.php';
 		$content = ob_get_clean();
-
-		if ($wrap === null) {
+		
+		if ($wrap === null)
+		{
 			return $content;
 		}
 		return $this->render($wrap, array('content' => $content), null);
-
 	}
 
-	public function renderPartial($layout, $parameters) {
+	public function renderPartial($layout, $parameters)
+	{
 		return $this->render($layout, $parameters, null);
 	}
 }
