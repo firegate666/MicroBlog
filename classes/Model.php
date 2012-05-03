@@ -4,4 +4,72 @@ class Model
 {
 
 	public $id;
+
+	protected $isValid = null;
+
+	protected $validationMessages = null;
+
+
+
+	/**
+	 * perform model validation against rules
+	 *
+	 * @return void
+	 */
+	public function validate() {
+		$this->validationMessages = array();
+	}
+
+	/**
+	 * get validation messages
+	 *
+	 * @param string $attribute if not null, get messages for a specific attribute
+	 * @return array
+	 */
+	public function getValidationMessages($attribute = null) {
+		if ($this->validationMessages === null) {
+			$this->validate();
+		}
+
+		if ($attribute === null) {
+			return $this->validationMessages;
+		} else if ($attribute !== null && array_key_exists($attribute, $this->validationMessages)) {
+			return $this->validationMessages[$attribute];
+		}
+		return array(); // no messages
+	}
+
+	/**
+	 * return if model validates with attribute values
+	 *
+	 * @uses Model::validate() if wasn't called before
+	 * @return boolean
+	 */
+	public function isValid() {
+		if ($this->isValid() !== null) {
+			return $this->isValid;
+		} else if (empty($this->validationMessages)) {
+			$this->validate();
+		}
+		$this->isValid = empty($this->validationMessages);
+		return $this->isValid;
+	}
+
+	/**
+	 * set all public attributes from array
+	 *
+	 * @param array $attributes
+	 * @return void
+	 */
+	public function setAttributes(array $attributes) {
+		$refl_class = new ReflectionClass($this);
+		foreach($attributes as $name => $value) {
+			if ($refl_class->hasProperty($name)) {
+				$refl = new ReflectionProperty($this, $name);
+				if ($refl->isPublic()) {
+					$this->{$name} = $value;
+				}
+			}
+		}
+	}
 }
