@@ -10,3 +10,6 @@ spl_autoload_register(function ($class_name)
 		require_once $file_name;
 	}
 });
+
+$config = new ApplicationConfig(__DIR__ . '/configuration/base.ini');
+$request = new Request($_SERVER);
