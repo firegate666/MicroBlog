@@ -15,7 +15,8 @@ class View
 	public function render($layout, $parameters = array())
 	{
 		extract($parameters);
-		$content = include __DIR__ . '/../templates/' . $layout . '.php';
-		return $content;
+		ob_start();
+		include __DIR__ . '/../templates/' . $layout . '.php';
+		return ob_get_clean();
 	}
 }
