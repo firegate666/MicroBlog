@@ -1,5 +1,4 @@
 <?php
-namespace models;
 
 class Model
 {
@@ -72,12 +71,12 @@ class Model
 	 */
 	public function setAttributes(array $attributes)
 	{
-		$refl_class = new \ReflectionClass($this);
+		$refl_class = new ReflectionClass($this);
 		foreach ($attributes as $name => $value)
 		{
 			if ($refl_class->hasProperty($name))
 			{
-				$refl = new \ReflectionProperty($this, $name);
+				$refl = new ReflectionProperty($this, $name);
 				if ($refl->isPublic())
 				{
 					$this->{$name} = $value;

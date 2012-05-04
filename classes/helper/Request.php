@@ -7,11 +7,11 @@ namespace helper;
 class Request
 {
 
-	private $serverVars;
+	private $server_vars;
 
-	private $getParams;
+	private $get_params;
 
-	private $postParams;
+	private $post_params;
 
 	/**
 	 *
@@ -21,9 +21,9 @@ class Request
 	 */
 	public function __construct($server_vars, $get_params, $post_params)
 	{
-		$this->serverVars = $server_vars;
-		$this->getParams = $get_params;
-		$this->postParams = $post_params;
+		$this->server_vars = $server_vars;
+		$this->get_params = $get_params;
+		$this->post_params = $post_params;
 	}
 
 	/**
@@ -56,9 +56,9 @@ class Request
 	 */
 	public function getParam($name, $default = null)
 	{
-		if (array_key_exists($name, $this->getParams))
+		if (array_key_exists($name, $this->get_params))
 		{
-			return $this->getParams[$name];
+			return $this->get_params[$name];
 		}
 		return $default;
 	}
@@ -71,9 +71,9 @@ class Request
 	 */
 	public function postParam($name, $default = null)
 	{
-		if (array_key_exists($name, $this->postParams))
+		if (array_key_exists($name, $this->post_params))
 		{
-			return $this->postParams[$name];
+			return $this->post_params[$name];
 		}
 		return $default;
 	}
