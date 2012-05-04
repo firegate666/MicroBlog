@@ -1,7 +1,14 @@
 <?php
+namespace rendering;
 
 class View
 {
+
+	public function __construct(array $rendering_config) {
+		$this->rendering_config = $rendering_config;
+	}
+
+	public $rendering_config;
 
 	public $template;
 
@@ -16,9 +23,9 @@ class View
 	{
 		extract($parameters);
 		ob_start();
-		include __DIR__ . '/../templates/' . $layout . '.php';
+		include $this->rendering_config['layout_base_path'] . $layout . '.php';
 		$content = ob_get_clean();
-		
+
 		if ($wrap === null)
 		{
 			return $content;

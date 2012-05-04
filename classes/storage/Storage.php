@@ -1,4 +1,6 @@
 <?php
+namespace storage;
+use \models\Model;
 
 abstract class Storage
 {

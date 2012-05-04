@@ -1,4 +1,5 @@
 <?php
+namespace helper;
 
 /**
  * wrap content of $_SERVER

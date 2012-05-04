@@ -1,4 +1,5 @@
 <?php
+namespace helper;
 
 class ApplicationConfig
 {

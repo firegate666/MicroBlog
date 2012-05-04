@@ -1,4 +1,7 @@
 <?php
+namespace controller;
+use \helper\HTMLResult;
+use \helper\Request;
 
 class BlogController extends Controller
 {
@@ -18,7 +21,7 @@ class BlogController extends Controller
 	public function actionComment()
 	{
 	}
-	
+
 	/*
 	 * (non-PHPdoc) @see Controller::handle()
 	 */
@@ -29,6 +32,6 @@ class BlogController extends Controller
 		{
 			return call_user_func_array(array($this, $action_name), array());
 		}
-		throw new LogicException('invalid action requested', 404);
+		throw new \LogicException('invalid action requested', 404);
 	}
 }
