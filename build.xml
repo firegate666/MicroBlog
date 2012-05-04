@@ -3,14 +3,14 @@
 <project name="MicroBlog" default="build">
 
 	<!-- full build -->
-	<target name="build" depends="prepare,lint,phploc,pdepend,phpcpd,phpcs" />
+	<target name="build" depends="prepare,lint,phploc,pdepend,phpcpd,phpcs-ci" />
 
 	<!-- no full build, only unittests and syntax/lint -->
 	<target name="build_small" depends="prepare,lint" />
 
 	<target name="build-parallel" depends="prepare,lint,tools-parallel" />
 
-	<target name="quickcheck" depends="prepare,lint,phpcpd" />
+	<target name="quickcheck" depends="prepare,lint,phpcpd,phpcs" />
 	
 	<target name="tools-parallel" description="Run tools in parallel">
 		<parallel threadCount="2">
@@ -104,6 +104,15 @@
 
 	<target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
 		<exec executable="phpcs">
+			<arg value="--standard=${basedir}/phpcs.xml" />
+			<arg path="${basedir}" />
+		</exec>
+	</target>
+	
+	<target name="phpcs-ci" description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
+		<exec executable="phpcs" output="/dev/null">
+			<arg value="--report=checkstyle" />
+			<arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
 			<arg value="--standard=${basedir}/phpcs.xml" />
 			<arg path="${basedir}" />
 		</exec>
