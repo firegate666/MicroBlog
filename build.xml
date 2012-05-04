@@ -3,7 +3,7 @@
 <project name="MicroBlog" default="build">
 
 	<!-- full build -->
-	<target name="build" depends="prepare,lint,phploc,pdepend,phpcpd" />
+	<target name="build" depends="prepare,lint,phploc,pdepend,phpcpd,phpcs" />
 
 	<!-- no full build, only unittests and syntax/lint -->
 	<target name="build_small" depends="prepare,lint" />
@@ -99,6 +99,13 @@
 			<arg path="${basedir}" />
 			<arg value="--output" />
 			<arg path="${basedir}/build/code-browser" />
+		</exec>
+	</target>
+
+	<target name="phpcs" description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
+		<exec executable="phpcs">
+			<arg value="--standard=${basedir}/phpcs.xml" />
+			<arg path="${basedir}" />
 		</exec>
 	</target>
 
