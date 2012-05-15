@@ -23,14 +23,14 @@ spl_autoload_register(function ($class_name)
  * @param array $errcontext
  * @return void
  */
-function errorHandler( $errno ,  $errstr ,  $errfile , $errline ,  $errcontext )
+function errorHandler($errno, $errstr, $errfile, $errline, $errcontext)
 {
 	ob_clean();
 	header('Content-type: text/html; charset=UTF-8', true, 500);
 	header('X-Error-Code: ' . $errno);
 	header('X-Error-Message: ' . $errstr);
-	print "<html><body><h1>Error ".$errno."</h1>";
-	print "<p>".$errstr."</p>";
+	print "<html><body><h1>Error " . $errno . "</h1>";
+	print "<p>" . $errstr . "</p>";
 	print "<pre>";
 	debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 	print "</pre></body></html>";
@@ -43,13 +43,14 @@ function errorHandler( $errno ,  $errstr ,  $errfile , $errline ,  $errcontext )
  * @param Exception $exception
  * @return void
  */
-function exceptionHandler(Exception $exception) {
+function exceptionHandler(Exception $exception)
+{
 	ob_clean();
 	header('Content-type: text/html; charset=UTF-8', true, 500);
 	header('X-Error-Code: ' . $exception->getCode());
 	header('X-Exception-Message: ' . $exception->getMessage());
-	print "<html><body><h1>Exception ".$exception->getCode()."</h1>";
-	print "<p>".$exception->getMessage()."</p>";
+	print "<html><body><h1>Exception " . $exception->getCode() . "</h1>";
+	print "<p>" . $exception->getMessage() . "</p>";
 	print "<pre>";
 	print $exception->getTraceAsString();
 	print "</pre></body></html>";
