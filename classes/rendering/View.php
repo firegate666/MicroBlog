@@ -15,8 +15,6 @@ class View
 	 */
 	public $rendering_config;
 
-	public $template;
-
 	/**
 	 * load layout and render with given parameters
 	 *
