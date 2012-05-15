@@ -4,14 +4,26 @@ namespace app;
 use helper\Request;
 use helper\ApplicationConfig;
 
+/**
+ * handle routing for application
+ */
 class Router {
 
 	private $config;
 
+	/**
+	 * @param ApplicationConfig $config
+	 */
 	public function __construct(ApplicationConfig $config) {
 		$this->config = $config;
 	}
 
+	/**
+	 *
+	 * @param Request $request
+	 * @throws \LogicException
+	 * @return mixed
+	 */
 	public function run(Request $request) {
 		$controller_name = $this->config->getSectionEntry('general', 'default_controller'); // default
 		if (! empty($_GET['controller']))
