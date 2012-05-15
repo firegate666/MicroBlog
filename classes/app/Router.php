@@ -1,8 +1,8 @@
 <?php
 namespace app;
 
-use helper\Request;
-use helper\ApplicationConfig;
+use \helper\Request;
+use \helper\ApplicationConfig;
 
 /**
  * handle routing for application
