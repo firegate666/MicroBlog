@@ -1,5 +1,6 @@
 <?php
 namespace storage;
+
 use \models\Model;
 
 class SqliteStorage extends Storage

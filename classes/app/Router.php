@@ -9,6 +9,10 @@ use helper\ApplicationConfig;
  */
 class Router {
 
+	/**
+	 *
+	 * @var ApplicationConfig
+	 */
 	private $config;
 
 	/**

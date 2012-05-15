@@ -9,6 +9,10 @@ class View
 		$this->rendering_config = $rendering_config;
 	}
 
+	/**
+	 *
+	 * @var array
+	 */
 	public $rendering_config;
 
 	public $template;

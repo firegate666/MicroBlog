@@ -1,5 +1,6 @@
 <?php
 namespace controller;
+
 use \helper\ApplicationConfig;
 use \helper\Request;
 use \rendering\View;

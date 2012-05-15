@@ -1,11 +1,17 @@
 <?php
 namespace controller;
+
 use \helper\HTMLResult;
 use \helper\Request;
 
 class BlogController extends Controller
 {
 
+	/**
+	 * render list with blog entries
+	 *
+	 * @return HTMLResult
+	 */
 	public function actionList()
 	{
 		$result = $this->getView()

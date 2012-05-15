@@ -3,10 +3,22 @@
 class Model
 {
 
+	/**
+	 *
+	 * @var integer
+	 */
 	public $id;
 
+	/**
+	 *
+	 * @var boolean
+	 */
 	protected $isValid = null;
 
+	/**
+	 *
+	 * @var array
+	 */
 	protected $validationMessages = null;
 
 	/**

@@ -4,8 +4,16 @@ namespace helper;
 class ApplicationConfig
 {
 
+	/**
+	 *
+	 * @var array
+	 */
 	private $config = array();
 
+	/**
+	 *
+	 * @var array
+	 */
 	private $default_config = array();
 
 	/**
