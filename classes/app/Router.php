@@ -1,4 +1,5 @@
 <?php
+
 namespace app;
 
 use \helper\Request;
@@ -7,7 +8,8 @@ use \helper\ApplicationConfig;
 /**
  * handle routing for application
  */
-class Router {
+class Router
+{
 
 	/**
 	 *
@@ -16,6 +18,7 @@ class Router {
 	private $config;
 
 	/**
+	 *
 	 * @param ApplicationConfig $config
 	 */
 	public function __construct(ApplicationConfig $config)
@@ -35,10 +38,10 @@ class Router {
 		if (! empty($_GET['controller']))
 		{
 			$controller_name = ucfirst($request->getOrPostParam('controller')) . 'Controller';
-			$controller_name = $this->config->getSectionEntry('general', 'default_controller_namespace').$controller_name;
+			$controller_name = $this->config->getSectionEntry('general', 'default_controller_namespace') . $controller_name;
 		}
 
-		if (!class_exists($controller_name))
+		if (! class_exists($controller_name))
 		{
 			throw new \LogicException('requested controller is invalid', 404);
 		}

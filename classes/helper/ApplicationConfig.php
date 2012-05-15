@@ -1,4 +1,5 @@
 <?php
+
 namespace helper;
 
 class ApplicationConfig
@@ -22,7 +23,7 @@ class ApplicationConfig
 	 */
 	function __construct($path_to_config)
 	{
-		$this->default_config = parse_ini_file(dirname($path_to_config) .'/default.ini', true);
+		$this->default_config = parse_ini_file(dirname($path_to_config) . '/default.ini', true);
 		$this->config = parse_ini_file($path_to_config, true);
 	}
 
@@ -35,7 +36,7 @@ class ApplicationConfig
 	 */
 	function getSection($config_name, $default = null, $force_default = false)
 	{
-		if (!$force_default && array_key_exists($config_name, $this->config))
+		if (! $force_default && array_key_exists($config_name, $this->config))
 		{
 			return $this->config[$config_name];
 		}
@@ -70,6 +71,5 @@ class ApplicationConfig
 			}
 		}
 		return $default;
-
 	}
 }

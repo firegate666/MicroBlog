@@ -1,4 +1,5 @@
 <?php
+
 namespace helper;
 
 abstract class Result

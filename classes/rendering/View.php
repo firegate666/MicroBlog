@@ -1,4 +1,5 @@
 <?php
+
 namespace rendering;
 
 class View
