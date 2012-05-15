@@ -46,7 +46,8 @@ class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixe
 	 */
-	function getSectionEntry($config_name, $sub_name, $default = null) {
+	function getSectionEntry($config_name, $sub_name, $default = null)
+	{
 		$config = $this->getSection($config_name);
 		if (array_key_exists($sub_name, $config))
 		{

@@ -14,7 +14,8 @@ class Router {
 	/**
 	 * @param ApplicationConfig $config
 	 */
-	public function __construct(ApplicationConfig $config) {
+	public function __construct(ApplicationConfig $config)
+	{
 		$this->config = $config;
 	}
 
@@ -24,7 +25,8 @@ class Router {
 	 * @throws \LogicException
 	 * @return mixed
 	 */
-	public function run(Request $request) {
+	public function run(Request $request)
+	{
 		$controller_name = $this->config->getSectionEntry('general', 'default_controller'); // default
 		if (! empty($_GET['controller']))
 		{

@@ -4,7 +4,8 @@ namespace rendering;
 class View
 {
 
-	public function __construct(array $rendering_config) {
+	public function __construct(array $rendering_config)
+	{
 		$this->rendering_config = $rendering_config;
 	}
 
