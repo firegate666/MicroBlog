@@ -4,7 +4,7 @@ require_once __DIR__ . '/../bootstrap.php';
 $controller_name = $config->getSectionEntry('general', 'default_controller'); // default
 if (! empty($_GET['controller']))
 {
-	$controller_name = ucfirst($request-> postOrGetParam('controller')) . 'Controller';
+	$controller_name = ucfirst($request->getOrPostParam('controller')) . 'Controller';
 	$controller_name = $config->getSectionEntry('general', 'default_controller_namespace').$controller_name;
 }
 
