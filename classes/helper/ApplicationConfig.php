@@ -22,7 +22,7 @@ class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	function getConfig($config_name, $default = null)
+	function getSection($config_name, $default = null)
 	{
 		if (array_key_exists($config_name, $this->config))
 		{
@@ -39,8 +39,8 @@ class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixe
 	 */
-	function getConfigSub($config_name, $sub_name, $default = null) {
-		$config = $this->getConfig($config_name);
+	function getSectionEntry($config_name, $sub_name, $default = null) {
+		$config = $this->getSection($config_name);
 		if (array_key_exists($sub_name, $config))
 		{
 			return $config[$sub_name];

@@ -69,7 +69,7 @@ abstract class Controller
 	 */
 	protected function getConfig($config_name, $default = null)
 	{
-		return $this->config->getConfig($config_name, $default);
+		return $this->config->getSection($config_name, $default);
 	}
 
 	/**
