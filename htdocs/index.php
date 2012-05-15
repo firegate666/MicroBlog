@@ -1,8 +1,9 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
-$app = new \app\Router($config);
-$result = $app->run($request);
+$app_router_class = $config->getSectionEntry('general', 'default_app_router');
+$app_router = new $app_router_class($config);
+$result = $app_router->run($request);
 
 if ($result instanceof \helper\HTMLResult)
 {
