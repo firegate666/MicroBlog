@@ -16,6 +16,7 @@ class ApplicationConfig
 	}
 
 	/**
+	 * get config section
 	 *
 	 * @param string $config_name
 	 * @param mixed $default
@@ -28,5 +29,23 @@ class ApplicationConfig
 			return $this->config[$config_name];
 		}
 		return $default;
+	}
+
+	/**
+	 * get subentry from config section
+	 *
+	 * @param string $config_name
+	 * @param string $sub_name
+	 * @param mixed $default
+	 * @return mixe
+	 */
+	function getConfigSub($config_name, $sub_name, $default = null) {
+		$config = $this->getConfig($config_name);
+		if (array_key_exists($sub_name, $config))
+		{
+			return $config[$sub_name];
+		}
+		return $default;
+
 	}
 }
