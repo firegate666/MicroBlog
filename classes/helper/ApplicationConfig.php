@@ -6,12 +6,15 @@ class ApplicationConfig
 
 	private $config = array();
 
+	private $default_config = array();
+
 	/**
 	 *
 	 * @param string $path_to_config
 	 */
 	function __construct($path_to_config)
 	{
+		$this->default_config = parse_ini_file(dirname($path_to_config) .'/default.ini', true);
 		$this->config = parse_ini_file($path_to_config, true);
 	}
 
@@ -22,11 +25,15 @@ class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	function getSection($config_name, $default = null)
+	function getSection($config_name, $default = null, $force_default = false)
 	{
-		if (array_key_exists($config_name, $this->config))
+		if (!$force_default && array_key_exists($config_name, $this->config))
 		{
 			return $this->config[$config_name];
+		}
+		else if (array_key_exists($config_name, $this->default_config))
+		{
+			return $this->default_config[$config_name];
 		}
 		return $default;
 	}
@@ -44,6 +51,14 @@ class ApplicationConfig
 		if (array_key_exists($sub_name, $config))
 		{
 			return $config[$sub_name];
+		}
+		else
+		{
+			$config = $this->getSection($config_name, null, true);
+			if (array_key_exists($sub_name, $config))
+			{
+				return $config[$sub_name];
+			}
 		}
 		return $default;
 
