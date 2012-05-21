@@ -21,13 +21,20 @@ class View
 	 *
 	 * @param string $layout
 	 * @param array $parameters
+	 * @throws \InvalidArgumentException if layout is not found
 	 * @return string
 	 */
 	public function render($layout, $parameters = array(), $wrap = 'main')
 	{
+		$layout_file = $this->rendering_config['layout_base_path'] . $layout . '.php';
+		if (! file_exists($layout_file))
+		{
+			throw new \InvalidArgumentException('selected layout not found', 404);
+		}
+
 		extract($parameters);
 		ob_start();
-		include $this->rendering_config['layout_base_path'] . $layout . '.php';
+		include $layout_file;
 		$content = ob_get_clean();
 
 		if ($wrap === null)
