@@ -59,8 +59,6 @@ i {
 	padding: 5px;
 	margin: 10px auto 0;
 	background: #FFCC33;
-	max-height: 600px;
-	overflow: auto;
 }
 
 ul.posts {
