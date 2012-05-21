@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+html, body {
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+}
+
+#content {
+	width: 800px;
+	border: 1px solid #ccc;
+	margin: 0 auto;
+}
