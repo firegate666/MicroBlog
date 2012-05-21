@@ -61,6 +61,13 @@ i {
 	background: #FFCC33;
 }
 
+#footer {
+	border-top: 1px solid #00B88A;
+	margin-top: 12px;
+	padding-top: 3px;
+	font-size: 0.8em;
+}
+
 form.new-post {
 	display: block;
 	margin: 0 0 10px 10px;

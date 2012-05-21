@@ -9,6 +9,11 @@
 
 	<div id="content">
 		<?=$content?>
+
+		<div id="footer">
+			&copy; 2012 Marco Behnke
+		</div>
+
 	</div>
 
 </body>
