@@ -61,6 +61,27 @@ i {
 	background: #FFCC33;
 }
 
+form.new-post {
+	display: block;
+	margin: 0 0 10px 10px;
+	background: #00F5B8;
+	border: 1px solid #00B88A;
+	padding: 3px 0;
+}
+
+form.new-post label,
+form.new-post textarea,
+form.new-post input {
+	display: block;
+	padding: 3px;
+	margin: 3px;
+}
+
+form.new-post textarea {
+	width: 95%;
+	height: 26px;
+}
+
 ul.posts {
 	display: block;
 	margin: 0 0 0 10px;
