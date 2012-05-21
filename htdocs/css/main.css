@@ -68,6 +68,13 @@ i {
 	font-size: 0.8em;
 }
 
+#error-content pre {
+	margin: 2px;
+	padding: 3px;
+	overflow: auto;
+	border: 1px solid #00B88A;
+}
+
 form.new-post {
 	display: block;
 	margin: 0 0 10px 10px;
