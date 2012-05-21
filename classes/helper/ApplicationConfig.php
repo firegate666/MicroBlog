@@ -25,6 +25,24 @@ class ApplicationConfig
 	{
 		$this->default_config = parse_ini_file(dirname($path_to_config) . '/default.ini', true);
 		$this->config = parse_ini_file($path_to_config, true);
+		$this->init();
+	}
+
+	/**
+	 * initializer
+	 * expand app_env section to constants
+	 *
+	 * @return void
+	 */
+	protected function init() {
+		foreach ($this->getSection('app_env', array()) as $env_key => $env_value)
+		{
+			$constant = 'APP_ENV_' . strtoupper($env_key);
+			if (!\defined($constant))
+			{
+				\define($constant, $env_value);
+			}
+		}
 	}
 
 	/**
