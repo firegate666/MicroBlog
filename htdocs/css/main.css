@@ -3,8 +3,7 @@
 /*
  * general styles
  */
-
-html, body {
+html,body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12px;
 }
@@ -37,7 +36,7 @@ h5 {
 	font-weight: bold;
 }
 
-strong, b {
+strong,b {
 	font-weight: bold;
 }
 
@@ -52,7 +51,6 @@ i {
 /*
  * class and id styles
  */
-
 #content {
 	width: 470px;
 	border: 1px solid #00B88A;
@@ -83,9 +81,7 @@ form.new-post {
 	padding: 3px 0;
 }
 
-form.new-post label,
-form.new-post textarea,
-form.new-post input {
+form.new-post label,form.new-post textarea,form.new-post input {
 	display: block;
 	padding: 3px;
 	margin: 3px;
@@ -121,17 +117,15 @@ form.new-comment {
 	padding: 3px 0;
 }
 
-form.new-comment label,
-form.new-comment textarea,
-form.new-comment input {
+form.new-comment label,form.new-comment textarea,form.new-comment input
+	{
 	display: block;
 	margin: 3px;
 	color: #fff;
 	padding: 3px;
 }
 
-form.new-comment textarea,
-form.new-comment input {
+form.new-comment textarea,form.new-comment input {
 	color: #00B88A;
 }
 
