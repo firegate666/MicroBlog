@@ -1,13 +1,123 @@
 @CHARSET "UTF-8";
 
+/*
+ * general styles
+ */
+
 html, body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: 12px;
 }
 
+h1 {
+	font-size: 2em;
+	margin: 12px 0 6px;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: 1.8em;
+	margin: 6px 0 3px;
+	font-weight: bold;
+}
+
+h3 {
+	font-size: 1.6em;
+	font-weight: bold;
+}
+
+h4 {
+	font-size: 1.4em;
+	font-style: italic;
+}
+
+h5 {
+	font-size: 1.2em;
+	font-style: italic;
+	font-weight: bold;
+}
+
+strong, b {
+	font-weight: bold;
+}
+
+u {
+	text-decoration: underline;
+}
+
+i {
+	font-style: italic;
+}
+
+/*
+ * class and id styles
+ */
+
 #content {
 	width: 800px;
-	border: 1px solid #ccc;
+	border: 1px solid #00B88A;
 	padding: 5px;
 	margin: 10px auto 0;
+	background: #FFCC33;
+	max-height: 600px;
+	overflow: auto;
+}
+
+ul.posts {
+	display: block;
+	margin: 0 0 0 10px;
+	background: #00F5B8;
+	border: 1px solid #00B88A;
+}
+
+li.post {
+	display: block;
+	padding: 3px;
+	border-top: 1px solid #00B88A;
+	line-height: 1.2em;
+}
+
+li.post:FIRST-CHILD {
+	border: none;
+}
+
+form.new-comment {
+	display: block;
+	margin: 0 3px 0 13px;
+	background: #00B88A;
+	padding: 3px 0;
+}
+
+form.new-comment label,
+form.new-comment textarea,
+form.new-comment input {
+	display: block;
+	margin: 3px;
+	color: #fff;
+	padding: 3px;
+}
+
+form.new-comment textarea,
+form.new-comment input {
+	color: #00B88A;
+}
+
+form.new-comment textarea {
+	width: 95%;
+	height: 26px;
+}
+
+ul.comments {
+	display: block;
+	margin: 0 0 0 10px;
+}
+
+li.comment {
+	display: block;
+	color: #fff;
+	background: #00B88A;
+	padding: 3px;
+	margin: 3px;
+	font-size: 0.8em;
+	line-height: 1.1em;
 }
