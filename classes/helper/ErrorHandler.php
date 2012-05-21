@@ -6,6 +6,7 @@ class ErrorHandler
 {
 
 	/**
+	 * convert php error to RuntimeException
 	 *
 	 * @param integer $errno
 	 * @param string $errstr
