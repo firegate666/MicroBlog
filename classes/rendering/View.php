@@ -26,6 +26,13 @@ class View
 	 */
 	public function render($layout, $parameters = array(), $wrap = 'main')
 	{
+		static $clear_buffer;
+		if ($clear_buffer === null)
+		{
+			ob_clean();
+			$clear_buffer = false;
+		}
+
 		$layout_file = $this->rendering_config['layout_base_path'] . $layout . '.php';
 		if (! file_exists($layout_file))
 		{
