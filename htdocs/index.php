@@ -7,6 +7,11 @@ $result = $app_router->run($request);
 
 if ($result instanceof \helper\HTMLResult)
 {
+	if ($config->getSectionEntry('output', 'gzip', false))
+	{
+		ob_start('ob_gzhandler');
+	}
+
 	header('Content-type: text/html; charset=UTF-8');
 	print $result->getResult();
 	exit(0);
