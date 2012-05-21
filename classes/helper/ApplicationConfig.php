@@ -2,7 +2,7 @@
 
 namespace helper;
 
-class ApplicationConfig
+final class ApplicationConfig
 {
 
 	/**
