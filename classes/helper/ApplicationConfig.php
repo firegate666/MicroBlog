@@ -34,11 +34,12 @@ class ApplicationConfig
 	 *
 	 * @return void
 	 */
-	protected function init() {
+	protected function init()
+	{
 		foreach ($this->getSection('app_env', array()) as $env_key => $env_value)
 		{
 			$constant = 'APP_ENV_' . strtoupper($env_key);
-			if (!\defined($constant))
+			if (! \defined($constant))
 			{
 				\define($constant, $env_value);
 			}
