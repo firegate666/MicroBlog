@@ -67,6 +67,7 @@ class Router
 		try {
 			if (! class_exists($rendering_class))
 			{
+				$rendering_class = null;
 				throw new \LogicException('configured renderer is invalid', 404);
 			}
 
@@ -87,7 +88,11 @@ class Router
 		}
 		catch (\Exception $e)
 		{
-			return $this->renderError($e, new $rendering_class($this->config->getSection('rendering')));
+			$renderer = $rendering_class !== null
+				? new $rendering_class($this->config->getSection('rendering'))
+				: null
+			;
+			return $this->renderError($e, $renderer);
 		}
 	}
 }
