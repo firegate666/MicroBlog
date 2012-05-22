@@ -5,7 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 
-		<script type="text/css"
+		<script type="text/javascript"
 			<?php if (defined('APP_ENV_DEBUG') && APP_ENV_DEBUG): ?>
 				src="http://code.jquery.com/jquery-1.7.2.js"
 			<?php else: ?>
