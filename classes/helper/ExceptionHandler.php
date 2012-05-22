@@ -18,7 +18,7 @@ class ExceptionHandler
 		header('Content-type: text/html; charset=UTF-8', true, 500);
 		header('X-Error-Code: ' . $exception->getCode());
 		header('X-Exception-Message: ' . $exception->getMessage());
-		print "<html><body><h1>Exception " . $exception->getCode() . "</h1>";
+		print "<html><body><h1>" . get_class($exception) . " " . $exception->getCode() . "</h1>";
 		print "<p>" . $exception->getMessage() . "</p>";
 		print "<pre>";
 		print $exception->getTraceAsString();
