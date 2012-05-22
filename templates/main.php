@@ -12,6 +12,7 @@
 				src="http://code.jquery.com/jquery-1.7.2.min.js"
 			<?php endif; ?>
 		></script>
+		<script type="text/javascript" src="js/main.js"></script>
 	</head>
 <body>
 

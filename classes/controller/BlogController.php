@@ -2,6 +2,8 @@
 
 namespace controller;
 
+use helper\JSONResult;
+
 use \helper\HTMLResult;
 use \helper\Request;
 
@@ -21,8 +23,9 @@ class BlogController extends Controller
 		return new HTMLResult($result);
 	}
 
-	public function actionPost()
+	public function actionPost($post_contents)
 	{
+		return new JSONResult($post_contents);
 	}
 
 	public function actionComment()
