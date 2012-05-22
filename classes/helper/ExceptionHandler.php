@@ -14,7 +14,6 @@ class ExceptionHandler
 	 */
 	function handle(\Exception $exception)
 	{
-		ob_clean();
 		header('Content-type: text/html; charset=UTF-8', true, 500);
 		header('X-Error-Code: ' . $exception->getCode());
 		header('X-Exception-Message: ' . $exception->getMessage());
