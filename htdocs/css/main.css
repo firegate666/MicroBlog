@@ -8,6 +8,10 @@ html,body {
 	font-size: 12px;
 }
 
+a,a:FOCUS,a:HOVER,a:ACTIVE,a:LINK,a:VISITED {
+	color: #000;
+}
+
 h1 {
 	font-size: 2em;
 	margin: 12px 0 6px;
