@@ -1,0 +1,20 @@
+begin;
+
+CREATE TABLE Blog (
+	id INTEGER PRIMARY KEY,
+	title TEXT
+);
+
+CREATE TABLE Post (
+	id INTEGER PRIMARY KEY,
+	blog_id INTEGER NOT NULL REFERENCES Blog(id),
+	content TEXT NOT NULL
+);
+
+CREATE TABLE Comment (
+	id INTEGER PRIMARY KEY,
+	post_id INTEGER NOT NULL REFERENCES Post(id),
+	content TEXT NOT NULL
+);
+
+commit;
