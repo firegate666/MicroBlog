@@ -27,7 +27,8 @@ class SqliteStorage extends Storage
 	public function __construct($connection_string)
 	{
 		$runtime_path = __DIR__ . '/../../runtime/';
-		$this->sqlite = new \SQLite3($runtime_path . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
+		// @TODO move secret to config
+		$this->sqlite = new \SQLite3($runtime_path . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
 	}
 
 	/*
