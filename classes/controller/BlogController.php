@@ -2,12 +2,16 @@
 
 namespace controller;
 
+
 use helper\JSONResult;
 
 use \helper\HTMLResult;
 use \helper\Request;
 
 use \models\Blog;
+use \models\Post;
+use \models\Comment;
+
 class BlogController extends Controller
 {
 
@@ -22,6 +26,28 @@ class BlogController extends Controller
 
 		$result = $this->getView()
 			->render('bloglist', array('blogs' => $list));
+
+		return new HTMLResult($result);
+	}
+
+	public function actionShow($id)
+	{
+		$blog = new Blog();
+		$blog->id = $id;
+
+		$blog = $this->getStorage()->load($blog);
+		if (empty($blog->id)) {
+			throw new \InvalidArgumentException('Blog not found', 404);
+		}
+
+		$blog->posts = $this->getStorage()->find(new Post(), array('blog_id' => $blog->id));
+		foreach($blog->posts as $post) {
+			$post->comments = $this->getStorage()->find(new Comment(), array('post_id' => $post->id));
+		}
+
+		$result = $this->getView()
+			->render('blog', array('blog' => $blog));
+
 		return new HTMLResult($result);
 	}
 
