@@ -70,7 +70,8 @@ class SqliteStorage extends Storage
 	 */
 	public function load(Model $empty_model)
 	{
-		// TODO Auto-generated method stub
+		$list = $this->find($empty_model, array('id' => $empty_model->id));
+		return array_pop($list);
 	}
 
 	/*
