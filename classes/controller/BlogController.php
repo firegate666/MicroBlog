@@ -7,6 +7,7 @@ use helper\JSONResult;
 use \helper\HTMLResult;
 use \helper\Request;
 
+use \models\Blog;
 class BlogController extends Controller
 {
 
@@ -17,9 +18,10 @@ class BlogController extends Controller
 	 */
 	public function actionList()
 	{
+		$list = $this->getStorage()->find(new Blog());
+
 		$result = $this->getView()
-			->render('blog', array('title' => 'Dummy'));
-		$this->getStorage();
+			->render('bloglist', array('blogs' => $list));
 		return new HTMLResult($result);
 	}
 
