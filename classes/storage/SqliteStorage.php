@@ -9,7 +9,7 @@ class SqliteStorage extends Storage
 
 	/**
 	 *
-	 * @var SQLite3
+	 * @var \SQLite3
 	 */
 	private $sqlite;
 
