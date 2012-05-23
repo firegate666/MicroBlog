@@ -18,7 +18,41 @@ class SqliteStorage extends Storage
 	 */
 	public function find(Model $empty_model, $attributes = array(), $order = array())
 	{
-		// TODO Auto-generated method stub
+		$table = explode('\\', get_class($empty_model));
+		$table = array_pop($table);
+		$query = 'SELECT * FROM ' . $table;
+
+		// @TODO quoting, escaping, compare operator
+		$condition = array();
+		foreach ($attributes as $column => $data) {
+			$condition[] = $column . ' = ' . $data;
+		}
+
+		if (!empty($condition)) {
+			$query .= ' WHERE ' . implode(' AND ', $condition);
+		}
+
+		// @TODO read order from param
+		if (empty($order)) {
+			$query .= ' ORDER BY id DESC';
+		}
+
+		$result = $this->sqlite->query($query);
+		$list = array();
+		while (($row = $result->fetchArray(SQLITE3_ASSOC)) !== false)
+		{
+			$clone = clone $empty_model;
+			foreach ($row as $column => $data)
+			{
+				if (property_exists($clone, $column))
+				{
+					$clone->$column = $data;
+				}
+			}
+			// @TODO validate object
+			$list[] = $clone;
+		}
+		return $list;
 	}
 
 	/*
