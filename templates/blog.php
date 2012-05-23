@@ -1,3 +1,5 @@
+<div class="backlink"><a href="?controller=Blog">zurück zur Blogliste</a></div>
+
 <h1><?=$blog->title?></h1>
 
 <?=$this->renderPartial('postform', array())?>
