@@ -2,7 +2,7 @@
 
 namespace helper;
 
-class HTMLResult extends Result
+class HTMLResult extends RequestResult
 {
 	/*
 	 * (non-PHPdoc) @see Result::getResult()

@@ -2,7 +2,7 @@
 
 namespace helper;
 
-abstract class Result
+abstract class RequestResult
 {
 
 	protected $result;
@@ -21,4 +21,13 @@ abstract class Result
 	 * @return mixed
 	 */
 	public abstract function getResult();
+
+	/**
+	 *
+	 * @return integer timestamp
+	 */
+	public function validUntil()
+	{
+		return false;
+	}
 }

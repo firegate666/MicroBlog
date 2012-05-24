@@ -2,7 +2,7 @@
 
 namespace helper;
 
-class JSONResult extends Result
+class JSONResult extends RequestResult
 {
 	/*
 	 * (non-PHPdoc) @see Result::getResult()
