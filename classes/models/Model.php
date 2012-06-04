@@ -65,7 +65,7 @@ class Model
 	 */
 	public function isValid()
 	{
-		if ($this->isValid() !== null)
+		if ($this->isValid!== null)
 		{
 			return $this->isValid;
 		}
