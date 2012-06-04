@@ -22,6 +22,11 @@ class SqliteStorage extends Storage
 	 */
 	private function createOrderBy($order, $empty_model)
 	{
+		if (empty($order))
+		{
+			return ' ORDER BY id DESC';
+		}
+
 		$orders = array();
 		$query = '';
 		$refl_class = new \ReflectionClass($empty_model);
@@ -42,17 +47,18 @@ class SqliteStorage extends Storage
 		return $query;
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::find()
+	/**
+	 * create where part of query
+	 *
+	 * @param array $attributes
+	 * @param Model $empty_model
+	 * @return string
 	 */
-	public function find(Model $empty_model, $attributes = array(), $order = array())
+	private function createWhere($attributes, $empty_model)
 	{
-		$table = explode('\\', get_class($empty_model));
-		$table = array_pop($table);
-		$query = 'SELECT * FROM ' . $table;
-
 		// @TODO quoting, escaping, compare operator
 		$condition = array();
+		$query = '';
 		foreach ($attributes as $column => $data)
 		{
 			$condition[] = $column . ' = ' . $data;
@@ -62,15 +68,20 @@ class SqliteStorage extends Storage
 		{
 			$query .= ' WHERE ' . implode(' AND ', $condition);
 		}
+		return $query;
+	}
 
-		if (empty($order))
-		{
-			$query .= ' ORDER BY id DESC';
-		}
-		else
-		{
-			$query .= $this->createOrderBy($order, $empty_model);
-		}
+	/*
+	 * (non-PHPdoc) @see Storage::find()
+	 */
+	public function find(Model $empty_model, $attributes = array(), $order = array())
+	{
+		$table = explode('\\', get_class($empty_model));
+		$table = array_pop($table);
+		$query = 'SELECT * FROM ' . $table;
+
+		$query .= $this->createWhere($attributes, $empty_model);
+		$query .= $this->createOrderBy($order, $empty_model);
 
 		$result = $this->sqlite->query($query);
 		$list = array();
