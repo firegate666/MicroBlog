@@ -22,7 +22,7 @@ class BlogController extends Controller
 	 */
 	public function actionList()
 	{
-		$list = $this->getStorage()->find(new Blog());
+		$list = $this->getStorage()->find(new Blog(), array(), array('title' => 'ASC'));
 
 		$result = $this->getView()
 			->render('bloglist', array('blogs' => $list));
