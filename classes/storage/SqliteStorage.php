@@ -68,8 +68,12 @@ class SqliteStorage extends Storage
 					$clone->$column = $data;
 				}
 			}
-			// @TODO validate object
-			$list[] = $clone;
+
+			if ($clone->isValid())
+			{
+				$list[] = $clone;
+			}
+			// TODO log failures
 		}
 		return $list;
 	}
