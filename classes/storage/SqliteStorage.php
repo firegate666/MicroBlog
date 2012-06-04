@@ -13,6 +13,34 @@ class SqliteStorage extends Storage
 	 */
 	private $sqlite;
 
+	/**
+	 * create order by part of statement
+	 *
+	 * @param array $order
+	 * @return string
+	 */
+	private function createOrderBy($order, $empty_model)
+	{
+		$orders = array();
+		$query = '';
+		$refl_class = new \ReflectionClass($empty_model);
+		foreach($order as $orderfield => $orderdirection)
+		{
+			if ($refl_class->hasProperty($orderfield))
+			{
+				$orders[] = $this->sqlite->escapeString($orderfield)
+				. ' '
+						. (in_array(strtoupper($orderdirection), array('ASC', 'DESC')) ? $orderdirection : 'DESC')
+						;
+			}
+			// TODO log invalid attributes
+		}
+		if (!empty($orders)) {
+			$query .= ' ORDER BY ' . implode(', ', $orders);
+		}
+		return $query;
+	}
+
 	/*
 	 * (non-PHPdoc) @see Storage::find()
 	 */
@@ -40,22 +68,7 @@ class SqliteStorage extends Storage
 		}
 		else
 		{
-			$orders = array();
-			$refl_class = new \ReflectionClass($empty_model);
-			foreach($order as $orderfield => $orderdirection)
-			{
-				if ($refl_class->hasProperty($orderfield))
-				{
-					$orders[] = $this->sqlite->escapeString($orderfield)
-						. ' '
-						. (in_array(strtoupper($orderdirection), array('ASC', 'DESC')) ? $orderdirection : 'DESC')
-					;
-				}
-				// TODO log invalid attributes
-			}
-			if (!empty($orders)) {
-				$query .= ' ORDER BY ' . implode(', ', $orders);
-			}
+			$query .= $this->createOrderBy($order, $empty_model);
 		}
 
 		$result = $this->sqlite->query($query);
