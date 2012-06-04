@@ -17,6 +17,7 @@ class SqliteStorage extends Storage
 	 * create order by part of statement
 	 *
 	 * @param array $order
+	 * @param Model $empty_model
 	 * @return string
 	 */
 	private function createOrderBy($order, $empty_model)
