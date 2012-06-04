@@ -24,11 +24,13 @@ class SqliteStorage extends Storage
 
 		// @TODO quoting, escaping, compare operator
 		$condition = array();
-		foreach ($attributes as $column => $data) {
+		foreach ($attributes as $column => $data)
+		{
 			$condition[] = $column . ' = ' . $data;
 		}
 
-		if (!empty($condition)) {
+		if (!empty($condition))
+		{
 			$query .= ' WHERE ' . implode(' AND ', $condition);
 		}
 
