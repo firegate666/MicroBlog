@@ -32,9 +32,28 @@ class SqliteStorage extends Storage
 			$query .= ' WHERE ' . implode(' AND ', $condition);
 		}
 
-		// @TODO read order from param
-		if (empty($order)) {
+		if (empty($order))
+		{
 			$query .= ' ORDER BY id DESC';
+		}
+		else
+		{
+			$orders = array();
+			$refl_class = new \ReflectionClass($empty_model);
+			foreach($order as $orderfield => $orderdirection)
+			{
+				if ($refl_class->hasProperty($orderfield))
+				{
+					$orders[] = $this->sqlite->escapeString($orderfield)
+						. ' '
+						. (in_array(strtoupper($orderdirection), array('ASC', 'DESC')) ? $orderdirection : 'DESC')
+					;
+				}
+				// TODO log invalid attributes
+			}
+			if (!empty($orders)) {
+				$query .= ' ORDER BY ' . implode(', ', $orders);
+			}
 		}
 
 		$result = $this->sqlite->query($query);
