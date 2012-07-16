@@ -64,6 +64,11 @@ class BlogController extends Controller
 	public function handle(Request $request)
 	{
 		$action_name = 'action' . ucfirst($request->getParam('action', 'list'));
+		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+			// dispatch to ajax action
+			$action_name = 'actionAjax' . ucfirst($request->getParam('action', 'list'));
+		}
+
 		if (is_callable(array($this, $action_name)))
 		{
 			$mth = new \ReflectionMethod($this, $action_name);
