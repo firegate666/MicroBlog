@@ -64,9 +64,22 @@ class BlogController extends Controller
 		return new HTMLResult($result);
 	}
 
-	public function actionPost($post_contents)
+	/**
+	 * insert new post for blog
+	 *
+	 * @param integer $post_blog_id
+	 * @param string $post_contents
+	 * @return \helper\JSONResult
+	 */
+	public function actionAjaxPost($post_blog_id, $post_contents)
 	{
-		return new JSONResult($post_contents);
+		$post = new Post();
+		// TODO check privs
+		$post->blog_id = $post_blog_id;
+		$post->content = $post_contents;
+		$response = $this->getStorage()->save($post);
+
+		return new JSONResult(array($response, $post_blog_id,$post_contents));
 	}
 
 	public function actionComment()
