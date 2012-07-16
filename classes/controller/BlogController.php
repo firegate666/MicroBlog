@@ -38,9 +38,12 @@ class BlogController extends Controller
 			throw new \InvalidArgumentException('Blog not found', 404);
 		}
 
-		$blog->posts = $this->getStorage()->find(new Post(), array('blog_id' => $blog->id));
+		$blog->posts = $this->getStorage()
+			->find(new Post(), array('blog_id' => $blog->id));
+
 		foreach($blog->posts as $post) {
-			$post->comments = $this->getStorage()->find(new Comment(), array('post_id' => $post->id));
+			$post->comments = $this->getStorage()
+				->find(new Comment(), array('post_id' => $post->id));
 		}
 
 		$result = $this->getView()
