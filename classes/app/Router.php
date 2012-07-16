@@ -46,7 +46,7 @@ class Router
 					'exception' => $exception,
 				)
 			);
-			return new HTMLResult($result);
+			return new HTMLResult($result, $exception->getCode());
 		}
 		else
 		{

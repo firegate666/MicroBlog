@@ -12,7 +12,7 @@ if ($result instanceof \helper\HTMLResult || $result instanceof \helper\JSONResu
 		ob_start('ob_gzhandler');
 	}
 
-	header('Content-type: text/html; charset=UTF-8');
+	header('Content-type: text/html; charset=UTF-8', true, $result->getHttpStatus());
 	print $result->getResult();
 	exit(0);
 }
