@@ -129,6 +129,28 @@ class SqliteStorage extends Storage
 	 */
 	public function save(Model $model)
 	{
-		// TODO Auto-generated method stub
+		$table = explode('\\', get_class($model));
+		$table = array_pop($table);
+		$fields = array();
+		foreach ($model as $key => $property) {
+			$fields[$key] = "'" . $this->sqlite->escapeString($property) . "'";
+		}
+
+		$id = $fields['id'];
+		unset($fields['id']);
+		if (empty($fields['id']))
+		{
+			// INSERT
+			$query = sprintf('INSERT INTO ' . $table . '(%s) VALUES (%s)',
+				implode(',', array_keys($fields)),
+				implode(',', array_values($fields))
+			);
+		}
+		else {
+			// UPDATE
+			// TODO implement
+			throw new \InvalidArgumentException('storage save not implemented yet', 500);
+		}
+		return $this->sqlite->exec($query);
 	}
 }
