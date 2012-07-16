@@ -10,6 +10,18 @@ var JSTemplate =
 	}
 };
 
+var AjaxProcessor = {
+	getJSON: function (data, callback)
+	{
+		$.ajax({
+			dataType: 'json',
+			data: data,
+			success: callback
+		});
+
+	}
+};
+
 $(function() {
 	$('form').submit(function() {
 		var serialized_data = $(this).serializeArray();
