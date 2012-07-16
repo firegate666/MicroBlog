@@ -20,12 +20,24 @@ class BlogController extends Controller
 	 */
 	public function actionList()
 	{
-		$list = $this->getStorage()->find(new Blog(), array(), array('title' => 'ASC'));
-
 		$result = $this->getView()
-			->render('bloglist', array('blogs' => $list));
+			->render('bloglist');
 
 		return new HTMLResult($result);
+	}
+
+	/**
+	 * render list data from blog entries
+	 *
+	 * @return JSONResult
+	 */
+	public function actionAjaxList()
+	{
+		$list = $this->getStorage()
+			->find(new Blog(), array(), array('title' => 'ASC'));
+
+		return new JSONResult($list);
+
 	}
 
 	public function actionShow($id)
