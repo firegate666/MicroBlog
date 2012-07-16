@@ -2,7 +2,7 @@
 
 <h1><?=$blog->title?></h1>
 
-<?=$this->renderPartial('postform', array())?>
+<?=$this->renderPartial('postform', array('blog' => $blog))?>
 <ul class="posts">
 	<?php foreach ($blog->posts as $post): ?>
 		<?=$this->renderPartial('post', array('post' => $post))?>
