@@ -2,10 +2,8 @@
 
 namespace controller;
 
-
-use helper\JSONResult;
-
 use \helper\HTMLResult;
+use \helper\JSONResult;
 use \helper\Request;
 
 use \models\Blog;
