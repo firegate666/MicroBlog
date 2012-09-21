@@ -19,6 +19,26 @@ abstract class AbstractActionController extends Controller
 		return true;
 	}
 
+	/**
+	 * method invoked before any action is called
+	 *
+	 * @param Request $request
+	 * @return boolean
+	 */
+	public function beforeAction(Request $request) {
+		return true;
+	}
+
+	/**
+	 * method invoked after any action is called
+	 *
+	 * @param Request $request
+	 * @return boolean
+	 */
+	public function afterAction(Request $request) {
+		return true;
+	}
+
 	/*
 	 * (non-PHPdoc) @see Controller::handle()
 	 */
@@ -59,6 +79,10 @@ abstract class AbstractActionController extends Controller
 				throw new \LogicException('Forbidden', 403);
 			}
 
+			if (!call_user_func_array(array($this, 'beforeAction'), array($request))) {
+				throw new \LogicException('before action call failed', 500);
+			}
+
 			if (method_exists($this, $beforeAction))
 			{
 				call_user_func_array(array($this, $beforeAction), array_merge(array($request), $func_args));
@@ -69,6 +93,10 @@ abstract class AbstractActionController extends Controller
 			if (method_exists($this, $afterAction))
 			{
 				call_user_func_array(array($this, $afterAction), array_merge(array($request), $func_args));
+			}
+
+			if (!call_user_func_array(array($this, 'afterAction'), array($request))) {
+				throw new \LogicException('after action call failed', 500);
 			}
 
 			return $action_result;
