@@ -4,13 +4,12 @@ namespace controller;
 
 use \helper\HTMLResult;
 use \helper\JSONResult;
-use \helper\Request;
 
 use \models\Blog;
 use \models\Post;
 use \models\Comment;
 
-class BlogController extends Controller
+class BlogController extends AbstractActionController
 {
 
 	/**
@@ -86,40 +85,4 @@ class BlogController extends Controller
 	{
 	}
 
-	/*
-	 * (non-PHPdoc) @see Controller::handle()
-	 */
-	public function handle(Request $request)
-	{
-		$action_name = 'action' . ucfirst($request->getParam('action', 'list'));
-		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-			// dispatch to ajax action
-			$action_name = 'actionAjax' . ucfirst($request->getParam('action', 'list'));
-		}
-
-		if (is_callable(array($this, $action_name)))
-		{
-			$mth = new \ReflectionMethod($this, $action_name);
-			$func_args = array();
-			foreach ($mth->getParameters() as $parameter) {
-				$name = $parameter->getName();
-				$value = null;
-				if (substr($name, 0, 5) === 'post_')
-				{
-					$value = $request->postParam(substr($name, 5), null);
-				}
-				else if (substr($name, 0, 4) === 'get_')
-				{
-					$value = $request->getParam(substr($name, 4), null);
-				}
-				else
-				{
-					$value = $request->getOrPostParam($name, null);
-				}
-				$func_args[] = $value !== null ? $value : $mth->getDefaultValue();
-			}
-			return call_user_func_array(array($this, $action_name), $func_args);
-		}
-		throw new \LogicException('invalid action requested', 404);
-	}
 }
