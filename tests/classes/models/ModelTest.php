@@ -19,23 +19,17 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	 * Sets up the fixture, for example, opens a network connection.
 	 * This method is called before a test is executed.
 	 */
-	protected function setUp() {
+	protected function setUp()
+	{
 		$this->object = new Model;
-	}
-
-	/**
-	 * Tears down the fixture, for example, closes a network connection.
-	 * This method is called after a test is executed.
-	 */
-	protected function tearDown() {
-
 	}
 
 	/**
 	 * @covers {className}::{origMethodName}
 	 * @todo Implement testGetValidationMessages().
 	 */
-	public function testGetValidationMessages() {
+	public function testGetValidationMessages()
+	{
 		$this->assertEmpty($this->object->getValidationMessages());
 	}
 
@@ -43,7 +37,8 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	 * @covers {className}::{origMethodName}
 	 * @todo Implement testIsValid().
 	 */
-	public function testIsValid() {
+	public function testIsValid()
+	{
 		$this->assertTrue($this->object->isValid());
 	}
 
@@ -51,7 +46,8 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	 * @covers {className}::{origMethodName}
 	 * @todo Implement testSetAttributes().
 	 */
-	public function testSetAttributes() {
+	public function testSetAttributes()
+	{
 		$this->object->setAttributes(array(
 			'id' => 1
 		));
