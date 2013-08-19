@@ -5,5 +5,5 @@
 			<?=$this->renderPartial('comment', array('comment' => $comment))?>
 		<?php endforeach; ?>
 	</ul>
-	<?=$this->renderPartial('commentform', array())?>
+	<?=$this->renderPartial('commentform', array('post' => $post))?>
 </li>
