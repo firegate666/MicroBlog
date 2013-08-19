@@ -12,7 +12,7 @@ define('CONFIGURATION_DEFAULT', APP_ROOT . '/configuration/');
  */
 spl_autoload_register(function ($class_name)
 {
-	$file_name = __DIR__ . '/classes/' . str_replace('\\', '/', $class_name) . '.php';
+	$file_name = APP_ROOT . '/classes/' . str_replace('\\', '/', $class_name) . '.php';
 	if (file_exists($file_name))
 	{
 		require_once $file_name;
@@ -40,9 +40,3 @@ if ($exception_handler !== false)
 {
 	set_exception_handler(array(new $exception_handler, 'handle'));
 }
-
-/*
- * create request object
- */
-
-$request = new \helper\Request($_SERVER, $_GET, $_POST);

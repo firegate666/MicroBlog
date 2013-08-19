@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/../bootstrap.php';
 
+/*
+ * create request object
+ */
+$request = new \helper\Request($_SERVER, $_GET, $_POST);
+
 $app_router_class = $config->getSectionEntry('general', 'default_app_router');
 $app_router = new $app_router_class($config);
 $result = $app_router->run($request);
