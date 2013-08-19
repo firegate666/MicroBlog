@@ -101,6 +101,6 @@ abstract class AbstractActionController extends Controller
 
 			return $action_result;
 		}
-		throw new \LogicException('invalid action requested', 404);
+		throw new \LogicException(sprintf('invalid action "%s" requested', $action_name), 404);
 	}
 }
