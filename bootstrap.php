@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 define('APP_ROOT', __DIR__);
 define('RUNTIME_DEFAULT', APP_ROOT . '/runtime/');
 define('TEMPLATES_DEFAULT', APP_ROOT . '/templates/');
+define('CONFIGURATION_DEFAULT', APP_ROOT . '/configuration/');
 
 /*
  * register autoloader
@@ -22,7 +23,7 @@ spl_autoload_register(function ($class_name)
  * load application config
  */
 
-$config = new \helper\ApplicationConfig(__DIR__ . '/configuration/base.ini');
+$config = new \helper\ApplicationConfig(CONFIGURATION_DEFAULT . '/base.ini');
 
 /*
  * install error and exception handler
