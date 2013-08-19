@@ -98,4 +98,12 @@ class Model
 			}
 		}
 	}
+
+	/**
+	 *
+	 * @param array $attributes default properties
+	 */
+	public function __construct($attributes = array()) {
+		$this->setAttributes($attributes);
+	}
 }
