@@ -7,6 +7,12 @@ final class ApplicationConfig
 
 	/**
 	 *
+	 * @var string path to base ini config file
+	 */
+	private $path_to_config;
+
+	/**
+	 *
 	 * @var array
 	 */
 	private $config = array();
@@ -23,12 +29,7 @@ final class ApplicationConfig
 	 */
 	function __construct($path_to_config = '')
 	{
-		$this->default_config = parse_ini_file(dirname($path_to_config) . '/default.ini', true);
-
-		if (file_exists($path_to_config)) {
-			$this->config = parse_ini_file($path_to_config, true);
-		}
-
+		$this->path_to_config = $path_to_config;
 		$this->init();
 	}
 
@@ -40,6 +41,12 @@ final class ApplicationConfig
 	 */
 	protected function init()
 	{
+		$this->default_config = parse_ini_file(dirname($this->path_to_config) . '/default.ini', true);
+
+		if (file_exists($this->path_to_config)) {
+			$this->config = parse_ini_file($this->path_to_config, true);
+		}
+
 		foreach ($this->getSection('app_env', array()) as $env_key => $env_value)
 		{
 			$constant = 'APP_ENV_' . strtoupper($env_key);
