@@ -2,6 +2,10 @@
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
+define('APP_ROOT', __DIR__);
+define('RUNTIME_DEFAULT', APP_ROOT . '/runtime/');
+define('TEMPLATES_DEFAULT', APP_ROOT . '/templates/');
+
 /*
  * register autoloader
  */
