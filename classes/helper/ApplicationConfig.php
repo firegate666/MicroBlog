@@ -21,10 +21,14 @@ final class ApplicationConfig
 	 *
 	 * @param string $path_to_config
 	 */
-	function __construct($path_to_config)
+	function __construct($path_to_config = '')
 	{
 		$this->default_config = parse_ini_file(dirname($path_to_config) . '/default.ini', true);
-		$this->config = parse_ini_file($path_to_config, true);
+
+		if (file_exists($path_to_config)) {
+			$this->config = parse_ini_file($path_to_config, true);
+		}
+
 		$this->init();
 	}
 
