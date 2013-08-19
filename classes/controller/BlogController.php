@@ -5,9 +5,9 @@ namespace controller;
 use \helper\HTMLResult;
 use \helper\JSONResult;
 
-use \models\Blog;
-use \models\Post;
-use \models\Comment;
+use \models\blog\Blog;
+use \models\blog\Post;
+use \models\blog\Comment;
 
 class BlogController extends AbstractActionController
 {
@@ -41,10 +41,7 @@ class BlogController extends AbstractActionController
 
 	public function actionShow($id)
 	{
-		$blog = new Blog();
-		$blog->id = $id;
-
-		$blog = $this->getStorage()->load($blog);
+		$blog = $this->getStorage()->load(new Blog(array('id' => $id)));
 		if (empty($blog->id)) {
 			throw new \InvalidArgumentException('Blog not found', 404);
 		}
@@ -78,11 +75,17 @@ class BlogController extends AbstractActionController
 		$post->content = $post_contents;
 		$response = $this->getStorage()->save($post);
 
-		return new JSONResult(array($response, $post_blog_id,$post_contents));
+		return new JSONResult(array($response, $post_blog_id, $post_contents));
 	}
 
-	public function actionComment()
+	public function actionAjaxComment($post_post_id, $post_contents)
 	{
+		$comment = new Comment();
+		$comment->post_id = $post_post_id;
+		$comment->content = $post_contents;
+		$response = $this->getStorage()->save($comment);
+
+		return new JSONResult(array($response, $post_post_id, $post_contents));
 	}
 
 }
