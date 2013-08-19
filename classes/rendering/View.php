@@ -17,6 +17,19 @@ class View
 	public $rendering_config;
 
 	/**
+	 * get path to template folder
+	 * 
+	 * @return string
+	 */
+	protected function getLayoutBasePath() {
+		if (array_key_exists('layout_base_path', $this->rendering_config)) {
+			return $this->rendering_config['layout_base_path'];
+		}
+
+		return TEMPLATES_DEFAULT;
+	}
+
+	/**
 	 * load layout and render with given parameters
 	 *
 	 * @param string $layout
@@ -33,10 +46,10 @@ class View
 			$clear_buffer = false;
 		}
 
-		$layout_file = $this->rendering_config['layout_base_path'] . $layout . '.php';
+		$layout_file = $this->getLayoutBasePath() . $layout . '.php';
 		if (! file_exists($layout_file))
 		{
-			throw new \InvalidArgumentException('selected layout not found', 404);
+			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layout_file), 404);
 		}
 
 		extract($parameters);
