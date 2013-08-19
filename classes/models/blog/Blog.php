@@ -1,6 +1,8 @@
 <?php
 
-namespace models;
+namespace models\blog;
+
+use models\Model;
 
 class Blog extends Model
 {

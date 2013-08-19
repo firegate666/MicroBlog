@@ -1,15 +1,17 @@
 <?php
 
-namespace models;
+namespace models\blog;
 
-class Comment extends Model
+use models\Model;
+
+class Post extends Model
 {
 
 	/**
 	 *
 	 * @var integer
 	 */
-	public $post_id;
+	public $blog_id;
 
 	/**
 	 *
