@@ -83,13 +83,13 @@ class Router
 				throw new \LogicException('requested controller is invalid', 404);
 			}
 
-			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering')));
+			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering'), new \helper\FileReader()));
 			return $controller->handle($request);
 		}
 		catch (\Exception $e)
 		{
 			$renderer = $rendering_class !== null
-				? new $rendering_class($this->config->getSection('rendering'))
+				? new $rendering_class($this->config->getSection('rendering'), new \helper\FileReader())
 				: null
 			;
 			return $this->renderError($e, $renderer);

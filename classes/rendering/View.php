@@ -2,13 +2,10 @@
 
 namespace rendering;
 
+use helper\FileReader;
+
 class View
 {
-
-	public function __construct(array $rendering_config)
-	{
-		$this->rendering_config = $rendering_config;
-	}
 
 	/**
 	 *
@@ -17,8 +14,21 @@ class View
 	public $rendering_config;
 
 	/**
+	 *
+	 * @var FileReader
+	 */
+	private $file_reader;
+
+
+	public function __construct(array $rendering_config, FileReader $file_reader)
+	{
+		$this->rendering_config = $rendering_config;
+		$this->file_reader = $file_reader;
+	}
+
+	/**
 	 * get path to template folder
-	 * 
+	 *
 	 * @return string
 	 */
 	protected function getLayoutBasePath() {
@@ -47,13 +57,14 @@ class View
 		}
 
 		$layout_file = $this->getLayoutBasePath() . $layout . '.php';
-		if (! file_exists($layout_file))
+		if (!$this->file_reader->file_exists($layout_file))
 		{
 			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layout_file), 404);
 		}
 
 		extract($parameters);
 		ob_start();
+		/** @todo how can this be handled by file reader? */
 		include $layout_file;
 		$content = ob_get_clean();
 
