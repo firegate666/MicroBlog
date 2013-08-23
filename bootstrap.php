@@ -22,8 +22,9 @@ spl_autoload_register(function ($class_name)
 /*
  * load application config
  */
-
-$config = new \helper\ApplicationConfig(CONFIGURATION_DEFAULT . '/base.ini');
+$base_config_string = file_get_contents(CONFIGURATION_DEFAULT . '/base.ini');
+$default_config_string = file_get_contents(CONFIGURATION_DEFAULT . '/default.ini');
+$config = new \helper\ApplicationConfig($base_config_string, $default_config_string);
 
 /*
  * install error and exception handler

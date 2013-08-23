@@ -7,9 +7,15 @@ final class ApplicationConfig
 
 	/**
 	 *
-	 * @var string path to base ini config file
+	 * @var string content base ini
 	 */
-	private $path_to_config;
+	private $base_config_string = '';
+
+	/**
+	 *
+	 * @var string content of default ini
+	 */
+	private $default_config_string = '';
 
 	/**
 	 *
@@ -25,11 +31,13 @@ final class ApplicationConfig
 
 	/**
 	 *
-	 * @param string $path_to_config
+	 * @param string $base_config
+	 * @param string $default_config
 	 */
-	function __construct($path_to_config = '')
+	function __construct($base_config = '', $default_config = '')
 	{
-		$this->path_to_config = $path_to_config;
+		$this->base_config_string = $base_config;
+		$this->default_config_string = $default_config;
 		$this->init();
 	}
 
@@ -41,10 +49,10 @@ final class ApplicationConfig
 	 */
 	protected function init()
 	{
-		$this->default_config = parse_ini_file(dirname($this->path_to_config) . '/default.ini', true);
+		$this->default_config = parse_ini_string($this->default_config_string, true);
 
-		if (file_exists($this->path_to_config)) {
-			$this->config = parse_ini_file($this->path_to_config, true);
+		if ($this->base_config_string) {
+			$this->config = parse_ini_string($this->base_config_string, true);
 		}
 
 		foreach ($this->getSection('app_env', array()) as $env_key => $env_value)
@@ -64,7 +72,7 @@ final class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	function getSection($config_name, $default = null, $force_default = false)
+	function getSection($config_name, $default = array(), $force_default = false)
 	{
 		if (! $force_default && array_key_exists($config_name, $this->config))
 		{
@@ -94,7 +102,7 @@ final class ApplicationConfig
 		}
 		else
 		{
-			$config = $this->getSection($config_name, null, true);
+			$config = $this->getSection($config_name, array(), true);
 			if (array_key_exists($sub_name, $config))
 			{
 				return $config[$sub_name];
