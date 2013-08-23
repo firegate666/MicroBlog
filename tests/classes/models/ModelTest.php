@@ -1,8 +1,8 @@
 <?php
 
-namespace models;
+namespace test\models;
 
-require_once dirname(__FILE__) . '/../../../classes/models/Model.php';
+use models\Model;
 
 /**
  * Test class for Model.
