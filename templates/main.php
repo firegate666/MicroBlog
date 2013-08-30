@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 		<title>Micro | Blog</title>
 		<link rel="stylesheet" type="text/css" href="css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 
-		<script type="text/javascript"
-			<?php if (defined('APP_ENV_DEBUG') && APP_ENV_DEBUG): ?>
-				src="http://code.jquery.com/jquery-1.7.2.js"
-			<?php else: ?>
-				src="http://code.jquery.com/jquery-1.7.2.min.js"
-			<?php endif; ?>
-		></script>
+		<script src="js/lib/jquery-2.0.0.js"></script>
+
+		<script src="js/lib/json2.js" type="text/javascript"></script>
+		<script src="js/lib/underscore-1.4.4.js" type="text/javascript"></script>
+		<script src="js/lib/backbone-1.0.0.js" type="text/javascript"></script>
+
+		<script type="text/javascript" src="js/models/blog.model.js"></script>
+
+		<script type="text/javascript" src="js/collections/blogs.collection.js"></script>
+
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+
 		<script type="text/javascript" src="js/main.js"></script>
 	</head>
 <body>
 
 	<div id="content">
-		<?=$content?>
+		<?= $content ?>
 
 		<div id="footer">
-			&copy; 2012 Marco Behnke
+			&copy; 2012 - 2013 Marco Behnke
 		</div>
 
 	</div>
