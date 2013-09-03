@@ -14,6 +14,14 @@
 			}
 
 			return this.urlRoot + '?id=' + this.id;
+		},
+
+		getId : function() {
+			return this.get('id');
+		},
+
+		getTitle : function() {
+			return this.get('title');
 		}
 
 	});
