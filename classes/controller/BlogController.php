@@ -12,6 +12,14 @@ use \models\blog\Comment;
 class BlogController extends AbstractActionController
 {
 
+	public function actionIndex()
+	{
+		$result = $this->getView()
+			->render('blog/index');
+
+		return new HTMLResult($result);
+	}
+
 	/**
 	 * render list with blog entries
 	 *
