@@ -12,15 +12,16 @@
 		app.blogs = new app.Blogs();
 		app.blogs.fetch();
 
-		/*$.get('templates/bookshelf.templates.html', {}, function(content) {
-			app.TM.addTemplates('.template', content);
+		app.TM = new app.TemplateManager();
+		app.TM.addTemplates('.template', $('body'));
 
-			app.Router = new app.MainRouter({
-				app: app.App
-			});
+		app.App = new app.MicroBlog();
 
-			Backbone.history.start();
-		}, 'html');*/
+		app.Router = new app.MainRouter({
+			app: app.App
+		});
+
+		Backbone.history.start();
 
 	});
 
