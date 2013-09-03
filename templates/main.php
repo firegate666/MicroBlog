@@ -18,9 +18,15 @@
 
 		<script type="text/javascript" src="js/collections/blogs.collection.js"></script>
 
+		<script type="text/javascript" src="js/views/blogs.view.js"></script>
+		<script type="text/javascript" src="js/views/blog.view.js"></script>
+
+		<script type="text/javascript" src="js/template_manager.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
+		<script type="text/javascript" src="js/main_router.js"></script>
 		<script type="text/javascript" src="js/bootstrap.js"></script>
 
-		<script type="text/javascript" src="js/main.js"></script>
+		<!--script type="text/javascript" src="js/main.js"></script-->
 	</head>
 <body>
 
