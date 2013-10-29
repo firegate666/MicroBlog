@@ -9,6 +9,9 @@
 
     <h1><%= blog.getTitle() %></h1>
 
+	<% posts.each(function(v, k) {
+		console.log(k, v);
+	}) %>
 </script>
 
 <div id="app"></div>

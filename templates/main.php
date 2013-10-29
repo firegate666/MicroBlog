@@ -15,8 +15,10 @@
 		<script src="js/lib/backbone-1.0.0.js" type="text/javascript"></script>
 
 		<script type="text/javascript" src="js/models/blog.model.js"></script>
+		<script type="text/javascript" src="js/models/post.model.js"></script>
 
 		<script type="text/javascript" src="js/collections/blogs.collection.js"></script>
+		<script type="text/javascript" src="js/collections/posts.collection.js"></script>
 
 		<script type="text/javascript" src="js/views/blogs.view.js"></script>
 		<script type="text/javascript" src="js/views/blog.view.js"></script>

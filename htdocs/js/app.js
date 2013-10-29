@@ -39,7 +39,8 @@
 			}
 
 			currentView = new app.BlogView({
-				model: app.blogs.where({id: id})[0]
+				model: app.blogs.where({id: id})[0],
+                collection: new Backbone.Collection(app.posts.where({blog_id : 2}))
 			});
 
 			$('#app').empty();
