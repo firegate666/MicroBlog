@@ -9,19 +9,21 @@
 		Backbone.emulateHTTP = true;
 		Backbone.emulateJSON = true;
 
-		app.blogs = new app.Blogs();
-		app.blogs.fetch();
-
 		app.TM = new app.TemplateManager();
 		app.TM.addTemplates('.template', $('body'));
 
-		app.App = new app.MicroBlog();
+        var startup = function() {
+            app.App = new app.MicroBlog();
 
-		app.Router = new app.MainRouter({
-			app: app.App
-		});
+            app.Router = new app.MainRouter({
+                app: app.App
+            });
 
-		Backbone.history.start();
+            Backbone.history.start();
+        }
+
+        app.blogs = new app.Blogs();
+        app.blogs.fetch({success: startup});
 
 	});
 
