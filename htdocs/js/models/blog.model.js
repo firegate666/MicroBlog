@@ -6,14 +6,14 @@
 
 	app.Blog = Backbone.Model.extend({
 
-		urlRoot : 'book/',
+		urlRoot : '?controller=Blog',
 
 		url : function() {
 			if (this.isNew()) {
 				return this.urlRoot;
 			}
 
-			return this.urlRoot + '?id=' + this.id;
+			return this.urlRoot + '&id=' + this.id;
 		},
 
 		getId : function() {
