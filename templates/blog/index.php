@@ -6,6 +6,9 @@
 
 <script class="template" id="blog_view" type="text/html">
 	<a href="#blog/list">zurück zur Blogliste</a>
+
+    <h1><%= blog.getTitle() %></h1>
+
 </script>
 
 <div id="app"></div>
