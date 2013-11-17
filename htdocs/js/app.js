@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global jQuery*/
 
-(function($, app) {
+(function($, app, us) {
 	'use strict';
 
 	app.MicroBlog = function() {
@@ -32,15 +32,22 @@
 		 * handle book new dialog
 		 */
 		this.onBlogView = function(id_arg) {
-			var id = parseInt(id_arg, 10);
+			var id = parseInt(id_arg, 10),
+				blog = app.blogs.findWhere({id: id}),
+				posts = new Backbone.Collection(app.posts.where({blog_id : id})),
+				comments = app.comments;
+
 			if (currentView) {
 				currentView.remove();
 				currentView = null;
 			}
 
 			currentView = new app.BlogView({
-				model: app.blogs.where({id: id})[0],
-                collection: new Backbone.Collection(app.posts.where({blog_id : 2}))
+				model : blog,
+                collection: {
+					posts : posts,
+					comments : comments
+				}
 			});
 
 			$('#app').empty();
@@ -49,4 +56,4 @@
 
 	};
 
-}(jQuery, window));
+}(jQuery, window, _));

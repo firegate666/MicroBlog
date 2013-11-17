@@ -18,10 +18,10 @@
 		 * render book list
 		 */
 		render: function() {
-            console.log(this.model, this.collection);
 			this.$el.append(us.template(app.TM.getTemplate('blog_view'), {
-                blog: this.model,
-                posts: this.collection
+                blog : this.model,
+                posts : this.collection.posts,
+				comments : this.collection.comments
             }));
 		}
 
