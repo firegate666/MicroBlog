@@ -17,10 +17,10 @@ class SqliteStorage extends Storage
 	 * create order by part of statement
 	 *
 	 * @param array $order
-	 * @param Model $empty_model
+	 * @param Persistable $empty_model
 	 * @return string
 	 */
-	private function createOrderBy($order, $empty_model)
+	private function createOrderBy($order, Persistable $empty_model)
 	{
 		if (empty($order))
 		{
@@ -51,10 +51,10 @@ class SqliteStorage extends Storage
 	 * create where part of query
 	 *
 	 * @param array $attributes
-	 * @param Model $empty_model
+	 * @param Persistable $empty_model
 	 * @return string
 	 */
-	private function createWhere($attributes, $empty_model)
+	private function createWhere($attributes, Persistable $empty_model)
 	{
 		// @TODO quoting, escaping, compare operator
 		$condition = array();
@@ -71,10 +71,10 @@ class SqliteStorage extends Storage
 		return $query;
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::find()
+	/**
+	 * @inheritdoc
 	 */
-	public function find(Model $empty_model, $attributes = array(), $order = array())
+	public function find(Persistable $empty_model, $attributes = array(), $order = array())
 	{
 		$table = explode('\\', get_class($empty_model));
 		$table = array_pop($table);
@@ -105,8 +105,8 @@ class SqliteStorage extends Storage
 		return $list;
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::__construct()
+	/**
+	 * @inheritdoc
 	 */
 	public function __construct($connection_string)
 	{
@@ -114,19 +114,19 @@ class SqliteStorage extends Storage
 		$this->sqlite = new \SQLite3(RUNTIME_DEFAULT . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::load()
+	/**
+	 * @inheritdoc
 	 */
-	public function load(Model $empty_model)
+	public function load(Persistable $empty_model)
 	{
 		$list = $this->find($empty_model, array('id' => $empty_model->id));
 		return array_pop($list);
 	}
 
-	/*
-	 * (non-PHPdoc) @see Storage::save()
+	/**
+	 * @inheritdoc
 	 */
-	public function save(Model $model)
+	public function save(Persistable $model)
 	{
 		$table = explode('\\', get_class($model));
 		$table = array_pop($table);
@@ -148,7 +148,7 @@ class SqliteStorage extends Storage
 		else {
 			// UPDATE
 			// TODO implement
-			throw new \InvalidArgumentException('storage save not implemented yet', 500);
+			throw new \InvalidArgumentException('storage update not implemented yet', 500);
 		}
 		return $this->sqlite->exec($query);
 	}
