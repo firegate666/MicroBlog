@@ -25,6 +25,9 @@
         app.posts = new app.Posts();
         app.posts.fetch();
 
+		app.comments = new app.Comments();
+        app.comments.fetch();
+
         app.blogs = new app.Blogs();
         app.blogs.fetch({success: startup});
 
