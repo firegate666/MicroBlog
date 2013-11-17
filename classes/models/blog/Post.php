@@ -3,6 +3,7 @@
 namespace models\blog;
 
 use models\Model;
+use storage\Persistable;
 
 /**
  * @tableName Post
