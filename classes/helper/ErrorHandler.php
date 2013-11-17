@@ -12,7 +12,6 @@ class ErrorHandler
 	 * @param string $errstr
 	 * @param string $errfile
 	 * @param integer $errline
-	 * @param array $errcontext
 	 * @throws \ErrorException
 	 * @return void
 	 */

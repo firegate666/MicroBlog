@@ -20,7 +20,7 @@
             });
 
             Backbone.history.start();
-        }
+        };
 
         app.posts = new app.Posts();
         app.posts.fetch();

@@ -9,7 +9,7 @@ class ExceptionHandler
 	 * custom exception handler
 	 * display html page and add exception message and code to http headers
 	 *
-	 * @param Exception $exception
+	 * @param \Exception $exception
 	 * @return void
 	 */
 	function handle(\Exception $exception)

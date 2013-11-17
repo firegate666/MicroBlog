@@ -5,7 +5,7 @@ use \helper\JSONResult;
 
 use models\blog\Comment;
 
-class CommentController extends \controller\AbstractActionController
+class CommentController extends AbstractActionController
 {
 	public function actionAjaxList()
     {

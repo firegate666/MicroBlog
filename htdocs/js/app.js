@@ -24,8 +24,7 @@
 				collection: app.blogs
 			});
 
-			$('#app').empty();
-			$('#app').append(currentView.el);
+			$('#app').empty().append(currentView.el);
 		};
 
 		/**
@@ -50,8 +49,7 @@
 				}
 			});
 
-			$('#app').empty();
-			$('#app').append(currentView.el);
+			$('#app').empty().append(currentView.el);
 		};
 
 	};

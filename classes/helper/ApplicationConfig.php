@@ -70,6 +70,7 @@ final class ApplicationConfig
 	 *
 	 * @param string $config_name
 	 * @param mixed $default
+	 * @param boolean $force_default
 	 * @return mixed
 	 */
 	function getSection($config_name, $default = array(), $force_default = false)
@@ -91,7 +92,7 @@ final class ApplicationConfig
 	 * @param string $config_name
 	 * @param string $sub_name
 	 * @param mixed $default
-	 * @return mixe
+	 * @return mixed
 	 */
 	function getSectionEntry($config_name, $sub_name, $default = null)
 	{

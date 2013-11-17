@@ -44,6 +44,7 @@ class View
 	 *
 	 * @param string $layout
 	 * @param array $parameters
+	 * @param string $wrap
 	 * @throws \InvalidArgumentException if layout is not found
 	 * @return string
 	 */

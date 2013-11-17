@@ -2,7 +2,6 @@
 
 namespace storage;
 
-use \models\Model;
 use \zpt\anno\Annotations;
 
 class SqliteStorage extends Storage
@@ -52,10 +51,9 @@ class SqliteStorage extends Storage
 	 * create where part of query
 	 *
 	 * @param array $attributes
-	 * @param Persistable $empty_model
 	 * @return string
 	 */
-	private function createWhere($attributes, Persistable $empty_model)
+	private function createWhere($attributes)
 	{
 		// @TODO quoting, escaping, compare operator
 		$condition = array();
@@ -79,7 +77,7 @@ class SqliteStorage extends Storage
 	 */
 	private function createTableName(Persistable $model) {
 		$classReflector = new \ReflectionClass($model);
-		$classAnnotations = new \zpt\anno\Annotations($classReflector);
+		$classAnnotations = new Annotations($classReflector);
 		if ($classAnnotations->hasAnnotation('tableName')) {
 			return $classAnnotations['tableName'];
 		}
@@ -96,7 +94,7 @@ class SqliteStorage extends Storage
 
 		$query = 'SELECT * FROM ' . $table;
 
-		$query .= $this->createWhere($attributes, $empty_model);
+		$query .= $this->createWhere($attributes);
 		$query .= $this->createOrderBy($order, $empty_model);
 
 		$result = $this->sqlite->query($query);
@@ -163,7 +161,7 @@ class SqliteStorage extends Storage
 		else {
 			// UPDATE
 			// TODO implement
-			throw new \InvalidArgumentException('storage update not implemented yet', 500);
+			throw new \InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);
 		}
 		return $this->sqlite->exec($query);
 	}

@@ -12,7 +12,7 @@ abstract class AbstractActionController extends Controller
 	 *
 	 * @param string $action_name
 	 * @param Request $request
-	 * @throws LogicException
+	 * @throws \LogicException
 	 * @return boolean true
 	 */
 	public function isAllowed($action_name, Request $request) {

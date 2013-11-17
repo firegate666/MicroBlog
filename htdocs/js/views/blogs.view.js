@@ -24,8 +24,7 @@
 			us.each(this.collection.models, function(item){ // in case collection is not empty
 				self.$el.append(us.template(app.TM.getTemplate('blog_item'), {blog: item}));
 			}, this);
-		},
-
+		}
 	});
 
 }(window, Backbone, _));

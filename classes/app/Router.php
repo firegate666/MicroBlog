@@ -2,6 +2,7 @@
 
 namespace app;
 
+use helper\FileReader;
 use \helper\HTMLResult;
 use \helper\Request;
 use \helper\ApplicationConfig;
@@ -34,8 +35,8 @@ class Router
 	 *
 	 * @param \Exception $exception
 	 * @param View $renderer
-	 * @throws Exception thrown if renderer is null
-	 * @return \helper\Result
+	 * @throws \Exception thrown if renderer is null
+	 * @return \helper\RequestResult
 	 */
 	public function renderError(\Exception $exception, View $renderer = null)
 	{
@@ -83,13 +84,13 @@ class Router
 				throw new \LogicException('requested controller is invalid', 404);
 			}
 
-			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering'), new \helper\FileReader()));
+			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering'), new FileReader()));
 			return $controller->handle($request);
 		}
 		catch (\Exception $e)
 		{
 			$renderer = $rendering_class !== null
-				? new $rendering_class($this->config->getSection('rendering'), new \helper\FileReader())
+				? new $rendering_class($this->config->getSection('rendering'), new FileReader())
 				: null
 			;
 			return $this->renderError($e, $renderer);

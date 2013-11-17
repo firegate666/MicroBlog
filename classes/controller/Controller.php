@@ -78,7 +78,7 @@ abstract class Controller
 	/**
 	 *
 	 * @param Request $request
-	 * @throws LogicException
+	 * @throws \LogicException
 	 * @return mixed
 	 */
 	public abstract function handle(Request $request);
