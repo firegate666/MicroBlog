@@ -3,8 +3,14 @@
 namespace models\blog;
 
 use models\Model;
+use storage\Persistable;
 
-class Blog extends Model
+/**
+ * Class Blog
+ *
+ * @tableName Blog
+ */
+class Blog extends Model implements Persistable
 {
 
 	/**

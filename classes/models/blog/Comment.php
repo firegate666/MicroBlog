@@ -4,7 +4,10 @@ namespace models\blog;
 
 use models\Model;
 
-class Comment extends Model
+/**
+ * @tableName Comment
+ */
+class Comment extends Model implements Persistable
 {
 
 	/**

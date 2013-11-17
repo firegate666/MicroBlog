@@ -4,7 +4,10 @@ namespace models\blog;
 
 use models\Model;
 
-class Post extends Model
+/**
+ * @tableName Post
+ */
+class Post extends Model implements Persistable
 {
 
 	/**

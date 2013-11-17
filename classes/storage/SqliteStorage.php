@@ -3,6 +3,7 @@
 namespace storage;
 
 use \models\Model;
+use \zpt\anno\Annotations;
 
 class SqliteStorage extends Storage
 {
@@ -72,12 +73,27 @@ class SqliteStorage extends Storage
 	}
 
 	/**
+	 * @param Persistable $model
+	 * @return mixed
+	 * @throws \InvalidArgumentException
+	 */
+	private function createTableName(Persistable $model) {
+		$classReflector = new \ReflectionClass($model);
+		$classAnnotations = new \zpt\anno\Annotations($classReflector);
+		if ($classAnnotations->hasAnnotation('tableName')) {
+			return $classAnnotations['tableName'];
+		}
+
+		throw new \InvalidArgumentException('Given class is not persistable');
+	}
+
+	/**
 	 * @inheritdoc
 	 */
 	public function find(Persistable $empty_model, $attributes = array(), $order = array())
 	{
-		$table = explode('\\', get_class($empty_model));
-		$table = array_pop($table);
+		$table = $this->createTableName($empty_model);
+
 		$query = 'SELECT * FROM ' . $table;
 
 		$query .= $this->createWhere($attributes, $empty_model);
@@ -128,8 +144,7 @@ class SqliteStorage extends Storage
 	 */
 	public function save(Persistable $model)
 	{
-		$table = explode('\\', get_class($model));
-		$table = array_pop($table);
+		$table = $this->createTableName($model);
 		$fields = array();
 		foreach ($model as $key => $property) {
 			$fields[$key] = "'" . $this->sqlite->escapeString($property) . "'";
