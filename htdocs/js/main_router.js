@@ -19,17 +19,14 @@
 		},
 
 		index: function() {
-			console.log('index');
 			this.app.onIndex();
 		},
 
 		blog_view: function(id) {
-			console.log('blog_view', id);
 			this.app.onBlogView(id);
 		},
 
 		blog_list: function() {
-			console.log('blog_list');
 			this.app.onIndex();
 		}
 

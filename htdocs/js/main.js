@@ -28,7 +28,7 @@ $(function() {
 		var action = $(this).attr('action');
 
 		$.post(action, serialized_data, function(data) {
-			console.log(data);
+			console.log('form submit post', data);
 		});
 
 		return false;
