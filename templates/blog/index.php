@@ -9,9 +9,20 @@
 
     <h1><%= blog.getTitle() %></h1>
 
-	<% posts.each(function(v, k) {
-		console.log(k, v);
-	}) %>
+	<ul class="posts">
+		<% posts.each(function(post, k) { %>
+			<li class="post">
+				<%= post.id %> : <%= post.getContent() %>
+				<ul class="comments">
+					<% new Backbone.Collection(comments.where({post_id : post.id})).each(function(comment, k) { %>
+						<li class="comment">
+							<%= comment.getContent() %>
+						</li>
+					<% }) %>
+				</ul>
+			</li>
+		<% }) %>
+	</ul>
 </script>
 
 <div id="app"></div>
