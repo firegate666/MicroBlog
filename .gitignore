@@ -16,3 +16,5 @@ nbproject
 atlassian-ide-plugin.xml
 vendor
 
+log/*
+

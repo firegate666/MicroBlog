@@ -48,6 +48,8 @@ abstract class AbstractActionController extends Controller
 		$beforeAction = 'before' . ucfirst($action_name);
 		$afterAction = 'after' . ucfirst($action_name);
 
+		$this->getLogger()->debug($action_name);
+
 		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
 			// dispatch to ajax action
 			$action_name = 'actionAjax' . ucfirst($request->getParam('action', 'index'));

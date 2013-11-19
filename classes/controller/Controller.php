@@ -6,6 +6,7 @@ use \helper\ApplicationConfig;
 use \helper\Request;
 use \rendering\View;
 use \storage\Storage;
+use Psr\Log\LoggerInterface;
 
 abstract class Controller
 {
@@ -29,6 +30,11 @@ abstract class Controller
 	private $view;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 * get view renderer
 	 *
 	 * @return View
@@ -47,6 +53,21 @@ abstract class Controller
 	{
 		$this->config = $config;
 		$this->view = $view;
+	}
+
+	/**
+	 * @param LoggerInterface $logger
+	 * @return void
+	 */
+	public function setLogger(LoggerInterface $logger) {
+		$this->logger = $logger;
+	}
+
+	/**
+	 * @return LoggerInterface
+	 */
+	public function getLogger() {
+		return $this->logger;
 	}
 
 	/**

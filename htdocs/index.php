@@ -7,7 +7,7 @@ require_once __DIR__ . '/../bootstrap.php';
 $request = new \helper\Request($_SERVER, $_GET, $_POST);
 
 $app_router_class = $config->getSectionEntry('general', 'default_app_router');
-$app_router = new $app_router_class($config);
+$app_router = new $app_router_class($config, $logger);
 $result = $app_router->run($request);
 
 if ($result instanceof \helper\HTMLResult || $result instanceof \helper\JSONResult)

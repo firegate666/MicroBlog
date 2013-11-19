@@ -1,4 +1,7 @@
 <?php
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -24,6 +27,9 @@ $composer_autoload = __DIR__ . '/vendor/autoload.php';
 if (file_exists($composer_autoload)) {
 	require_once $composer_autoload;
 }
+
+$logger = new Logger('MicroBlog');
+$logger->pushHandler(new StreamHandler(__DIR__ . '/log/all.txt'));
 
 /*
  * load application config

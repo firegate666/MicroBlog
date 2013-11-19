@@ -7,6 +7,7 @@ use \helper\HTMLResult;
 use \helper\Request;
 use \helper\ApplicationConfig;
 use \rendering\View;
+use Psr\Log\LoggerInterface;
 
 /**
  * handle routing for application
@@ -21,12 +22,18 @@ class Router
 	private $config;
 
 	/**
+	 * @var LoggerInterface
+	 */
+	private $logger;
+
+	/**
 	 *
 	 * @param ApplicationConfig $config
 	 */
-	public function __construct(ApplicationConfig $config)
+	public function __construct(ApplicationConfig $config, LoggerInterface $logger)
 	{
 		$this->config = $config;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -40,6 +47,7 @@ class Router
 	 */
 	public function renderError(\Exception $exception, View $renderer = null)
 	{
+		$this->logger->error($exception->getMessage(), debug_backtrace(0, 10));
 		if ($renderer !== null)
 		{
 			$result = $renderer->render($this->config->getSectionEntry('rendering', 'error_layout'),
@@ -85,6 +93,7 @@ class Router
 			}
 
 			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering'), new FileReader()));
+			$controller->setLogger($this->logger);
 			return $controller->handle($request);
 		}
 		catch (\Exception $e)
