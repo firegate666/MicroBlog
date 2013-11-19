@@ -6,7 +6,7 @@ class Model
 {
 
 	/**
-	 *
+	 * @column id
 	 * @var integer
 	 */
 	public $id;

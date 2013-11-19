@@ -15,6 +15,7 @@ class Blog extends Model implements Persistable
 
 	/**
 	 *
+	 * @column title
 	 * @var string
 	 */
 	public $title;
