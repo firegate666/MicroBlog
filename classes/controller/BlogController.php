@@ -41,7 +41,7 @@ class BlogController extends AbstractActionController
 	public function actionAjaxList()
 	{
 		$list = $this->getStorage()
-			->find(new Blog(), array(), array('title' => 'ASC'));
+			->findAll(new Blog(), array('title' => 'ASC'));
 
 		return new JSONResult($list);
 

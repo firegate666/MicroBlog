@@ -9,7 +9,7 @@ class CommentController extends AbstractActionController
 {
 	public function actionAjaxList()
     {
-	    $list = $this->getStorage()->find(new Comment());
+	    $list = $this->getStorage()->findAll(new Comment());
         return new JSONResult($list);
     }
 }

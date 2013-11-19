@@ -18,8 +18,8 @@ class PostController extends AbstractActionController
 
     public function actionAjaxList()
     {
-	    $list = $this->getStorage()->find(new Post());
+	    $list = $this->getStorage()->findAll(new Post());
         return new JSONResult($list);
     }
 
-} 
+}
