@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="tests/unit_bootstrap.php"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	strict="false"
+	verbose="true"
+	timeoutForSmallTests="60">
+
+	<testsuite name="Classes">
+		<directory suffix=".php">tests/classes</directory>
+	</testsuite>
+
+	<filter>
+		<blacklist>
+			<directory suffix=".php">./vendor</directory>
+		</blacklist>
+	</filter>
+
+</phpunit>
