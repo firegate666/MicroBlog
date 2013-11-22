@@ -4,6 +4,11 @@ namespace storage;
 
 use \zpt\anno\Annotations;
 
+/**
+ * SQLite3 specific implementation of the storage class
+ *
+ * @package storage
+ */
 class SqliteStorage extends Storage
 {
 
@@ -18,83 +23,9 @@ class SqliteStorage extends Storage
 	 */
 	public function __construct($connection_string)
 	{
+		parent::__construct($connection_string);
 		// @TODO move secret to config
 		$this->sqlite = new \SQLite3(RUNTIME_DEFAULT . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
-	}
-
-	/**
-	 * create order by part of statement
-	 *
-	 * @param array $order
-	 * @param Persistable $empty_model
-	 * @return string
-	 */
-	private function createOrderBy($order, Persistable $empty_model)
-	{
-		if (empty($order))
-		{
-			return ' ORDER BY id DESC';
-		}
-
-		$orders = array();
-		$query = '';
-		$refl_class = new \ReflectionClass($empty_model);
-		foreach($order as $orderfield => $orderdirection)
-		{
-			if ($refl_class->hasProperty($orderfield)) // @todo check if property is valid column
-			{
-				$orders[] = $this->sqlite->escapeString($orderfield)
-					. ' '
-					. (in_array(strtoupper($orderdirection), array('ASC', 'DESC')) ? $orderdirection : 'DESC')
-				;
-			}
-			// TODO log invalid attributes
-		}
-		if (!empty($orders)) {
-			$query .= ' ORDER BY ' . implode(', ', $orders);
-		}
-		return $query;
-	}
-
-	/**
-	 * create where part of query
-	 *
-	 * @param array $attributes
-	 * @return string
-	 */
-	private function createWhere($attributes)
-	{
-		// @TODO compare operator
-		$condition = array();
-		$query = '';
-		foreach ($attributes as $column => $data)
-		{
-			$cmp = $data == null ? ' IS ' : '= :';
-			$bind =  $data == null ? 'NULL' : $data;
-
-			$condition[] = $column . $cmp . $bind;
-		}
-
-		if (!empty($condition))
-		{
-			$query .= ' WHERE ' . implode(' AND ', $condition);
-		}
-		return $query;
-	}
-
-	/**
-	 * @param Persistable $model
-	 * @return mixed
-	 * @throws \InvalidArgumentException
-	 */
-	private function createTableName(Persistable $model) {
-		$classReflector = new \ReflectionClass($model);
-		$classAnnotations = new Annotations($classReflector);
-		if ($classAnnotations->hasAnnotation('tableName')) {
-			return $classAnnotations['tableName'];
-		}
-
-		throw new \InvalidArgumentException('Given class is not persistable');
 	}
 
 	/**
@@ -105,7 +36,7 @@ class SqliteStorage extends Storage
 	 * @param boolean $skip_null
 	 * @return void
 	 */
-	private function bindValues(\SQLite3Stmt $stmt, array $attributes, $skip_null = false) {
+	protected function bindValues(\SQLite3Stmt $stmt, array $attributes, $skip_null = false) {
 		foreach ($attributes as $column => $data) {
 			$bind_type = null;
 			if (is_integer($data)) {
@@ -165,26 +96,12 @@ class SqliteStorage extends Storage
 	/**
 	 * @inheritdoc
 	 */
-	public function load(Persistable $empty_model)
-	{
-		$list = $this->find($empty_model, array('id' => $empty_model->id));
-		return array_pop($list);
-	}
-
-	/**
-	 * @inheritdoc
-	 */
 	public function save(Persistable $model)
 	{
 		$table = $this->createTableName($model);
 		$fields = array();
 
-		/*foreach ($model as $key => $property) {
-			$fields[$key] = "'" . $this->sqlite->escapeString($property) . "'";
-		}*/
-
 		$classReflector = new \ReflectionClass($model);
-
 		foreach ($classReflector->getProperties() as $propReflector) {
 			$propAnnotations = new Annotations($propReflector);
 			if ($propAnnotations->hasAnnotation('column')) {
