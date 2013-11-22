@@ -82,6 +82,7 @@ abstract class Controller
 		}
 		$storage_config = $this->getConfig('storage');
 		$this->storage = new $storage_config['class']($storage_config['identifier']);
+		$this->storage->setLogger($this->getLogger());
 		return $this->storage;
 	}
 
