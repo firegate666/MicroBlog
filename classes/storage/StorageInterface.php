@@ -15,10 +15,10 @@ interface StorageInterface {
 	/**
 	 * load model
 	 *
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @return Persistable filled with data
 	 */
-	public function load(Persistable $empty_model);
+	public function load(Persistable $emptyModel);
 
 	/**
 	 * persist model
@@ -31,19 +31,19 @@ interface StorageInterface {
 	/**
 	 * find a set of models
 	 *
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @param array $attributes key/value with matching search criterias
 	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
 	 * @return Persistable[] array set of models
 	 */
-	public function find(Persistable $empty_model, $attributes = array(), $order = array());
+	public function find(Persistable $emptyModel, $attributes = array(), $order = array());
 
 	/**
 	 * find all models
 	 *
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
 	 * @return array set of models
 	 */
-	public function findAll(Persistable $empty_model, $order = array());
+	public function findAll(Persistable $emptyModel, $order = array());
 }

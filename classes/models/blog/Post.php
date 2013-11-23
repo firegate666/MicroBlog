@@ -14,7 +14,7 @@ class Post extends Model implements Persistable {
 	 *
 	 * @var integer
 	 */
-	public $blog_id;
+	public $blogId;
 
 	/**
 	 *

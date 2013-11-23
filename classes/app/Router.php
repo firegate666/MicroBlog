@@ -90,14 +90,13 @@ class Router {
 	 * @return RenderingInterface
 	 */
 	protected function createRenderer() {
-		$rendering_class_name = $this->config->getSectionEntry('rendering', 'class');
+		$renderingClassName = $this->config->getSectionEntry('rendering', 'class');
 
-		if (!class_exists($rendering_class_name)) {
-			$rendering_class = null;
+		if (!class_exists($renderingClassName)) {
 			throw new InvalidRendererClassException('configured renderer is invalid', 404);
 		}
 
-		return new $rendering_class_name($this->config->getSection('rendering'), $this->createFileReader());
+		return new $renderingClassName($this->config->getSection('rendering'), $this->createFileReader());
 	}
 
 	/**
@@ -106,13 +105,13 @@ class Router {
 	 * @return Controller
 	 */
 	protected function createController(Request $request) {
-		$controller_name = $this->determineControllerName($request);
-		if (!class_exists($controller_name)) {
+		$controllerName = $this->determineControllerName($request);
+		if (!class_exists($controllerName)) {
 			throw new \LogicException('requested controller is invalid', 404);
 		}
 
 		/** @var Controller $controller */
-		$controller = new $controller_name($this->config, $this->createRenderer());
+		$controller = new $controllerName($this->config, $this->createRenderer());
 		$controller->setLogger($this->logger);
 
 		return $controller;
@@ -125,12 +124,12 @@ class Router {
 	 * @return string
 	 */
 	protected function determineControllerName(Request $request) {
-		$controller_name = $this->config->getSectionEntry('general', 'default_controller'); // default
+		$controllerName = $this->config->getSectionEntry('general', 'default_controller'); // default
 		if ($request->hasGetOrPostParam('controller')) {
-			$controller_name = ucfirst($request->getOrPostParam('controller')) . 'Controller';
-			$controller_name = $this->config->getSectionEntry('general', 'default_controller_namespace') . $controller_name;
+			$controllerName = ucfirst($request->getOrPostParam('controller')) . 'Controller';
+			$controllerName = $this->config->getSectionEntry('general', 'default_controller_namespace') . $controllerName;
 		}
 
-		return $controller_name;
+		return $controllerName;
 	}
 }

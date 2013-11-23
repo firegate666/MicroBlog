@@ -16,13 +16,13 @@ class PDOStorage extends Storage {
 	/**
 	 * @inheritdoc
 	 */
-	public function __construct($connection_string) {
-		parent::__construct($connection_string);
-		$connection_properties = new ConnectionProperties($connection_string);
+	public function __construct($connectionString) {
+		parent::__construct($connectionString);
+		$connectionProperties = new ConnectionProperties($connectionString);
 
-		$dsn = $connection_properties->system . ':dbname=' . $connection_properties->name . ';host=' . $connection_properties->host;
-		$user = $connection_properties->user;
-		$password = $connection_properties->pass;
+		$dsn = $connectionProperties->system . ':dbname=' . $connectionProperties->name . ';host=' . $connectionProperties->host;
+		$user = $connectionProperties->user;
+		$password = $connectionProperties->pass;
 
 		$this->pdo = new PDO($dsn, $user, $password);
 	}
@@ -32,41 +32,41 @@ class PDOStorage extends Storage {
 	 *
 	 * @param \PDOStatement $stmt
 	 * @param array $attributes
-	 * @param boolean $skip_null
+	 * @param boolean $skipNull
 	 * @return void
 	 */
-	protected function bindValues(PDOStatement $stmt, array $attributes, $skip_null = false) {
+	protected function bindValues(PDOStatement $stmt, array $attributes, $skipNull = false) {
 		foreach ($attributes as $column => $data) {
-			$bind_type = null;
+			$bindType = null;
 			if (is_integer($data)) {
-				$bind_type = PDO::PARAM_INT;
+				$bindType = PDO::PARAM_INT;
 			} else if (is_float($data)) {
 				// @todo how to handle floats here?
-				$bind_type = PDO::PARAM_STR;
+				$bindType = PDO::PARAM_STR;
 			} else if ($data === null) {
-				if ($skip_null) {
+				if ($skipNull) {
 					continue; // no binding of null values in where condition, they are handle in createWhere as IS NULL
 				}
-				$bind_type = PDO::PARAM_NULL;
+				$bindType = PDO::PARAM_NULL;
 			} else if (is_bool($data)) {
-				$bind_type = PDO::PARAM_BOOL;
+				$bindType = PDO::PARAM_BOOL;
 			} else {
-				$bind_type = PDO::PARAM_STR;
+				$bindType = PDO::PARAM_STR;
 			}
-			$stmt->bindValue(':' . $column, $data, $bind_type);
+			$stmt->bindValue(':' . $column, $data, $bindType);
 		}
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function find(Persistable $empty_model, $attributes = array(), $order = array()) {
-		$table = $this->createTableName($empty_model);
+	public function find(Persistable $emptyModel, $attributes = array(), $order = array()) {
+		$table = $this->createTableName($emptyModel);
 
 		$query = 'SELECT * FROM ' . $table;
 
 		$query .= $this->createWhere($attributes);
-		$query .= $this->createOrderBy($order, $empty_model);
+		$query .= $this->createOrderBy($order, $emptyModel);
 
 		$this->getLogger()->debug($query);
 		$this->getLogger()->debug(json_encode($attributes));
@@ -79,7 +79,7 @@ class PDOStorage extends Storage {
 
 		$stmt->execute();
 		while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false) {
-			$clone = clone $empty_model;
+			$clone = clone $emptyModel;
 			foreach ($row as $column => $data) {
 				if (property_exists($clone, $column)) {
 
@@ -112,7 +112,7 @@ class PDOStorage extends Storage {
 
 		$id = $fields['id'];
 		$stmt = null;
-		$is_new = false;
+		$isNew = false;
 		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
@@ -121,7 +121,7 @@ class PDOStorage extends Storage {
 				':' . implode(',:', array_keys($fields))
 			);
 			$stmt = $this->pdo->prepare($query);
-			$is_new = true;
+			$isNew = true;
 		} else {
 			// UPDATE
 			// TODO implement
@@ -131,10 +131,9 @@ class PDOStorage extends Storage {
 		$this->bindValues($stmt, $fields);
 
 		$ret = $stmt->execute();
-		if ($ret && $is_new) {
+		if ($ret && $isNew) {
 			$model->setId($this->pdo->lastInsertId());
 		}
 		return $ret;
 	}
-
 }

@@ -50,23 +50,23 @@ abstract class Storage implements StorageInterface {
 	/**
 	 * load model
 	 *
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @return Persistable filled with data
 	 */
-	public function load(Persistable $empty_model) {
-		$list = $this->find($empty_model, array('id' => $empty_model->getId()));
+	public function load(Persistable $emptyModel) {
+		$list = $this->find($emptyModel, array('id' => $emptyModel->getId()));
 		return array_pop($list);
 	}
 
 	/**
 	 * find all models
 	 *
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
 	 * @return array set of models
 	 */
-	public function findAll(Persistable $empty_model, $order = array()) {
-		return $this->find($empty_model, array(), $order);
+	public function findAll(Persistable $emptyModel, $order = array()) {
+		return $this->find($emptyModel, array(), $order);
 	}
 
 	/**
@@ -88,11 +88,11 @@ abstract class Storage implements StorageInterface {
 	 * create order by part of statement
 	 *
 	 * @param array $order
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @return string
 	 */
-	protected function createOrderBy($order, Persistable $empty_model) {
-		return $this->orderByBuilder->build($order, $empty_model);
+	protected function createOrderBy($order, Persistable $emptyModel) {
+		return $this->orderByBuilder->build($order, $emptyModel);
 	}
 
 	/**

@@ -13,23 +13,23 @@ class OrderByBuilder {
 
 	/**
 	 * @param array $order
-	 * @param Persistable $empty_model
+	 * @param Persistable $emptyModel
 	 * @return string
 	 */
-	public function build(array $order, Persistable $empty_model) {
+	public function build(array $order, Persistable $emptyModel) {
 		if (empty($order)) {
 			return ' ORDER BY id DESC';
 		}
 
 		$orders = array();
 		$query = '';
-		$reflected_class = new ReflectionClass($empty_model);
-		foreach ($order as $orderfield => $orderdirection) {
-			if ($reflected_class->hasProperty($orderfield)) // @todo check if property is valid column
+		$reflectedClass = new ReflectionClass($emptyModel);
+		foreach ($order as $orderField => $orderDirection) {
+			if ($reflectedClass->hasProperty($orderField)) // @todo check if property is valid column
 			{
-				$orders[] = $orderfield
+				$orders[] = $orderField
 					. ' '
-					. (in_array(strtoupper($orderdirection), array('ASC', 'DESC')) ? $orderdirection : 'DESC');
+					. (in_array(strtoupper($orderDirection), array('ASC', 'DESC')) ? $orderDirection : 'DESC');
 			}
 			// TODO log invalid attributes
 		}

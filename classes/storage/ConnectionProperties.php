@@ -42,21 +42,21 @@ class ConnectionProperties {
 	public $port;
 
 	/**
-	 * @param string $connection_string
+	 * @param string $connectionString
 	 */
-	public function __construct($connection_string) {
-		$system_url = explode('://', $connection_string);
-		$connection_parts = explode('@', $system_url[1]);
-		$user_pass = explode(':', $connection_parts[0]);
-		$host_db = explode('/', $connection_parts[1]);
-		$host_port = explode(':', $host_db[0]);
+	public function __construct($connectionString) {
+		$systemUrl = explode('://', $connectionString);
+		$connectionParts = explode('@', $systemUrl[1]);
+		$userPass = explode(':', $connectionParts[0]);
+		$hostDb = explode('/', $connectionParts[1]);
+		$hostPort = explode(':', $hostDb[0]);
 
-		$this->system = $system_url[0];
-		$this->user = $user_pass[0];
-		$this->pass = $user_pass[1];
-		$this->host = $host_port[0];
-		$this->port = $host_port[1];
-		$this->name = $host_db[1];
+		$this->system = $systemUrl[0];
+		$this->user = $userPass[0];
+		$this->pass = $userPass[1];
+		$this->host = $hostPort[0];
+		$this->port = $hostPort[1];
+		$this->name = $hostDb[1];
 	}
 
 }

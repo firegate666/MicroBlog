@@ -32,7 +32,7 @@
 		this.onBlogView = function(id_arg) {
 			var id = parseInt(id_arg, 10),
 				blog = app.blogs.findWhere({id: id}),
-				posts = new Backbone.Collection(app.posts.where({blog_id : id})),
+				posts = new Backbone.Collection(app.posts.where({blogId : id})),
 				comments = app.comments;
 
 			if (currentView) {

@@ -10,21 +10,21 @@ class View implements RenderingInterface {
 	 *
 	 * @var array
 	 */
-	public $rendering_config;
+	public $renderingConfig;
 
 	/**
 	 *
 	 * @var FileReader
 	 */
-	private $file_reader;
+	private $fileReader;
 
 	/**
-	 * @param array $rendering_config
-	 * @param FileReader $file_reader
+	 * @param array $renderingConfig
+	 * @param FileReader $fileReader
 	 */
-	public function __construct(array $rendering_config, FileReader $file_reader) {
-		$this->rendering_config = $rendering_config;
-		$this->file_reader = $file_reader;
+	public function __construct(array $renderingConfig, FileReader $fileReader) {
+		$this->renderingConfig = $renderingConfig;
+		$this->fileReader = $fileReader;
 	}
 
 	/**
@@ -33,8 +33,8 @@ class View implements RenderingInterface {
 	 * @return string
 	 */
 	protected function getLayoutBasePath() {
-		if (array_key_exists('layout_base_path', $this->rendering_config)) {
-			return $this->rendering_config['layout_base_path'];
+		if (array_key_exists('layout_base_path', $this->renderingConfig)) {
+			return $this->renderingConfig['layout_base_path'];
 		}
 
 		return TEMPLATES_DEFAULT;
@@ -50,21 +50,21 @@ class View implements RenderingInterface {
 	 * @return string
 	 */
 	public function render($layout, $parameters = array(), $wrap = 'main') {
-		static $clear_buffer;
-		if ($clear_buffer === null) {
+		static $clearBuffer;
+		if ($clearBuffer === null) {
 			ob_clean();
-			$clear_buffer = false;
+			$clearBuffer = false;
 		}
 
-		$layout_file = $this->getLayoutBasePath() . $layout . '.php';
-		if (!$this->file_reader->file_exists($layout_file)) {
-			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layout_file), 404);
+		$layoutFile = $this->getLayoutBasePath() . $layout . '.php';
+		if (!$this->fileReader->fileExists($layoutFile)) {
+			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layoutFile), 404);
 		}
 
 		extract($parameters);
 		ob_start();
 		/** @todo how can this be handled by file reader without eval? */
-		include $layout_file;
+		include $layoutFile;
 		$content = ob_get_clean();
 
 		if ($wrap === null) {

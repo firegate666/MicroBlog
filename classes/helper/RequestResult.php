@@ -17,16 +17,16 @@ abstract class RequestResult {
 	/**
 	 * @var integer
 	 */
-	protected $http_status;
+	protected $httpStatus;
 
 	/**
 	 *
 	 * @param mixed $result
-	 * @param integer $http_status
+	 * @param integer $httpStatus
 	 */
-	public function __construct($result, $http_status = 200) {
+	public function __construct($result, $httpStatus = 200) {
 		$this->result = $result;
-		$this->http_status = $http_status;
+		$this->httpStatus = $httpStatus;
 	}
 
 	/**
@@ -40,7 +40,7 @@ abstract class RequestResult {
 	 * @return integer
 	 */
 	public function getHttpStatus() {
-		return $this->http_status;
+		return $this->httpStatus;
 	}
 
 	/**

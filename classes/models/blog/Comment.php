@@ -14,7 +14,7 @@ class Comment extends Model implements Persistable {
 	 *
 	 * @var integer
 	 */
-	public $post_id;
+	public $postId;
 
 	/**
 	 *

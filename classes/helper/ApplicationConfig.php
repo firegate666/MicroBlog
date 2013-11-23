@@ -8,13 +8,13 @@ final class ApplicationConfig {
 	 *
 	 * @var string content base ini
 	 */
-	private $base_config_string = '';
+	private $baseConfigString = '';
 
 	/**
 	 *
 	 * @var string content of default ini
 	 */
-	private $default_config_string = '';
+	private $defaultConfigString = '';
 
 	/**
 	 *
@@ -26,16 +26,16 @@ final class ApplicationConfig {
 	 *
 	 * @var array
 	 */
-	private $default_config = array();
+	private $defaultConfig = array();
 
 	/**
 	 *
-	 * @param string $base_config
-	 * @param string $default_config
+	 * @param string $baseConfig
+	 * @param string $defaultConfig
 	 */
-	function __construct($base_config = '', $default_config = '') {
-		$this->base_config_string = $base_config;
-		$this->default_config_string = $default_config;
+	function __construct($baseConfig = '', $defaultConfig = '') {
+		$this->baseConfigString = $baseConfig;
+		$this->defaultConfigString = $defaultConfig;
 		$this->init();
 	}
 
@@ -46,16 +46,16 @@ final class ApplicationConfig {
 	 * @return void
 	 */
 	protected function init() {
-		$this->default_config = parse_ini_string($this->default_config_string, true);
+		$this->defaultConfig = parse_ini_string($this->defaultConfigString, true);
 
-		if ($this->base_config_string) {
-			$this->config = parse_ini_string($this->base_config_string, true);
+		if ($this->baseConfigString) {
+			$this->config = parse_ini_string($this->baseConfigString, true);
 		}
 
-		foreach ($this->getSection('app_env', array()) as $env_key => $env_value) {
-			$constant = 'APP_ENV_' . strtoupper($env_key);
+		foreach ($this->getSection('app_env', array()) as $envKey => $envValue) {
+			$constant = 'APP_ENV_' . strtoupper($envKey);
 			if (!\defined($constant)) {
-				\define($constant, $env_value);
+				\define($constant, $envValue);
 			}
 		}
 	}
@@ -63,16 +63,16 @@ final class ApplicationConfig {
 	/**
 	 * get config section
 	 *
-	 * @param string $config_name
+	 * @param string $configName
 	 * @param mixed $default
-	 * @param boolean $force_default
+	 * @param boolean $forceDefault
 	 * @return mixed
 	 */
-	function getSection($config_name, $default = array(), $force_default = false) {
-		if (!$force_default && array_key_exists($config_name, $this->config)) {
-			return $this->config[$config_name];
-		} else if (array_key_exists($config_name, $this->default_config)) {
-			return $this->default_config[$config_name];
+	function getSection($configName, $default = array(), $forceDefault = false) {
+		if (!$forceDefault && array_key_exists($configName, $this->config)) {
+			return $this->config[$configName];
+		} else if (array_key_exists($configName, $this->defaultConfig)) {
+			return $this->defaultConfig[$configName];
 		}
 		return $default;
 	}
@@ -80,19 +80,19 @@ final class ApplicationConfig {
 	/**
 	 * get subentry from config section
 	 *
-	 * @param string $config_name
-	 * @param string $sub_name
+	 * @param string $configName
+	 * @param string $subName
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	function getSectionEntry($config_name, $sub_name, $default = null) {
-		$config = $this->getSection($config_name);
-		if (array_key_exists($sub_name, $config)) {
-			return $config[$sub_name];
+	function getSectionEntry($configName, $subName, $default = null) {
+		$config = $this->getSection($configName);
+		if (array_key_exists($subName, $config)) {
+			return $config[$subName];
 		} else {
-			$config = $this->getSection($config_name, array(), true);
-			if (array_key_exists($sub_name, $config)) {
-				return $config[$sub_name];
+			$config = $this->getSection($configName, array(), true);
+			if (array_key_exists($subName, $config)) {
+				return $config[$subName];
 			}
 		}
 		return $default;

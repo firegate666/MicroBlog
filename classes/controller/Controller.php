@@ -75,20 +75,20 @@ abstract class Controller {
 		if (isset($this->storage)) {
 			return $this->storage;
 		}
-		$storage_config = $this->getConfig('storage');
-		$this->storage = new $storage_config['class']($storage_config['identifier']);
+		$storageConfig = $this->getConfig('storage');
+		$this->storage = new $storageConfig['class']($storageConfig['identifier']);
 		$this->storage->setLogger($this->getLogger());
 		return $this->storage;
 	}
 
 	/**
 	 *
-	 * @param string $config_name
+	 * @param string $configName
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	protected function getConfig($config_name, $default = null) {
-		return $this->config->getSection($config_name, $default);
+	protected function getConfig($configName, $default = null) {
+		return $this->config->getSection($configName, $default);
 	}
 
 	/**

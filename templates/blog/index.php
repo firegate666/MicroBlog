@@ -14,7 +14,7 @@
 			<li class="post">
 				<%= post.id %> : <%= post.getContent() %>
 				<ul class="comments">
-					<% new Backbone.Collection(comments.where({post_id : post.id})).each(function(comment, k) { %>
+					<% new Backbone.Collection(comments.where({postId : post.id})).each(function(comment, k) { %>
 						<li class="comment">
 							<%= comment.getContent() %>
 						</li>

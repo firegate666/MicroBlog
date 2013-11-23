@@ -17,9 +17,9 @@ interface Persistable {
 	public function getId();
 
 	/**
-	 * @param integer $new_id
+	 * @param integer $newId
 	 * @return void
 	 */
-	public function setId($new_id);
+	public function setId($newId);
 
 }

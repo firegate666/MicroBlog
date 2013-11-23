@@ -37,31 +37,31 @@ class BlogController extends AbstractActionController {
 	/**
 	 * insert new post for blog
 	 *
-	 * @param integer $post_blog_id
-	 * @param string $post_contents
+	 * @param integer $postBlogId
+	 * @param string $postContents
 	 * @return \helper\JSONResult
 	 */
-	public function actionAjaxPost($post_blog_id, $post_contents) {
+	public function actionAjaxPost($postBlogId, $postContents) {
 		$post = new Post();
 		// TODO check privileges
-		$post->blog_id = $post_blog_id;
-		$post->content = $post_contents;
+		$post->blogId = $postBlogId;
+		$post->content = $postContents;
 		$response = $this->getStorage()->save($post);
 
-		return new JSONResult(array($response, $post_blog_id, $post_contents));
+		return new JSONResult(array($response, $postBlogId, $postContents));
 	}
 
 	/**
-	 * @param integer $post_post_id
-	 * @param string $post_contents
+	 * @param integer $postPostId
+	 * @param string $postContents
 	 * @return JSONResult
 	 */
-	public function actionAjaxComment($post_post_id, $post_contents) {
+	public function actionAjaxComment($postPostId, $postContents) {
 		$comment = new Comment();
-		$comment->post_id = $post_post_id;
-		$comment->content = $post_contents;
+		$comment->postId = $postPostId;
+		$comment->content = $postContents;
 		$response = $this->getStorage()->save($comment);
 
-		return new JSONResult(array($response, $post_post_id, $post_contents));
+		return new JSONResult(array($response, $postPostId, $postContents));
 	}
 }

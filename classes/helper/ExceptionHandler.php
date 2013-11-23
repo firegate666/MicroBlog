@@ -25,6 +25,5 @@ class ExceptionHandler {
 		print "<pre>";
 		print $exception->getTraceAsString();
 		print "</pre></body></html>";
-		exit($exception->getCode());
 	}
 }

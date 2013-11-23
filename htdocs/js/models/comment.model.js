@@ -17,7 +17,7 @@
 		},
 
 		getPostId : function() {
-			return this.get('post_id');
+			return this.get('postId');
 		},
 
 		getContent : function() {

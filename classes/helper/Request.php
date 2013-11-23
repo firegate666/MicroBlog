@@ -10,27 +10,27 @@ class Request {
 	/**
 	 * @var string[]
 	 */
-	private $server_vars;
+	private $serverVars;
 
 	/**
 	 * @var array
 	 */
-	private $get_params;
+	private $getParams;
 
 	/**
 	 * @var array
 	 */
-	private $post_params;
+	private $postParams;
 
 	/**
-	 * @param array $server_vars
-	 * @param array $get_params
-	 * @param array $post_params
+	 * @param array $serverVars
+	 * @param array $getParams
+	 * @param array $postParams
 	 */
-	public function __construct($server_vars, $get_params, $post_params) {
-		$this->server_vars = $server_vars;
-		$this->get_params = $get_params;
-		$this->post_params = $post_params;
+	public function __construct($serverVars, $getParams, $postParams) {
+		$this->serverVars = $serverVars;
+		$this->getParams = $getParams;
+		$this->postParams = $postParams;
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Request {
 	 */
 	public function getParam($name, $default = null) {
 		if ($this->hasGetParam($name)) {
-			return $this->get_params[$name];
+			return $this->getParams[$name];
 		}
 		return $default;
 	}
@@ -73,7 +73,7 @@ class Request {
 	 * @return boolean
 	 */
 	public function hasGetParam($name) {
-		return array_key_exists($name, $this->get_params);
+		return array_key_exists($name, $this->getParams);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class Request {
 	 * @return boolean
 	 */
 	public function hasPostParam($name) {
-		return array_key_exists($name, $this->post_params);
+		return array_key_exists($name, $this->postParams);
 	}
 
 	/**
@@ -100,8 +100,20 @@ class Request {
 	 * @return mixed
 	 */
 	public function postParam($name, $default = null) {
-		if (array_key_exists($name, $this->post_params)) {
-			return $this->post_params[$name];
+		if (array_key_exists($name, $this->postParams)) {
+			return $this->postParams[$name];
+		}
+		return $default;
+	}
+
+	/**
+	 * @param string $name
+	 * @param mixed $default
+	 * @return mixed
+	 */
+	public function serverVar($name, $default = null) {
+		if (array_key_exists($name, $this->serverVars)) {
+			return $this->serverVars[$name];
 		}
 		return $default;
 	}
@@ -110,6 +122,6 @@ class Request {
 	 * @return boolean
 	 */
 	public function isAjax() {
-		return !empty($this->server_vars['HTTP_X_REQUESTED_WITH']);
+		return !empty($this->serverVars['HTTP_X_REQUESTED_WITH']);
 	}
 }

@@ -75,11 +75,11 @@ class Model {
 	 * @return void
 	 */
 	public function setAttributes(array $attributes) {
-		$reflected_class = new ReflectionClass($this);
+		$reflectedClass = new ReflectionClass($this);
 		foreach ($attributes as $name => $value) {
-			if ($reflected_class->hasProperty($name)) {
-				$reflected_method = new \ReflectionProperty($this, $name);
-				if ($reflected_method->isPublic()) {
+			if ($reflectedClass->hasProperty($name)) {
+				$reflectedMethod = new \ReflectionProperty($this, $name);
+				if ($reflectedMethod->isPublic()) {
 					$this->{$name} = $value;
 				}
 			}
@@ -94,11 +94,11 @@ class Model {
 	}
 
 	/**
-	 * @param integer $new_id
+	 * @param integer $newId
 	 * @return void
 	 */
-	public function setId($new_id) {
-		$this->id = $new_id;
+	public function setId($newId) {
+		$this->id = $newId;
 	}
 
 	/**

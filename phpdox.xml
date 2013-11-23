@@ -5,6 +5,7 @@
 
 		<collector publiconly="false">
 			<include mask="*.php" />
+			<exclude mask="**vendor**" />
 		</collector>
 
 		<generator output="build">

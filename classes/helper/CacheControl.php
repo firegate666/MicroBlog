@@ -10,6 +10,9 @@ namespace helper;
  */
 final class CacheControl {
 
+	/**
+	 * no instances shall be created
+	 */
 	private function __construct() {
 		// no instances
 	}
@@ -33,7 +36,7 @@ final class CacheControl {
 	 * @param String $filename
 	 * @return String
 	 */
-	public static function last_modified($filename) {
+	public static function lastModified($filename) {
 		return date('r', filemtime($filename));
 	}
 
@@ -41,50 +44,49 @@ final class CacheControl {
 	 * test if filename is not modified since
 	 *
 	 * @param String $filename
-	 * @param boolean $send_header if true send Last-Modified header
+	 * @param boolean $sendHeader if true send Last-Modified header
 	 * @return boolean
 	 */
-	public static function is_not_modified_since_file($filename, $send_header = true) {
-		$last_modified = self::last_modified($filename);
+	public static function isNotModifiedSinceFile($filename, $sendHeader = true) {
+		$lastModified = self::lastModified($filename);
 
-		if ($send_header) {
-			header("Last-Modified: $last_modified", true);
+		if ($sendHeader) {
+			header("Last-Modified: $lastModified", true);
 		}
 
-		return self::is_not_modified_since($last_modified);
+		return self::isNotModifiedSince($lastModified);
 	}
 
 	/**
 	 * test if filename matches
 	 *
+	 * @param Request $request
 	 * @param String $filename
 	 * @param array $params
-	 * @param boolean $send_header if true send Etag header
+	 * @param boolean $sendHeader if true send Etag header
 	 * @return boolean
 	 */
-	public static function etag_matches_file($filename, $params = array(), $send_header = true) {
+	public static function etagMatchesFile(Request $request, $filename, $params = array(), $sendHeader = true) {
 		$etag = self::etag($filename, $params);
 
-		if ($send_header) {
+		if ($sendHeader) {
 			header("Etag: $etag", true);
 		}
 
-		return self::etag_matches($etag);
+		return self::etagMatches($request, $etag);
 	}
 
 	/**
 	 * test if etag matches
 	 *
-	 * @global $_SERVER ['HTTP_IF_NONE_MATCH']
+	 * @param Request $request
 	 * @param String $etag
 	 * @return boolean
 	 */
-	public static function etag_matches($etag) {
-		$if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
-			stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
-			false;
+	public static function etagMatches(Request $request, $etag) {
+		$ifNoneMatch = $request->serverVar('HTTP_IF_NONE_MATCH', false);
 
-		if ($if_none_match && $if_none_match == $etag) {
+		if ($ifNoneMatch && $ifNoneMatch == $etag) {
 			return true;
 		}
 		return false;
@@ -93,26 +95,25 @@ final class CacheControl {
 	/**
 	 * test if modified since
 	 *
-	 * @global $_SERVER ['HTTP_IF_MODIFIED_SINCE']
-	 * @param String $last_modified
+	 * @param Request $request
+	 * @param String $lastModified
 	 * @return boolean
 	 */
-	public static function is_not_modified_since($last_modified) {
-		$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
-			stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
-			false;
+	public static function isNotModifiedSince(Request $request, $lastModified) {
+		$ifModifiedSince = $request->serverVar('HTTP_IF_MODIFIED_SINCE', false);
 
-		if ($if_modified_since && $if_modified_since == $last_modified) {
+		if ($ifModifiedSince && $ifModifiedSince == $lastModified) {
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * send 304 and exit()
+	 * send 304
+	 *
+	 * @return void
 	 */
-	public static function send_not_modified_since() {
+	public static function sendNotModifiedSince() {
 		header('HTTP/1.0 304 Not Modified');
-		exit;
 	}
 }
