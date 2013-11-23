@@ -2,7 +2,6 @@
 
 namespace helper;
 
-
 class Sanitizer {
 
 	/**
@@ -13,7 +12,9 @@ class Sanitizer {
 	 */
 	public static function validateAllInt(array $integers) {
 		foreach ($integers as $integer) {
-			if (!preg_match('/^[0-9]$/', $integer)) {
+			if (is_bool($integer) || is_array($integer)) {
+				return false;
+			} else if (!preg_match('/^[0-9]$/', $integer)) {
 				return false;
 			}
 		}
