@@ -9,6 +9,10 @@
 
 	<testsuites>
 
+		<testsuite name="Controller">
+			<directory suffix=".php">tests/controller</directory>
+		</testsuite>
+
 		<testsuite name="Helper">
 			<directory suffix=".php">tests/helper</directory>
 		</testsuite>
