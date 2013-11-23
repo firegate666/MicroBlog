@@ -1,7 +1,7 @@
 /*jslint browser: true*/
 /*global jQuery*/
 
-(function($, app, us) {
+(function($, app) {
 	'use strict';
 
 	app.MicroBlog = function() {
@@ -17,7 +17,6 @@
 		this.onIndex = function() {
 			if (currentView) {
 				currentView.remove();
-				currentView = null;
 			}
 
 			currentView = new app.BlogsView({
@@ -38,7 +37,6 @@
 
 			if (currentView) {
 				currentView.remove();
-				currentView = null;
 			}
 
 			currentView = new app.BlogView({
@@ -54,4 +52,4 @@
 
 	};
 
-}(jQuery, window, _));
+}(jQuery, window));

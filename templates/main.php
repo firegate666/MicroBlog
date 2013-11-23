@@ -8,6 +8,8 @@
 		<link rel="stylesheet" type="text/css" href="css/reset.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 
+		<script src="js/lib/require.js"></script>
+
 		<script src="js/lib/jquery-2.0.0.js"></script>
 
 		<script src="js/lib/json2.js" type="text/javascript"></script>
