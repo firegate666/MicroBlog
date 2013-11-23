@@ -2,18 +2,16 @@
 
 namespace controller;
 
-use \helper\HTMLResult;
-use \helper\JSONResult;
+use helper\HTMLResult;
 
-use \models\blog\Blog;
-use \models\blog\Post;
-use \models\blog\Comment;
+use helper\JSONResult;
+use models\blog\Blog;
+use models\blog\Comment;
+use models\blog\Post;
 
-class BlogController extends AbstractActionController
-{
+class BlogController extends AbstractActionController {
 
-	public function actionIndex()
-	{
+	public function actionIndex() {
 		$result = $this->getView()
 			->render('blog/index');
 
@@ -25,8 +23,7 @@ class BlogController extends AbstractActionController
 	 *
 	 * @return HTMLResult
 	 */
-	public function actionList()
-	{
+	public function actionList() {
 		$result = $this->getView()
 			->render('bloglist');
 
@@ -38,8 +35,7 @@ class BlogController extends AbstractActionController
 	 *
 	 * @return JSONResult
 	 */
-	public function actionAjaxList()
-	{
+	public function actionAjaxList() {
 		$list = $this->getStorage()
 			->findAll(new Blog(), array('title' => 'ASC'));
 
@@ -47,8 +43,7 @@ class BlogController extends AbstractActionController
 
 	}
 
-	public function actionShow($id)
-	{
+	public function actionShow($id) {
 		$blog = $this->getStorage()->load(new Blog(array('id' => $id)));
 		if (empty($blog->id)) {
 			throw new \InvalidArgumentException('Blog not found', 404);
@@ -57,7 +52,7 @@ class BlogController extends AbstractActionController
 		$blog->posts = $this->getStorage()
 			->find(new Post(), array('blog_id' => $blog->id));
 
-		foreach($blog->posts as $post) {
+		foreach ($blog->posts as $post) {
 			$post->comments = $this->getStorage()
 				->find(new Comment(), array('post_id' => $post->id));
 		}
@@ -75,8 +70,7 @@ class BlogController extends AbstractActionController
 	 * @param string $post_contents
 	 * @return \helper\JSONResult
 	 */
-	public function actionAjaxPost($post_blog_id, $post_contents)
-	{
+	public function actionAjaxPost($post_blog_id, $post_contents) {
 		$post = new Post();
 		// TODO check privs
 		$post->blog_id = $post_blog_id;
@@ -86,8 +80,7 @@ class BlogController extends AbstractActionController
 		return new JSONResult(array($response, $post_blog_id, $post_contents));
 	}
 
-	public function actionAjaxComment($post_post_id, $post_contents)
-	{
+	public function actionAjaxComment($post_post_id, $post_contents) {
 		$comment = new Comment();
 		$comment->post_id = $post_post_id;
 		$comment->content = $post_contents;

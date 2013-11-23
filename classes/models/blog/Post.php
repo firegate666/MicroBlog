@@ -8,8 +8,7 @@ use storage\Persistable;
 /**
  * @tableName Post
  */
-class Post extends Model implements Persistable
-{
+class Post extends Model implements Persistable {
 
 	/**
 	 *

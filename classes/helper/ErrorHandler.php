@@ -7,8 +7,7 @@ namespace helper;
  *
  * @package helper
  */
-class ErrorHandler
-{
+class ErrorHandler {
 
 	/**
 	 * convert php error to ErrorException
@@ -20,8 +19,7 @@ class ErrorHandler
 	 * @throws \ErrorException
 	 * @return void
 	 */
-	function handle($errno, $errstr, $errfile, $errline)
-	{
+	function handle($errno, $errstr, $errfile, $errline) {
 		throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 	}
 }

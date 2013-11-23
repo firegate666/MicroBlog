@@ -8,8 +8,7 @@ use storage\Persistable;
 /**
  * @tableName Comment
  */
-class Comment extends Model implements Persistable
-{
+class Comment extends Model implements Persistable {
 
 	/**
 	 *

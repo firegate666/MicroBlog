@@ -16,8 +16,7 @@ class PDOStorage extends Storage {
 	/**
 	 * @inheritdoc
 	 */
-	public function __construct($connection_string)
-	{
+	public function __construct($connection_string) {
 		parent::__construct($connection_string);
 		$connection_properties = new ConnectionProperties($connection_string);
 
@@ -27,6 +26,7 @@ class PDOStorage extends Storage {
 
 		$this->pdo = new PDO($dsn, $user, $password);
 	}
+
 	/**
 	 * Bind values to prepared statement
 	 *
@@ -60,8 +60,7 @@ class PDOStorage extends Storage {
 	/**
 	 * @inheritdoc
 	 */
-	public function find(Persistable $empty_model, $attributes = array(), $order = array())
-	{
+	public function find(Persistable $empty_model, $attributes = array(), $order = array()) {
 		$table = $this->createTableName($empty_model);
 
 		$query = 'SELECT * FROM ' . $table;
@@ -76,13 +75,10 @@ class PDOStorage extends Storage {
 		$list = array();
 
 		$stmt->execute();
-		while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false)
-		{
+		while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false) {
 			$clone = clone $empty_model;
-			foreach ($row as $column => $data)
-			{
-				if (property_exists($clone, $column))
-				{
+			foreach ($row as $column => $data) {
+				if (property_exists($clone, $column)) {
 
 					if (is_numeric($data) && stripos($data, '.') !== false) {
 						$data = (float)$data;
@@ -94,11 +90,9 @@ class PDOStorage extends Storage {
 				}
 			}
 
-			if ($clone->isValid())
-			{
+			if ($clone->isValid()) {
 				$list[] = $clone;
-			}
-			else{
+			} else {
 				throw new InvalidArgumentException($this->pdo->errorInfo());
 			}
 			// TODO log failures
@@ -109,15 +103,13 @@ class PDOStorage extends Storage {
 	/**
 	 * @inheritdoc
 	 */
-	public function save(Persistable $model)
-	{
+	public function save(Persistable $model) {
 		$table = $this->createTableName($model);
 		$fields = $this->extractStorableFields($model);
 
 		$id = $fields['id'];
 		$stmt = null;
-		if (empty($id))
-		{
+		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
 			$query = sprintf('INSERT INTO ' . $table . '(%s) VALUES (%s)',
@@ -125,8 +117,7 @@ class PDOStorage extends Storage {
 				':' . implode(',:', array_keys($fields))
 			);
 			$stmt = $this->pdo->prepare($query);
-		}
-		else {
+		} else {
 			// UPDATE
 			// TODO implement
 			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);

@@ -2,8 +2,7 @@
 
 namespace helper;
 
-final class ApplicationConfig
-{
+final class ApplicationConfig {
 
 	/**
 	 *
@@ -34,8 +33,7 @@ final class ApplicationConfig
 	 * @param string $base_config
 	 * @param string $default_config
 	 */
-	function __construct($base_config = '', $default_config = '')
-	{
+	function __construct($base_config = '', $default_config = '') {
 		$this->base_config_string = $base_config;
 		$this->default_config_string = $default_config;
 		$this->init();
@@ -47,19 +45,16 @@ final class ApplicationConfig
 	 *
 	 * @return void
 	 */
-	protected function init()
-	{
+	protected function init() {
 		$this->default_config = parse_ini_string($this->default_config_string, true);
 
 		if ($this->base_config_string) {
 			$this->config = parse_ini_string($this->base_config_string, true);
 		}
 
-		foreach ($this->getSection('app_env', array()) as $env_key => $env_value)
-		{
+		foreach ($this->getSection('app_env', array()) as $env_key => $env_value) {
 			$constant = 'APP_ENV_' . strtoupper($env_key);
-			if (! \defined($constant))
-			{
+			if (!\defined($constant)) {
 				\define($constant, $env_value);
 			}
 		}
@@ -73,14 +68,10 @@ final class ApplicationConfig
 	 * @param boolean $force_default
 	 * @return mixed
 	 */
-	function getSection($config_name, $default = array(), $force_default = false)
-	{
-		if (! $force_default && array_key_exists($config_name, $this->config))
-		{
+	function getSection($config_name, $default = array(), $force_default = false) {
+		if (!$force_default && array_key_exists($config_name, $this->config)) {
 			return $this->config[$config_name];
-		}
-		else if (array_key_exists($config_name, $this->default_config))
-		{
+		} else if (array_key_exists($config_name, $this->default_config)) {
 			return $this->default_config[$config_name];
 		}
 		return $default;
@@ -94,18 +85,13 @@ final class ApplicationConfig
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	function getSectionEntry($config_name, $sub_name, $default = null)
-	{
+	function getSectionEntry($config_name, $sub_name, $default = null) {
 		$config = $this->getSection($config_name);
-		if (array_key_exists($sub_name, $config))
-		{
+		if (array_key_exists($sub_name, $config)) {
 			return $config[$sub_name];
-		}
-		else
-		{
+		} else {
 			$config = $this->getSection($config_name, array(), true);
-			if (array_key_exists($sub_name, $config))
-			{
+			if (array_key_exists($sub_name, $config)) {
 				return $config[$sub_name];
 			}
 		}

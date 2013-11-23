@@ -7,8 +7,7 @@ namespace helper;
  *
  * @package helper
  */
-class ExceptionHandler
-{
+class ExceptionHandler {
 
 	/**
 	 * custom exception handler
@@ -17,8 +16,7 @@ class ExceptionHandler
 	 * @param \Exception $exception
 	 * @return void
 	 */
-	function handle(\Exception $exception)
-	{
+	function handle(\Exception $exception) {
 		header('Content-type: text/html; charset=UTF-8', true, 500);
 		header('X-Error-Code: ' . $exception->getCode());
 		header('X-Exception-Message: ' . $exception->getMessage());

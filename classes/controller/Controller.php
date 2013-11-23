@@ -2,14 +2,13 @@
 
 namespace controller;
 
-use \helper\ApplicationConfig;
-use \helper\Request;
-use \rendering\View;
-use \storage\Storage;
+use helper\ApplicationConfig;
+use helper\Request;
 use Psr\Log\LoggerInterface;
+use rendering\View;
+use storage\Storage;
 
-abstract class Controller
-{
+abstract class Controller {
 
 	/**
 	 *
@@ -39,8 +38,7 @@ abstract class Controller
 	 *
 	 * @return View
 	 */
-	protected function getView()
-	{
+	protected function getView() {
 		return $this->view;
 	}
 
@@ -49,8 +47,7 @@ abstract class Controller
 	 * @param ApplicationConfig $config
 	 * @param View $view
 	 */
-	public function __construct(ApplicationConfig $config, View $view)
-	{
+	public function __construct(ApplicationConfig $config, View $view) {
 		$this->config = $config;
 		$this->view = $view;
 	}
@@ -74,10 +71,8 @@ abstract class Controller
 	 *
 	 * @return Storage
 	 */
-	protected function getStorage()
-	{
-		if (isset($this->storage))
-		{
+	protected function getStorage() {
+		if (isset($this->storage)) {
 			return $this->storage;
 		}
 		$storage_config = $this->getConfig('storage');
@@ -92,8 +87,7 @@ abstract class Controller
 	 * @param mixed $default
 	 * @return mixed
 	 */
-	protected function getConfig($config_name, $default = null)
-	{
+	protected function getConfig($config_name, $default = null) {
 		return $this->config->getSection($config_name, $default);
 	}
 

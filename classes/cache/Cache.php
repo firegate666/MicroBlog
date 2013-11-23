@@ -2,6 +2,5 @@
 
 namespace cache;
 
-class Cache
-{
+class Cache {
 }

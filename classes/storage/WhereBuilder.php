@@ -17,16 +17,14 @@ class WhereBuilder {
 		// @TODO compare operator
 		$condition = array();
 		$query = '';
-		foreach ($attributes as $column => $data)
-		{
+		foreach ($attributes as $column => $data) {
 			$cmp = $data == null ? ' IS ' : '= :';
-			$bind =  $data == null ? 'NULL' : $data;
+			$bind = $data == null ? 'NULL' : $data;
 
 			$condition[] = $column . $cmp . $bind;
 		}
 
-		if (!empty($condition))
-		{
+		if (!empty($condition)) {
 			$query .= ' WHERE ' . implode(' AND ', $condition);
 		}
 		return $query;

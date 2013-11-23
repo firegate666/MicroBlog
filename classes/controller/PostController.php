@@ -8,25 +8,22 @@
 
 namespace controller;
 
-use \helper\JSONResult;
-
-use \models\blog\Post;
+use helper\JSONResult;
+use models\blog\Post;
 
 /**
  * Handle all posts
  *
  * @package controller
  */
-class PostController extends AbstractActionController
-{
+class PostController extends AbstractActionController {
 
 	/**
 	 * @return JSONResult
 	 */
-	public function actionAjaxList()
-    {
-	    $list = $this->getStorage()->findAll(new Post());
-        return new JSONResult($list);
-    }
+	public function actionAjaxList() {
+		$list = $this->getStorage()->findAll(new Post());
+		return new JSONResult($list);
+	}
 
 }

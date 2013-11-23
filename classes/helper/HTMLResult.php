@@ -7,13 +7,11 @@ namespace helper;
  *
  * @package helper
  */
-class HTMLResult extends RequestResult
-{
+class HTMLResult extends RequestResult {
 	/**
 	 * @return string html string
 	 */
-	public function getResult()
-	{
+	public function getResult() {
 		return $this->result;
 	}
 }

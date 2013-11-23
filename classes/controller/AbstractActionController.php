@@ -2,10 +2,9 @@
 
 namespace controller;
 
-use \helper\Request;
+use helper\Request;
 
-abstract class AbstractActionController extends Controller
-{
+abstract class AbstractActionController extends Controller {
 
 	/**
 	 * Default implementation for access control
@@ -42,8 +41,7 @@ abstract class AbstractActionController extends Controller
 	/*
 	 * (non-PHPdoc) @see Controller::handle()
 	 */
-	public function handle(Request $request)
-	{
+	public function handle(Request $request) {
 		$action_name = 'action' . ucfirst($request->getParam('action', 'index'));
 		$beforeAction = 'before' . ucfirst($action_name);
 		$afterAction = 'after' . ucfirst($action_name);
@@ -55,23 +53,17 @@ abstract class AbstractActionController extends Controller
 			$action_name = 'actionAjax' . ucfirst($request->getParam('action', 'index'));
 		}
 
-		if (is_callable(array($this, $action_name)))
-		{
+		if (is_callable(array($this, $action_name))) {
 			$mth = new \ReflectionMethod($this, $action_name);
 			$func_args = array();
 			foreach ($mth->getParameters() as $parameter) {
 				$name = $parameter->getName();
 				$value = null;
-				if (substr($name, 0, 5) === 'post_')
-				{
+				if (substr($name, 0, 5) === 'post_') {
 					$value = $request->postParam(substr($name, 5), null);
-				}
-				else if (substr($name, 0, 4) === 'get_')
-				{
+				} else if (substr($name, 0, 4) === 'get_') {
 					$value = $request->getParam(substr($name, 4), null);
-				}
-				else
-				{
+				} else {
 					$value = $request->getOrPostParam($name, null);
 				}
 				$func_args[] = $value !== null ? $value : $mth->getDefaultValue();
@@ -85,15 +77,13 @@ abstract class AbstractActionController extends Controller
 				throw new \LogicException('before action call failed', 500);
 			}
 
-			if (method_exists($this, $beforeAction))
-			{
+			if (method_exists($this, $beforeAction)) {
 				call_user_func_array(array($this, $beforeAction), array_merge(array($request), $func_args));
 			}
 
 			$action_result = call_user_func_array(array($this, $action_name), $func_args);
 
-			if (method_exists($this, $afterAction))
-			{
+			if (method_exists($this, $afterAction)) {
 				call_user_func_array(array($this, $afterAction), array_merge(array($request), $func_args));
 			}
 

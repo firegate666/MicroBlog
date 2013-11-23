@@ -4,8 +4,7 @@ namespace rendering;
 
 use helper\FileReader;
 
-class View
-{
+class View {
 
 	/**
 	 *
@@ -23,8 +22,7 @@ class View
 	 * @param array $rendering_config
 	 * @param FileReader $file_reader
 	 */
-	public function __construct(array $rendering_config, FileReader $file_reader)
-	{
+	public function __construct(array $rendering_config, FileReader $file_reader) {
 		$this->rendering_config = $rendering_config;
 		$this->file_reader = $file_reader;
 	}
@@ -51,18 +49,15 @@ class View
 	 * @throws \InvalidArgumentException if layout is not found
 	 * @return string
 	 */
-	public function render($layout, $parameters = array(), $wrap = 'main')
-	{
+	public function render($layout, $parameters = array(), $wrap = 'main') {
 		static $clear_buffer;
-		if ($clear_buffer === null)
-		{
+		if ($clear_buffer === null) {
 			ob_clean();
 			$clear_buffer = false;
 		}
 
 		$layout_file = $this->getLayoutBasePath() . $layout . '.php';
-		if (!$this->file_reader->file_exists($layout_file))
-		{
+		if (!$this->file_reader->file_exists($layout_file)) {
 			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layout_file), 404);
 		}
 
@@ -72,8 +67,7 @@ class View
 		include $layout_file;
 		$content = ob_get_clean();
 
-		if ($wrap === null)
-		{
+		if ($wrap === null) {
 			return $content;
 		}
 		return $this->render($wrap, array('content' => $content), null);
@@ -87,8 +81,7 @@ class View
 	 * @param array $parameters
 	 * @return string
 	 */
-	public function renderPartial($layout, $parameters)
-	{
+	public function renderPartial($layout, $parameters) {
 		return $this->render($layout, $parameters, null);
 	}
 }

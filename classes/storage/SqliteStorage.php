@@ -10,8 +10,7 @@ use SQLite3;
  *
  * @package storage
  */
-class SqliteStorage extends Storage
-{
+class SqliteStorage extends Storage {
 
 	/**
 	 *
@@ -22,8 +21,7 @@ class SqliteStorage extends Storage
 	/**
 	 * @inheritdoc
 	 */
-	public function __construct($connection_string)
-	{
+	public function __construct($connection_string) {
 		parent::__construct($connection_string);
 		// @TODO move secret to config
 		$this->sqlite = new SQLite3(RUNTIME_DEFAULT . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
@@ -59,8 +57,7 @@ class SqliteStorage extends Storage
 	/**
 	 * @inheritdoc
 	 */
-	public function find(Persistable $empty_model, $attributes = array(), $order = array())
-	{
+	public function find(Persistable $empty_model, $attributes = array(), $order = array()) {
 		$table = $this->createTableName($empty_model);
 
 		$query = 'SELECT * FROM ' . $table;
@@ -74,19 +71,15 @@ class SqliteStorage extends Storage
 
 		$result = $stmt->execute();
 		$list = array();
-		while (($row = $result->fetchArray(SQLITE3_ASSOC)) !== false)
-		{
+		while (($row = $result->fetchArray(SQLITE3_ASSOC)) !== false) {
 			$clone = clone $empty_model;
-			foreach ($row as $column => $data)
-			{
-				if (property_exists($clone, $column))
-				{
+			foreach ($row as $column => $data) {
+				if (property_exists($clone, $column)) {
 					$clone->$column = $data;
 				}
 			}
 
-			if ($clone->isValid())
-			{
+			if ($clone->isValid()) {
 				$list[] = $clone;
 			}
 			// TODO log failures
@@ -97,15 +90,13 @@ class SqliteStorage extends Storage
 	/**
 	 * @inheritdoc
 	 */
-	public function save(Persistable $model)
-	{
+	public function save(Persistable $model) {
 		$table = $this->createTableName($model);
 		$fields = $this->extractStorableFields($model);
 
 		$id = $fields['id'];
 		$stmt = null;
-		if (empty($id))
-		{
+		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
 			$query = sprintf('INSERT INTO ' . $table . '(%s) VALUES (%s)',
@@ -113,8 +104,7 @@ class SqliteStorage extends Storage
 				':' . implode(',:', array_keys($fields))
 			);
 			$stmt = $this->sqlite->prepare($query);
-		}
-		else {
+		} else {
 			// UPDATE
 			// TODO implement
 			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);

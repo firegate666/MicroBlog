@@ -4,10 +4,9 @@ namespace storage;
 
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use \zpt\anno\Annotations;
+use zpt\anno\Annotations;
 
-abstract class Storage implements StorageInterface
-{
+abstract class Storage implements StorageInterface {
 
 	/**
 	 * @var OrderByBuilder
@@ -54,8 +53,7 @@ abstract class Storage implements StorageInterface
 	 * @param Persistable $empty_model
 	 * @return Persistable filled with data
 	 */
-	public function load(Persistable $empty_model)
-	{
+	public function load(Persistable $empty_model) {
 		$list = $this->find($empty_model, array('id' => $empty_model->id));
 		return array_pop($list);
 	}
@@ -67,8 +65,7 @@ abstract class Storage implements StorageInterface
 	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
 	 * @return array set of models
 	 */
-	public function findAll(Persistable $empty_model, $order = array())
-	{
+	public function findAll(Persistable $empty_model, $order = array()) {
 		return $this->find($empty_model, array(), $order);
 	}
 
@@ -94,8 +91,7 @@ abstract class Storage implements StorageInterface
 	 * @param Persistable $empty_model
 	 * @return string
 	 */
-	protected function createOrderBy($order, Persistable $empty_model)
-	{
+	protected function createOrderBy($order, Persistable $empty_model) {
 		return $this->orderByBuilder->build($order, $empty_model);
 	}
 
@@ -105,8 +101,7 @@ abstract class Storage implements StorageInterface
 	 * @param array $attributes
 	 * @return string
 	 */
-	protected function createWhere($attributes)
-	{
+	protected function createWhere($attributes) {
 		return $this->whereBuilder->build($attributes);
 	}
 

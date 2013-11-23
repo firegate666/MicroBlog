@@ -8,8 +8,7 @@ namespace helper;
  *
  * @package helper
  */
-abstract class RequestResult
-{
+abstract class RequestResult {
 	/**
 	 * @var mixed
 	 */
@@ -25,8 +24,7 @@ abstract class RequestResult
 	 * @param mixed $result
 	 * @param integer $http_status
 	 */
-	public function __construct($result, $http_status = 200)
-	{
+	public function __construct($result, $http_status = 200) {
 		$this->result = $result;
 		$this->http_status = $http_status;
 	}
@@ -41,16 +39,14 @@ abstract class RequestResult
 	 *
 	 * @return integer
 	 */
-	public function getHttpStatus()
-	{
+	public function getHttpStatus() {
 		return $this->http_status;
 	}
 
 	/**
 	 * @return integer timestamp
 	 */
-	public function validUntil()
-	{
+	public function validUntil() {
 		return false;
 	}
 

@@ -10,8 +10,7 @@ use storage\Persistable;
  *
  * @tableName Blog
  */
-class Blog extends Model implements Persistable
-{
+class Blog extends Model implements Persistable {
 
 	/**
 	 *
