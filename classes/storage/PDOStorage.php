@@ -109,6 +109,7 @@ class PDOStorage extends Storage {
 
 		$id = $fields['id'];
 		$stmt = null;
+		$is_new = false;
 		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
@@ -117,6 +118,7 @@ class PDOStorage extends Storage {
 				':' . implode(',:', array_keys($fields))
 			);
 			$stmt = $this->pdo->prepare($query);
+			$is_new = true;
 		} else {
 			// UPDATE
 			// TODO implement
@@ -124,7 +126,12 @@ class PDOStorage extends Storage {
 		}
 
 		$this->bindValues($stmt, $fields);
-		return $stmt->execute();
+
+		$ret = $stmt->execute();
+		if ($ret && $is_new) {
+			$model->setId($this->pdo->lastInsertId());
+		}
+		return $ret;
 	}
 
 }

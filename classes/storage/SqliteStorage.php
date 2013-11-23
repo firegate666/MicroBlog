@@ -96,6 +96,7 @@ class SqliteStorage extends Storage {
 
 		$id = $fields['id'];
 		$stmt = null;
+		$id_new = false;
 		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
@@ -104,6 +105,7 @@ class SqliteStorage extends Storage {
 				':' . implode(',:', array_keys($fields))
 			);
 			$stmt = $this->sqlite->prepare($query);
+			$is_new = true;
 		} else {
 			// UPDATE
 			// TODO implement
@@ -111,6 +113,12 @@ class SqliteStorage extends Storage {
 		}
 
 		$this->bindValues($stmt, $fields);
-		return $stmt->execute();
+		$ret = $stmt->execute();
+
+		if ($ret && $is_new) {
+			$model->setId($this->sqlite->lastInsertRowID());
+		}
+
+		return $ret;
 	}
 }

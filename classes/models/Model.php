@@ -94,6 +94,14 @@ class Model {
 	}
 
 	/**
+	 * @param integer $new_id
+	 * @return void
+	 */
+	public function setId($new_id) {
+		$this->id = $new_id;
+	}
+
+	/**
 	 *
 	 * @param array $attributes default properties
 	 */
