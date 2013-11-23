@@ -2,6 +2,7 @@
 
 namespace storage;
 
+use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use \zpt\anno\Annotations;
 
@@ -74,7 +75,7 @@ abstract class Storage implements StorageInterface
 	/**
 	 * @param Persistable $model
 	 * @return mixed
-	 * @throws \InvalidArgumentException
+	 * @throws InvalidArgumentException
 	 */
 	protected function createTableName(Persistable $model) {
 		$classReflector = new \ReflectionClass($model);
@@ -83,7 +84,7 @@ abstract class Storage implements StorageInterface
 			return $classAnnotations['tableName'];
 		}
 
-		throw new \InvalidArgumentException('Given class is not persistable');
+		throw new InvalidArgumentException('Given class is not persistable');
 	}
 
 	/**
@@ -107,5 +108,25 @@ abstract class Storage implements StorageInterface
 	protected function createWhere($attributes)
 	{
 		return $this->whereBuilder->build($attributes);
+	}
+
+	/**
+	 * Inspect model and extract storable fields with column mapping
+	 *
+	 * @param Persistable $model
+	 * @return array column names as key and value
+	 */
+	protected function extractStorableFields(Persistable $model) {
+		$fields = array();
+
+		$classReflector = new ReflectionClass($model);
+		foreach ($classReflector->getProperties() as $propReflector) {
+			$propAnnotations = new Annotations($propReflector);
+			if ($propAnnotations->hasAnnotation('column')) {
+				$fields[$propReflector->getName()] = $propReflector->getValue($model);
+			}
+		}
+
+		return $fields;
 	}
 }

@@ -2,10 +2,15 @@
 
 namespace helper;
 
+/**
+ * Json request result
+ *
+ * @package helper
+ */
 class JSONResult extends RequestResult
 {
-	/*
-	 * (non-PHPdoc) @see Result::getResult()
+	/**
+	 * @return string json encoded result
 	 */
 	public function getResult()
 	{

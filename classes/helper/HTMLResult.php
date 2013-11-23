@@ -2,10 +2,15 @@
 
 namespace helper;
 
+/**
+ * Standard HTML result
+ *
+ * @package helper
+ */
 class HTMLResult extends RequestResult
 {
-	/*
-	 * (non-PHPdoc) @see Result::getResult()
+	/**
+	 * @return string html string
 	 */
 	public function getResult()
 	{

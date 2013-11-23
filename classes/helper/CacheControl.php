@@ -23,7 +23,7 @@ final class CacheControl
 	 * @param array $params relevant request parameters for etag calculation
 	 * @return String
 	 */
-	static function etag($filename, $params = array())
+	public static function etag($filename, $params = array())
 	{
 		$etag = fileinode($filename).'-'.filemtime($filename).'-'.filesize($filename);
 		$params = var_export($params, true);
@@ -36,7 +36,7 @@ final class CacheControl
 	 * @param String $filename
 	 * @return String
 	 */
-	static function last_modified($filename)
+	public static function last_modified($filename)
 	{
 		return date('r', filemtime($filename));
 	}
@@ -48,7 +48,7 @@ final class CacheControl
 	 * @param boolean $send_header if true send Last-Modified header
 	 * @return boolean
 	 */
-	static function is_not_modified_since_file($filename, $send_header = true)
+	public static function is_not_modified_since_file($filename, $send_header = true)
 	{
 		$last_modified = self::last_modified($filename);
 
@@ -68,7 +68,7 @@ final class CacheControl
 	 * @param boolean $send_header if true send Etag header
 	 * @return boolean
 	 */
-	static function etag_matches_file($filename, $params = array(), $send_header = true)
+	public static function etag_matches_file($filename, $params = array(), $send_header = true)
 	{
 		$etag = self::etag($filename, $params);
 
@@ -87,7 +87,7 @@ final class CacheControl
 	 * @param String $etag
 	 * @return boolean
 	 */
-	static function etag_matches($etag)
+	public static function etag_matches($etag)
 	{
 		$if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
 			stripslashes($_SERVER['HTTP_IF_NONE_MATCH']) :
@@ -107,7 +107,7 @@ final class CacheControl
 	 * @param String $last_modified
 	 * @return boolean
 	 */
-	static function is_not_modified_since($last_modified)
+	public static function is_not_modified_since($last_modified)
 	{
 		$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ?
 			stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) :
@@ -123,7 +123,7 @@ final class CacheControl
 	/**
 	 * send 304 and exit()
 	 */
-	static function send_not_modified_since()
+	public static function send_not_modified_since()
 	{
 		header('HTTP/1.0 304 Not Modified');
 		exit;

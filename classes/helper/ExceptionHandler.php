@@ -2,6 +2,11 @@
 
 namespace helper;
 
+/**
+ * Default exception handler
+ *
+ * @package helper
+ */
 class ExceptionHandler
 {
 

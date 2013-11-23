@@ -1,6 +1,7 @@
 <?php
 
 namespace storage;
+use ReflectionClass;
 
 /**
  * Create SQL order by clause
@@ -22,7 +23,7 @@ class OrderByBuilder {
 
 		$orders = array();
 		$query = '';
-		$refl_class = new \ReflectionClass($empty_model);
+		$refl_class = new ReflectionClass($empty_model);
 		foreach($order as $orderfield => $orderdirection)
 		{
 			if ($refl_class->hasProperty($orderfield)) // @todo check if property is valid column

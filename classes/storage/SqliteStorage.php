@@ -2,7 +2,8 @@
 
 namespace storage;
 
-use \zpt\anno\Annotations;
+use InvalidArgumentException;
+use SQLite3;
 
 /**
  * SQLite3 specific implementation of the storage class
@@ -14,7 +15,7 @@ class SqliteStorage extends Storage
 
 	/**
 	 *
-	 * @var \SQLite3
+	 * @var SQLite3
 	 */
 	private $sqlite;
 
@@ -25,7 +26,7 @@ class SqliteStorage extends Storage
 	{
 		parent::__construct($connection_string);
 		// @TODO move secret to config
-		$this->sqlite = new \SQLite3(RUNTIME_DEFAULT . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
+		$this->sqlite = new SQLite3(RUNTIME_DEFAULT . $connection_string, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE, 'secret');
 	}
 
 	/**
@@ -99,15 +100,7 @@ class SqliteStorage extends Storage
 	public function save(Persistable $model)
 	{
 		$table = $this->createTableName($model);
-		$fields = array();
-
-		$classReflector = new \ReflectionClass($model);
-		foreach ($classReflector->getProperties() as $propReflector) {
-			$propAnnotations = new Annotations($propReflector);
-			if ($propAnnotations->hasAnnotation('column')) {
-				$fields[$propReflector->getName()] = $propReflector->getValue($model);
-			}
-		}
+		$fields = $this->extractStorableFields($model);
 
 		$id = $fields['id'];
 		$stmt = null;
@@ -124,7 +117,7 @@ class SqliteStorage extends Storage
 		else {
 			// UPDATE
 			// TODO implement
-			throw new \InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);
+			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);
 		}
 
 		$this->bindValues($stmt, $fields);

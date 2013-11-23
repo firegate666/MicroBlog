@@ -2,6 +2,8 @@
 
 namespace models;
 
+use ReflectionClass;
+
 class Model
 {
 
@@ -85,7 +87,7 @@ class Model
 	 */
 	public function setAttributes(array $attributes)
 	{
-		$refl_class = new \ReflectionClass($this);
+		$refl_class = new ReflectionClass($this);
 		foreach ($attributes as $name => $value)
 		{
 			if ($refl_class->hasProperty($name))

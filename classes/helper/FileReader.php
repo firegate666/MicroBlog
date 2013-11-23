@@ -1,9 +1,15 @@
 <?php
 namespace helper;
 
+/**
+ * File system accessor
+ *
+ * @package helper
+ */
 class FileReader {
 
 	/**
+	 * read content from filesystem
 	 *
 	 * @param string $filename
 	 * @param boolean $use_include_path
@@ -17,6 +23,7 @@ class FileReader {
 	}
 
 	/**
+	 * Test if file exists
 	 *
 	 * @param string $filename
 	 * @return boolean

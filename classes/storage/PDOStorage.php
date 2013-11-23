@@ -1,18 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 22.11.13
- * Time: 15:23
- */
 
 namespace storage;
 
 use InvalidArgumentException;
 use PDO;
 use PDOStatement;
-use ReflectionClass;
-
 
 class PDOStorage extends Storage {
 
@@ -120,15 +112,7 @@ class PDOStorage extends Storage {
 	public function save(Persistable $model)
 	{
 		$table = $this->createTableName($model);
-		$fields = array();
-
-		$classReflector = new ReflectionClass($model);
-		foreach ($classReflector->getProperties() as $propReflector) {
-			$propAnnotations = new Annotations($propReflector);
-			if ($propAnnotations->hasAnnotation('column')) {
-				$fields[$propReflector->getName()] = $propReflector->getValue($model);
-			}
-		}
+		$fields = $this->extractStorableFields($model);
 
 		$id = $fields['id'];
 		$stmt = null;

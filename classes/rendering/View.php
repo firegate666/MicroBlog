@@ -19,7 +19,10 @@ class View
 	 */
 	private $file_reader;
 
-
+	/**
+	 * @param array $rendering_config
+	 * @param FileReader $file_reader
+	 */
 	public function __construct(array $rendering_config, FileReader $file_reader)
 	{
 		$this->rendering_config = $rendering_config;

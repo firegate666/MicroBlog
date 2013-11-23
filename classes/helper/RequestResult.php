@@ -2,11 +2,22 @@
 
 namespace helper;
 
+/**
+ * Request result object
+ * Normally returns from controller and is rendered to page
+ *
+ * @package helper
+ */
 abstract class RequestResult
 {
-
+	/**
+	 * @var mixed
+	 */
 	protected $result;
 
+	/**
+	 * @var integer
+	 */
 	protected $http_status;
 
 	/**
@@ -21,13 +32,14 @@ abstract class RequestResult
 	}
 
 	/**
-	 *
 	 * @return mixed
 	 */
 	public abstract function getResult();
 
 	/**
 	 * get http status code
+	 *
+	 * @return integer
 	 */
 	public function getHttpStatus()
 	{
@@ -35,7 +47,6 @@ abstract class RequestResult
 	}
 
 	/**
-	 *
 	 * @return integer timestamp
 	 */
 	public function validUntil()

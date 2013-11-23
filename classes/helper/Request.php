@@ -8,14 +8,22 @@ namespace helper;
 class Request
 {
 
+	/**
+	 * @var string[]
+	 */
 	private $server_vars;
 
+	/**
+	 * @var array
+	 */
 	private $get_params;
 
+	/**
+	 * @var array
+	 */
 	private $post_params;
 
 	/**
-	 *
 	 * @param array $server_vars
 	 * @param array $get_params
 	 * @param array $post_params
@@ -28,6 +36,7 @@ class Request
 	}
 
 	/**
+	 * Get request parameter, post over get
 	 *
 	 * @param string $name
 	 * @param mixed $default
@@ -39,7 +48,7 @@ class Request
 	}
 
 	/**
-	 *
+	 * Get request parameter, get over post
 	 * @param string $name
 	 * @param mixed $default
 	 * @return mixed
@@ -50,6 +59,7 @@ class Request
 	}
 
 	/**
+	 * Get get parameter
 	 *
 	 * @param string $name
 	 * @param mixed $default
@@ -65,6 +75,7 @@ class Request
 	}
 
 	/**
+	 * get ost prameter
 	 *
 	 * @param string $name
 	 * @param mixed $default
