@@ -11,21 +11,12 @@ use models\blog\Post;
 
 class BlogController extends AbstractActionController {
 
+	/**
+	 * @return HTMLResult
+	 */
 	public function actionIndex() {
 		$result = $this->getView()
 			->render('blog/index');
-
-		return new HTMLResult($result);
-	}
-
-	/**
-	 * render list with blog entries
-	 *
-	 * @return HTMLResult
-	 */
-	public function actionList() {
-		$result = $this->getView()
-			->render('bloglist');
 
 		return new HTMLResult($result);
 	}
@@ -41,28 +32,6 @@ class BlogController extends AbstractActionController {
 
 		return new JSONResult($list);
 
-	}
-
-	public function actionShow($id) {
-		/** @var Blog $blog */
-		$blog = $this->getStorage()->load(new Blog(array('id' => $id)));
-		if (empty($blog->id)) {
-			throw new \InvalidArgumentException('Blog not found', 404);
-		}
-
-		$blog->posts = $this->getStorage()
-			->find(new Post(), array('blog_id' => $blog->id));
-
-		foreach ($blog->posts as $post) {
-			/** @var Post $post */
-			$post->comments = $this->getStorage()
-				->find(new Comment(), array('post_id' => $post->getId()));
-		}
-
-		$result = $this->getView()
-			->render('blog', array('blog' => $blog));
-
-		return new HTMLResult($result);
 	}
 
 	/**
@@ -82,6 +51,11 @@ class BlogController extends AbstractActionController {
 		return new JSONResult(array($response, $post_blog_id, $post_contents));
 	}
 
+	/**
+	 * @param integer $post_post_id
+	 * @param string $post_contents
+	 * @return JSONResult
+	 */
 	public function actionAjaxComment($post_post_id, $post_contents) {
 		$comment = new Comment();
 		$comment->post_id = $post_post_id;
@@ -90,5 +64,4 @@ class BlogController extends AbstractActionController {
 
 		return new JSONResult(array($response, $post_post_id, $post_contents));
 	}
-
 }
