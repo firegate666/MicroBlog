@@ -20,7 +20,28 @@ class ApplicationConfigTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->object = new ApplicationConfig("[foo]\nbar=baz", '');
+		$this->object = new ApplicationConfig("[foo]\nbar=baz", "[default]\ndefault = 1");
+	}
+
+	public function testAppEnv() {
+		$this->assertFalse(defined('APP_ENV_FOO'));
+
+		$this->object = new ApplicationConfig("[app_env]\nfoo = 1");
+
+		$this->assertTrue(defined('APP_ENV_FOO'));
+		$this->assertEquals(1, APP_ENV_FOO);
+	}
+
+	public function getSectionFromDefault() {
+		$this->assertEquals(array('default' => '1'), $this->object->getSection('default'));
+	}
+
+	/**
+	 * @test
+	 */
+	public function getSectionEntryFromDefault() {
+		$this->object = new ApplicationConfig("[default]\nnodefault=2", "[default]\ndefault = 1");
+		$this->assertEquals('1', $this->object->getSectionEntry('default', 'default'));
 	}
 
 	/**

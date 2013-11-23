@@ -24,7 +24,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers {className}::{origMethodName}
 	 * @todo Implement testGetValidationMessages().
 	 */
 	public function testGetValidationMessages() {
@@ -32,7 +31,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers {className}::{origMethodName}
 	 * @todo Implement testIsValid().
 	 */
 	public function testIsValid() {
@@ -40,7 +38,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @covers {className}::{origMethodName}
 	 * @todo Implement testSetAttributes().
 	 */
 	public function testSetAttributes() {
