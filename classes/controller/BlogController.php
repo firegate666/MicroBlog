@@ -44,6 +44,7 @@ class BlogController extends AbstractActionController {
 	}
 
 	public function actionShow($id) {
+		/** @var Blog $blog */
 		$blog = $this->getStorage()->load(new Blog(array('id' => $id)));
 		if (empty($blog->id)) {
 			throw new \InvalidArgumentException('Blog not found', 404);
@@ -53,8 +54,9 @@ class BlogController extends AbstractActionController {
 			->find(new Post(), array('blog_id' => $blog->id));
 
 		foreach ($blog->posts as $post) {
+			/** @var Post $post */
 			$post->comments = $this->getStorage()
-				->find(new Comment(), array('post_id' => $post->id));
+				->find(new Comment(), array('post_id' => $post->getId()));
 		}
 
 		$result = $this->getView()
@@ -72,7 +74,7 @@ class BlogController extends AbstractActionController {
 	 */
 	public function actionAjaxPost($post_blog_id, $post_contents) {
 		$post = new Post();
-		// TODO check privs
+		// TODO check privileges
 		$post->blog_id = $post_blog_id;
 		$post->content = $post_contents;
 		$response = $this->getStorage()->save($post);

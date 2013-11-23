@@ -21,4 +21,9 @@ class Post extends Model implements Persistable {
 	 * @var string
 	 */
 	public $content;
+
+	/**
+	 * @var array
+	 */
+	public $comments = array();
 }

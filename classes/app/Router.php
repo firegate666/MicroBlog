@@ -2,15 +2,17 @@
 
 namespace app;
 
+use controller\Controller;
 use helper\ApplicationConfig;
 use helper\FileReader;
 use helper\HTMLResult;
+use helper\RequestResult;
 use helper\Request;
 use Psr\Log\LoggerInterface;
 use rendering\View;
 
 /**
- * handle routing for application
+ * handle routing for application in regards of controller and action
  */
 class Router {
 
@@ -26,7 +28,6 @@ class Router {
 	private $logger;
 
 	/**
-	 *
 	 * @param ApplicationConfig $config
 	 * @param LoggerInterface $logger
 	 */
@@ -42,7 +43,7 @@ class Router {
 	 * @param \Exception $exception
 	 * @param View $renderer
 	 * @throws \Exception thrown if renderer is null
-	 * @return \helper\RequestResult
+	 * @return RequestResult
 	 */
 	public function renderError(\Exception $exception, View $renderer = null) {
 		$this->logger->error($exception->getMessage(), debug_backtrace(0, 10));
@@ -83,6 +84,7 @@ class Router {
 				throw new \LogicException('requested controller is invalid', 404);
 			}
 
+			/** @var Controller $controller */
 			$controller = new $controller_name($this->config, new $rendering_class($this->config->getSection('rendering'), new FileReader()));
 			$controller->setLogger($this->logger);
 			return $controller->handle($request);

@@ -75,15 +75,22 @@ class Model {
 	 * @return void
 	 */
 	public function setAttributes(array $attributes) {
-		$refl_class = new ReflectionClass($this);
+		$reflected_class = new ReflectionClass($this);
 		foreach ($attributes as $name => $value) {
-			if ($refl_class->hasProperty($name)) {
-				$refl = new \ReflectionProperty($this, $name);
-				if ($refl->isPublic()) {
+			if ($reflected_class->hasProperty($name)) {
+				$reflected_method = new \ReflectionProperty($this, $name);
+				if ($reflected_method->isPublic()) {
 					$this->{$name} = $value;
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

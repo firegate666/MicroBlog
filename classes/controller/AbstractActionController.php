@@ -38,8 +38,8 @@ abstract class AbstractActionController extends Controller {
 		return true;
 	}
 
-	/*
-	 * (non-PHPdoc) @see Controller::handle()
+	/**
+	 * @inheritdoc
 	 */
 	public function handle(Request $request) {
 		$action_name = 'action' . ucfirst($request->getParam('action', 'index'));
@@ -66,7 +66,7 @@ abstract class AbstractActionController extends Controller {
 				} else {
 					$value = $request->getOrPostParam($name, null);
 				}
-				$func_args[] = $value !== null ? $value : $mth->getDefaultValue();
+				$func_args[] = $value !== null ? $value : $parameter->getDefaultValue();
 			}
 
 			if (!$this->isAllowed($action_name, $request)) {

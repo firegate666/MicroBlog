@@ -30,7 +30,7 @@ class ConnectionProperties {
 	public $pass;
 
 	/**
-	 * databse name
+	 * database name
 	 *
 	 * @var string
 	 */

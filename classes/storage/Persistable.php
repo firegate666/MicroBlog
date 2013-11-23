@@ -11,4 +11,9 @@ interface Persistable {
 	 */
 	public function isValid();
 
+	/**
+	 * @return integer
+	 */
+	public function getId();
+
 }

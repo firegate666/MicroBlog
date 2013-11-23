@@ -120,7 +120,7 @@ class PDOStorage extends Storage {
 		} else {
 			// UPDATE
 			// TODO implement
-			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persitable id %d', $id), 500);
+			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persistable id %d', $id), 500);
 		}
 
 		$this->bindValues($stmt, $fields);

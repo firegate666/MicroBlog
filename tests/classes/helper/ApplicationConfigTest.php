@@ -11,7 +11,7 @@ use helper\ApplicationConfig;
 class ApplicationConfigTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var Model
+	 * @var ApplicationConfig
 	 */
 	protected $object;
 

@@ -12,20 +12,20 @@ use ReflectionClass;
 class OrderByBuilder {
 
 	/**
-	 * @param string $order
+	 * @param array $order
 	 * @param Persistable $empty_model
 	 * @return string
 	 */
-	public function build($order, Persistable $empty_model) {
+	public function build(array $order, Persistable $empty_model) {
 		if (empty($order)) {
 			return ' ORDER BY id DESC';
 		}
 
 		$orders = array();
 		$query = '';
-		$refl_class = new ReflectionClass($empty_model);
+		$reflected_class = new ReflectionClass($empty_model);
 		foreach ($order as $orderfield => $orderdirection) {
-			if ($refl_class->hasProperty($orderfield)) // @todo check if property is valid column
+			if ($reflected_class->hasProperty($orderfield)) // @todo check if property is valid column
 			{
 				$orders[] = $orderfield
 					. ' '

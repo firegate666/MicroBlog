@@ -54,7 +54,7 @@ abstract class Storage implements StorageInterface {
 	 * @return Persistable filled with data
 	 */
 	public function load(Persistable $empty_model) {
-		$list = $this->find($empty_model, array('id' => $empty_model->id));
+		$list = $this->find($empty_model, array('id' => $empty_model->getId()));
 		return array_pop($list);
 	}
 
@@ -114,7 +114,7 @@ abstract class Storage implements StorageInterface {
 	protected function extractStorableFields(Persistable $model) {
 		$fields = array();
 
-		$classReflector = new ReflectionClass($model);
+		$classReflector = new \ReflectionClass($model);
 		foreach ($classReflector->getProperties() as $propReflector) {
 			$propAnnotations = new Annotations($propReflector);
 			if ($propAnnotations->hasAnnotation('column')) {
