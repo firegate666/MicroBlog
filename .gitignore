@@ -17,4 +17,5 @@ atlassian-ide-plugin.xml
 vendor
 
 log/*
+build/*
 
