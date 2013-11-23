@@ -2,11 +2,10 @@
 
 namespace storage;
 
-use models\Model;
 use Psr\Log\LoggerInterface;
 use \zpt\anno\Annotations;
 
-abstract class Storage
+abstract class Storage implements StorageInterface
 {
 
 	/**
@@ -49,34 +48,16 @@ abstract class Storage
 	}
 
 	/**
-	 * persist model
-	 *
-	 * @param Persistable $model
-	 * @return boolean
-	 */
-	public abstract function save(Persistable $model);
-
-	/**
 	 * load model
 	 *
 	 * @param Persistable $empty_model
-	 * @return Model filled with data
+	 * @return Persistable filled with data
 	 */
 	public function load(Persistable $empty_model)
 	{
 		$list = $this->find($empty_model, array('id' => $empty_model->id));
 		return array_pop($list);
 	}
-
-	/**
-	 * find a set of models
-	 *
-	 * @param Persistable $empty_model
-	 * @param array $attributes key/value with matching search criterias
-	 * @param array $order key/value with attributes to order by as key and ASC or DESC as value
-	 * @return array set of models
-	 */
-	public abstract function find(Persistable $empty_model, $attributes = array(), $order = array());
 
 	/**
 	 * find all models
