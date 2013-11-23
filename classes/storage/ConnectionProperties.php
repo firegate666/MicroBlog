@@ -58,5 +58,4 @@ class ConnectionProperties {
 		$this->port = $hostPort[1];
 		$this->name = $hostDb[1];
 	}
-
 }

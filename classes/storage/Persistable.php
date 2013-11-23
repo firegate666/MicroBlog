@@ -21,5 +21,4 @@ interface Persistable {
 	 * @return void
 	 */
 	public function setId($newId);
-
 }

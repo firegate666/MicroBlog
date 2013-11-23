@@ -38,6 +38,4 @@ class OrderByBuilder {
 		}
 		return $query;
 	}
-
-
 }

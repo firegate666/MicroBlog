@@ -24,5 +24,4 @@ interface RenderingInterface {
 	 * @return string
 	 */
 	public function renderPartial($layout, $parameters);
-
 }

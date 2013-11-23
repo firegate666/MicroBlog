@@ -49,5 +49,4 @@ abstract class RequestResult {
 	public function validUntil() {
 		return false;
 	}
-
 }

@@ -19,5 +19,4 @@ class PostController extends AbstractActionController {
 		$list = $this->getStorage()->findAll(new Post());
 		return new JSONResult($list);
 	}
-
 }
