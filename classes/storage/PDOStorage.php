@@ -68,6 +68,9 @@ class PDOStorage extends Storage {
 		$query .= $this->createWhere($attributes);
 		$query .= $this->createOrderBy($order, $empty_model);
 
+		$this->getLogger()->debug($query);
+		$this->getLogger()->debug(json_encode($attributes));
+
 		$stmt = $this->pdo->prepare($query);
 
 		$this->bindValues($stmt, $attributes, true);
