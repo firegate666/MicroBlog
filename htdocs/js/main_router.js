@@ -5,7 +5,15 @@
 	'use strict';
 
 	app.MainRouter = Backbone.Router.extend({
+
+		/**
+		 * @property {Backbone.View}
+		 */
 		lastView: null,
+
+		/**
+		 * @property {app.MicroBlog}
+		 */
 		app: null,
 
 		initialize: function(options) {

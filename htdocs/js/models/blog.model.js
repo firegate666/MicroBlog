@@ -6,8 +6,16 @@
 
 	app.Blog = Backbone.Model.extend({
 
+		/**
+		 * @property {string}
+		 */
 		urlRoot : '?controller=Blog',
 
+		/**
+		 * get rest url for this model
+		 *
+		 * @returns {string}
+		 */
 		url : function() {
 			if (this.isNew()) {
 				return this.urlRoot;
@@ -16,10 +24,16 @@
 			return this.urlRoot + '&id=' + this.id;
 		},
 
+		/**
+		 * @returns {integer}
+		 */
 		getId : function() {
 			return this.get('id');
 		},
 
+		/**
+		 * @returns {string}
+		 */
 		getTitle : function() {
 			return this.get('title');
 		}

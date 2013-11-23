@@ -8,11 +8,15 @@
 
 		/**
 		 * store current view
+		 *
+		 * @property {Backbone.View}
 		 */
 		var currentView = null;
 
 		/**
 		 * handle switch to homescreen
+		 *
+		 * @returns {void}
 		 */
 		this.onIndex = function() {
 			if (currentView) {
@@ -27,7 +31,9 @@
 		};
 
 		/**
-		 * handle book new dialog
+		 * handle show blog
+		 *
+		 * @returns {void}
 		 */
 		this.onBlogView = function(id_arg) {
 			var id = parseInt(id_arg, 10),

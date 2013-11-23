@@ -9,6 +9,11 @@
 		tagName: 'ul',
 		id: 'blogs',
 
+		/**
+		 * initialize listener and trigger render
+		 *
+		 * @returns {void}
+		 */
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.render); // collection event binder
 			this.render();
@@ -16,6 +21,8 @@
 
 		/**
 		 * render book list
+		 *
+		 * @returns {void}
 		 */
 		render: function() {
 			var self = this;

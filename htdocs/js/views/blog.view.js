@@ -6,9 +6,21 @@
 
 	app.BlogView = Backbone.View.extend({
 
+		/**
+		 * @property {string}
+		 */
 		tagName: 'div',
+
+		/**
+		 * @property {string}
+		 */
 		id: 'blog',
 
+		/**
+		 * initialize listener and trigger render
+		 *
+		 * @returns {void}
+		 */
 		initialize: function() {
 			this.listenTo(this.model, 'change', this.render); // collection event binder
 			this.render();
@@ -16,6 +28,8 @@
 
 		/**
 		 * render book list
+		 *
+		 * @returns {void}
 		 */
 		render: function() {
 			this.$el.append(us.template(app.TM.getTemplate('blog_view'), {

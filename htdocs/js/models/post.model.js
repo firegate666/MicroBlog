@@ -6,8 +6,16 @@
 
 	app.Post = Backbone.Model.extend({
 
+		/**
+		 * @property {string}
+		 */
 		urlRoot : '?controller=Post',
 
+		/**
+		 * get rest url for this model
+		 *
+		 * @returns {string}
+		 */
 		url : function() {
 			if (this.isNew()) {
 				return this.urlRoot;
@@ -16,6 +24,9 @@
 			return this.urlRoot + '&id=' + this.id;
 		},
 
+		/**
+		 * @returns {string}
+		 */
 		getContent : function() {
 			return this.get('content');
 		}
