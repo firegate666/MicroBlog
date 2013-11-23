@@ -63,7 +63,7 @@ class View implements RenderingInterface {
 
 		extract($parameters);
 		ob_start();
-		/** @todo how can this be handled by file reader? */
+		/** @todo how can this be handled by file reader without eval? */
 		include $layout_file;
 		$content = ob_get_clean();
 

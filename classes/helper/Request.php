@@ -93,7 +93,7 @@ class Request {
 	}
 
 	/**
-	 * get ost prameter
+	 * get post parameter
 	 *
 	 * @param string $name
 	 * @param mixed $default
