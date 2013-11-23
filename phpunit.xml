@@ -3,9 +3,9 @@
 	bootstrap="tests/unit_bootstrap.php"
 	backupGlobals="false"
 	backupStaticAttributes="false"
-	strict="false"
+	strict="true"
 	verbose="true"
-	timeoutForSmallTests="60">
+	colors="true">
 
 	<testsuites>
 
