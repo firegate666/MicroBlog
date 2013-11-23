@@ -39,59 +39,91 @@ abstract class AbstractActionController extends Controller {
 	}
 
 	/**
-	 * @inheritdoc
+	 * @param Request $request
+	 * @return string
 	 */
-	public function handle(Request $request) {
+	protected function determineActionName(Request $request) {
 		$action_name = 'action' . ucfirst($request->getParam('action', 'index'));
-		$beforeAction = 'before' . ucfirst($action_name);
-		$afterAction = 'after' . ucfirst($action_name);
-
-		$this->getLogger()->debug($action_name);
-
-		if (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
+		if ($request->isAjax()) {
 			// dispatch to ajax action
 			$action_name = 'actionAjax' . ucfirst($request->getParam('action', 'index'));
 		}
 
-		if (is_callable(array($this, $action_name))) {
-			$mth = new \ReflectionMethod($this, $action_name);
-			$func_args = array();
-			foreach ($mth->getParameters() as $parameter) {
-				$name = $parameter->getName();
-				$value = null;
-				if (substr($name, 0, 5) === 'post_') {
-					$value = $request->postParam(substr($name, 5), null);
-				} else if (substr($name, 0, 4) === 'get_') {
-					$value = $request->getParam(substr($name, 4), null);
-				} else {
-					$value = $request->getOrPostParam($name, null);
-				}
-				$func_args[] = $value !== null ? $value : $parameter->getDefaultValue();
-			}
+		return $action_name;
+	}
 
+	/**
+	 * @param string $action_name
+	 * @param Request $request
+	 * @return array
+	 */
+	protected function determineActionArgs($action_name, Request $request) {
+		$mth = new \ReflectionMethod($this, $action_name);
+		$func_args = array();
+		foreach ($mth->getParameters() as $parameter) {
+			$name = $parameter->getName();
+			$value = null;
+			if (substr($name, 0, 5) === 'post_') {
+				$value = $request->postParam(substr($name, 5), null);
+			} else if (substr($name, 0, 4) === 'get_') {
+				$value = $request->getParam(substr($name, 4), null);
+			} else {
+				$value = $request->getOrPostParam($name, null);
+			}
+			$func_args[] = $value !== null ? $value : $parameter->getDefaultValue();
+		}
+
+		return $func_args;
+	}
+
+	/**
+	 * @param string $action_name
+	 * @param array $func_args
+	 * @param Request $request
+	 * @return mixed
+	 * @throws \LogicException
+	 */
+	protected function executeAction($action_name, $func_args, Request $request) {
+		$beforeAction = 'before' . ucfirst($action_name);
+		$afterAction = 'after' . ucfirst($action_name);
+
+		if (!call_user_func_array(array($this, 'beforeAction'), array($request))) {
+			throw new \LogicException('before action call failed', 500);
+		}
+
+		if (method_exists($this, $beforeAction)) {
+			call_user_func_array(array($this, $beforeAction), array_merge(array($request), $func_args));
+		}
+
+		$action_result = call_user_func_array(array($this, $action_name), $func_args);
+
+		if (method_exists($this, $afterAction)) {
+			call_user_func_array(array($this, $afterAction), array_merge(array($request), $func_args));
+		}
+
+		if (!call_user_func_array(array($this, 'afterAction'), array($request))) {
+			throw new \LogicException('after action call failed', 500);
+		}
+
+		return $action_result;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function handle(Request $request) {
+		$action_name = $this->determineActionName($request);
+
+		$this->getLogger()->debug($action_name);
+
+		if (is_callable(array($this, $action_name))) {
 			if (!$this->isAllowed($action_name, $request)) {
 				throw new \LogicException('Forbidden', 403);
 			}
 
-			if (!call_user_func_array(array($this, 'beforeAction'), array($request))) {
-				throw new \LogicException('before action call failed', 500);
-			}
+			$func_args = $this->determineActionArgs($action_name, $request);
 
-			if (method_exists($this, $beforeAction)) {
-				call_user_func_array(array($this, $beforeAction), array_merge(array($request), $func_args));
-			}
-
-			$action_result = call_user_func_array(array($this, $action_name), $func_args);
-
-			if (method_exists($this, $afterAction)) {
-				call_user_func_array(array($this, $afterAction), array_merge(array($request), $func_args));
-			}
-
-			if (!call_user_func_array(array($this, 'afterAction'), array($request))) {
-				throw new \LogicException('after action call failed', 500);
-			}
-
-			return $action_result;
+			return $this->executeAction($action_name, $func_args, $request);
 		}
 		throw new \LogicException(sprintf('invalid action "%s" requested', $action_name), 404);
 	}

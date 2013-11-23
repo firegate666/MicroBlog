@@ -105,4 +105,11 @@ class Request {
 		}
 		return $default;
 	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isAjax() {
+		return !empty($this->server_vars['HTTP_X_REQUESTED_WITH']);
+	}
 }
