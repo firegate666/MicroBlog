@@ -7,9 +7,21 @@
 	verbose="true"
 	timeoutForSmallTests="60">
 
-	<testsuite name="Classes">
-		<directory suffix=".php">tests/classes</directory>
-	</testsuite>
+	<testsuites>
+
+		<testsuite name="Helper">
+			<directory suffix=".php">tests/helper</directory>
+		</testsuite>
+
+		<testsuite name="Models">
+			<directory suffix=".php">tests/models</directory>
+		</testsuite>
+
+		<testsuite name="Storage">
+			<directory suffix=".php">tests/storage</directory>
+		</testsuite>
+
+	</testsuites>
 
 	<filter>
 		<blacklist>
