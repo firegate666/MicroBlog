@@ -1,14 +1,24 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 23.11.13
- * Time: 22:47
- */
 
 namespace helper;
 
 
 class Sanitizer {
+
+	/**
+	 * Test that all given values are integers
+	 *
+	 * @param array $integers
+	 * @return boolean
+	 */
+	public static function validateAllInt(array $integers) {
+		foreach ($integers as $integer) {
+			if (!preg_match('/^[0-9]$/', $integer)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 }
