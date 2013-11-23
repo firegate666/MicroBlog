@@ -121,6 +121,20 @@ class Request {
 	/**
 	 * @return boolean
 	 */
+	public function isGet() {
+		return $this->serverVar('REQUEST_METHOD') === 'GET';
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isPost() {
+		return $this->serverVar('REQUEST_METHOD') === 'POST';
+	}
+
+	/**
+	 * @return boolean
+	 */
 	public function isAjax() {
 		return !empty($this->serverVars['HTTP_X_REQUESTED_WITH']);
 	}

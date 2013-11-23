@@ -60,10 +60,12 @@ abstract class AbstractActionController extends Controller {
 	protected function determineActionArgs($actionName, Request $request) {
 		$mth = new \ReflectionMethod($this, $actionName);
 		$funcArgs = array();
+		$isPost = $request->isPost();
+
 		foreach ($mth->getParameters() as $parameter) {
 			$name = $parameter->getName();
 			$value = null;
-			if (substr($name, 0, 5) === 'post_') {
+			if ($isPost && substr($name, 0, 5) === 'post_') {
 				$value = $request->postParam(substr($name, 5), null);
 			} else if (substr($name, 0, 4) === 'get_') {
 				$value = $request->getParam(substr($name, 4), null);
