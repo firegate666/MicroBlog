@@ -5,7 +5,7 @@ namespace controller;
 use helper\ApplicationConfig;
 use helper\Request;
 use Psr\Log\LoggerInterface;
-use rendering\View;
+use rendering\RenderingInterface;
 use storage\Storage;
 
 abstract class Controller {
@@ -24,7 +24,7 @@ abstract class Controller {
 
 	/**
 	 *
-	 * @var View
+	 * @var RenderingInterface
 	 */
 	private $view;
 
@@ -36,7 +36,7 @@ abstract class Controller {
 	/**
 	 * get view renderer
 	 *
-	 * @return View
+	 * @return RenderingInterface
 	 */
 	protected function getView() {
 		return $this->view;
@@ -45,9 +45,9 @@ abstract class Controller {
 	/**
 	 *
 	 * @param ApplicationConfig $config
-	 * @param View $view
+	 * @param RenderingInterface $view
 	 */
-	public function __construct(ApplicationConfig $config, View $view) {
+	public function __construct(ApplicationConfig $config, RenderingInterface $view) {
 		$this->config = $config;
 		$this->view = $view;
 	}

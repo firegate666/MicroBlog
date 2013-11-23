@@ -4,7 +4,7 @@ namespace rendering;
 
 use helper\FileReader;
 
-class View {
+class View implements RenderingInterface {
 
 	/**
 	 *

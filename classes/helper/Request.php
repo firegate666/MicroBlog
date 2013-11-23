@@ -62,10 +62,34 @@ class Request {
 	 * @return mixed
 	 */
 	public function getParam($name, $default = null) {
-		if (array_key_exists($name, $this->get_params)) {
+		if ($this->hasGetParam($name)) {
 			return $this->get_params[$name];
 		}
 		return $default;
+	}
+
+	/**
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function hasGetParam($name) {
+		return array_key_exists($name, $this->get_params);
+	}
+
+	/**
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function hasPostParam($name) {
+		return array_key_exists($name, $this->post_params);
+	}
+
+	/**
+	 * @param string $name
+	 * @return boolean
+	 */
+	public function hasGetOrPostParam($name) {
+		return $this->hasGetParam($name) || $this->hasPostParam($name);
 	}
 
 	/**
