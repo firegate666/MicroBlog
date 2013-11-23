@@ -99,7 +99,7 @@ class SqliteStorage extends Storage {
 
 		$id = $fields['id'];
 		$stmt = null;
-		$id_new = false;
+		$is_new = false;
 		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
