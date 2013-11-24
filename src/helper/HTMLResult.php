@@ -21,7 +21,7 @@ class HTMLResult extends RequestResult {
 	 */
 	public function getHeaders() {
 		return array(
-			'Content-type: text/html; charset=UTF-8', true, $this->getHttpStatus(),
+			'Content-type: text/html; charset=UTF-8',
 			'Content-length: ' . strlen($this->getResult())
 		);
 	}
