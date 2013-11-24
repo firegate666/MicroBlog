@@ -35,6 +35,11 @@ abstract class RequestResult {
 	public abstract function getResult();
 
 	/**
+	 * @return array
+	 */
+	public abstract function getHeaders();
+
+	/**
 	 * get http status code
 	 *
 	 * @return integer
