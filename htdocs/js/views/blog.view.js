@@ -32,6 +32,7 @@
 		 * @returns {void}
 		 */
 		render: function() {
+			this.$el.html('');
 			this.$el.append(us.template(app.TM.getTemplate('blog_view'), {
                 blog : this.model,
                 posts : this.collection.posts,
