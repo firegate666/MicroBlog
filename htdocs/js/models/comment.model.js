@@ -27,6 +27,13 @@
 		/**
 		 * @returns {integer}
 		 */
+		getId : function() {
+			return this.get('id');
+		},
+
+		/**
+		 * @returns {integer}
+		 */
 		getPostId : function() {
 			return this.get('postId');
 		},

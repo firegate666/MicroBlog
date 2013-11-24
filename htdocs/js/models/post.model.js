@@ -25,6 +25,13 @@
 		},
 
 		/**
+		 * @returns {integer}
+		 */
+		getId : function() {
+			return this.get('id');
+		},
+
+		/**
 		 * @returns {string}
 		 */
 		getContent : function() {
