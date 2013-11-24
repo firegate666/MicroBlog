@@ -1,1 +1,9 @@
 This should be done in a way every user can migrate his storage to the newest version. This is the basic setup for now
+
+Sample configuration/base.ini
+
+[storage]
+;class = \storage\SqliteStorage
+class = \storage\PDOStorage
+;identifier = blog.db
+identifier = mysql://microblog:microblog@localhost:3306/microblog

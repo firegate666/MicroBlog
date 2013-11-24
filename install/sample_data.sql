@@ -1,30 +1,55 @@
-begin;
+-- phpMyAdmin SQL Dump
+-- version 4.0.4.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Erstellungszeit: 24. Nov 2013 um 22:06
+-- Server Version: 5.6.12
+-- PHP-Version: 5.5.1
 
-insert into Blog(title) values ('Blog 1');
-insert into Blog(title) values ('Blog 2');
-insert into Blog(title) values ('Blog 3');
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-insert into Post(blog_id, content) values (1, 'Post 1-1');
-insert into Comment(post_id, content) values (1, 'Comment 1');
-insert into Comment(post_id, content) values (1, 'Comment 2');
-insert into Comment(post_id, content) values (1, 'Comment 3');
+--
+-- Datenbank: `microblog`
+--
+CREATE DATABASE IF NOT EXISTS `microblog` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `microblog`;
 
-insert into Post(blog_id, content) values (1, 'Post 1-2');
-insert into Comment(post_id, content) values (2, 'Comment 4');
-insert into Comment(post_id, content) values (2, 'Comment 5');
-insert into Comment(post_id, content) values (2, 'Comment 6');
+--
+-- Daten für Tabelle `Blog`
+--
 
-insert into Post(blog_id, content) values (1, 'Post 1-3');
-insert into Comment(post_id, content) values (3, 'Comment 7');
+INSERT INTO `Blog` (`id`, `title`) VALUES
+(1, 'My Blog 1'),
+(2, 'Blog 2'),
+(3, 'Blog 3');
 
-insert into Post(blog_id, content) values (2, 'Post 2-1');
-insert into Comment(post_id, content) values (4, 'Comment 8');
+--
+-- Daten für Tabelle `Comment`
+--
 
-insert into Post(blog_id, content) values (2, 'Post 2-2');
-insert into Post(blog_id, content) values (2, 'Post 2-3');
-insert into Post(blog_id, content) values (2, 'Post 2-4');
-insert into Post(blog_id, content) values (3, 'Post 3-1');
-insert into Post(blog_id, content) values (3, 'Post 3-2');
+INSERT INTO `Comment` (`id`, `postId`, `content`) VALUES
+(1, 1, 'Comment 1'),
+(2, 1, 'Comment 2'),
+(3, 1, 'Comment 3'),
+(4, 2, 'Comment 4'),
+(5, 2, 'Comment 5'),
+(6, 2, 'Comment 6'),
+(7, 3, 'Comment 7'),
+(8, 4, 'Comment 8');
 
+--
+-- Daten für Tabelle `Post`
+--
 
-commit;
+INSERT INTO `Post` (`id`, `blogId`, `content`) VALUES
+(1, 1, 'Post 1-1'),
+(2, 1, 'Post 1-2'),
+(3, 1, 'Post 1-3'),
+(4, 2, 'Post 2-1'),
+(5, 2, 'Post 2-2'),
+(6, 2, 'Post 2-3'),
+(7, 2, 'Post 2-4'),
+(8, 3, 'Post 3-1'),
+(9, 3, 'Post 3-2');
