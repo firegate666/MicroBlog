@@ -10,7 +10,7 @@
     <h1><%= blog.getTitle() %></h1>
 
 	<ul class="posts">
-		<% posts.each(function(post, k) { %>
+		<% new Backbone.Collection(posts.where({blogId: blog.getId()})).each(function(post, k) { %>
 			<li class="post">
 				<%= post.id %> : <%= post.getContent() %>
 				<ul class="comments">
