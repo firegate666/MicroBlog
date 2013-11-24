@@ -1,14 +1,28 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 24.11.13
- * Time: 10:26
- */
 
 namespace app;
 
+use helper\Request;
+use rendering\RenderingInterface;
 
-class RouterInterface {
+interface RouterInterface {
 
+	/**
+	 *
+	 * @param Request $request
+	 * @throws \LogicException
+	 * @return RequestResult
+	 */
+	public function run(Request $request);
+
+	/**
+	 * use view renderer to display error page
+	 * if view is null, exception is dispatched to registered exception handler
+	 *
+	 * @param \Exception $exception
+	 * @param RenderingInterface $renderer
+	 * @throws \Exception thrown if renderer is null
+	 * @return RequestResult
+	 */
+	public function renderError(\Exception $exception, RenderingInterface $renderer = null);
 }

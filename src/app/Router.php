@@ -15,7 +15,7 @@ use rendering\InvalidRendererClassException;
 /**
  * handle routing for application in regards of controller and action
  */
-class Router {
+class Router implements RouterInterface {
 
 	/**
 	 *
@@ -65,7 +65,7 @@ class Router {
 	 *
 	 * @param Request $request
 	 * @throws \LogicException
-	 * @return mixed
+	 * @return RequestResult
 	 */
 	public function run(Request $request) {
 		try {
