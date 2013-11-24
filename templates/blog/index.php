@@ -9,6 +9,15 @@
 
     <h1><%= blog.getTitle() %></h1>
 
+	<form class="new-post" action="?controller=Post&action=create" method="post">
+		<input type="hidden" name="blogId" value="<%= blog.getId() %>" />
+		<!--label for="contents">Post new message</label-->
+		<textarea name="content"></textarea>
+		<input type="button" name="submit" value="Post it!" />
+	</form>
+
+	</p>
+
 	<ul class="posts">
 		<% new Backbone.Collection(posts.where({blogId: blog.getId()})).each(function(post, k) { %>
 			<li class="post">

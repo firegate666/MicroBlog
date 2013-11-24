@@ -21,16 +21,15 @@ class PostController extends AbstractActionController {
 	}
 
 	/**
-	 * @param integer $postBlogId
-	 * @param string $postContents
+	 * @param string $postModel json encoded post model
 	 * @return JSONResult
 	 */
-	public function actionAjaxPost($postBlogId, $postContents) {
-		$post = new Post();
-		$post->blogId = $postBlogId;
-		$post->content = $postContents;
-		$response = $this->getStorage()->save($post);
+	public function actionAjaxUpdate($postModel) {
+		$postModelData = json_decode($postModel, true);
+		$post = new Post($postModelData);
 
-		return new JSONResult(array($response, $postBlogId, $postContents));
+		$this->getStorage()->save($post);
+
+		return new JSONResult($post);
 	}
 }
