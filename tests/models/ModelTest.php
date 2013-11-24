@@ -20,13 +20,19 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	 * This method is called before a test is executed.
 	 */
 	protected function setUp() {
-		$this->object = new Model;
+		$this->object = new Model();
 	}
+
+	public function testIsValidNotValidated() {
+		$this->assertFalse($this->object->isValid());
+	}
+
 
 	/**
 	 * @todo Implement testGetValidationMessages().
 	 */
 	public function testGetValidationMessages() {
+		$this->object->setId(1);
 		$this->assertEmpty($this->object->getValidationMessages());
 	}
 
@@ -34,7 +40,16 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 	 * @todo Implement testIsValid().
 	 */
 	public function testIsValid() {
+		$this->object->validate();
+		$this->assertFalse($this->object->isValid());
+		$this->assertEquals(array('id' => array('id must be numeric')), $this->object->getValidationMessages());
+		$this->assertEquals(array('id must be numeric'), $this->object->getValidationMessages('id'));
+
+		$this->object->setId(1);
+		$this->object->validate();
 		$this->assertTrue($this->object->isValid());
+		$this->assertEquals(array(), $this->object->getValidationMessages());
+		$this->assertEquals(array(), $this->object->getValidationMessages('id'));
 	}
 
 	/**
@@ -46,6 +61,16 @@ class ModelTest extends \PHPUnit_Framework_TestCase {
 		));
 
 		$this->assertEquals(1, $this->object->id);
+	}
+
+	public function testSetAttributesUponConstruct() {
+		$model = new Model(array('id' => 17));
+		$this->assertEquals(17, $model->id);
+	}
+
+	public function testSetGetId() {
+		$this->object->setId(12);
+		$this->assertEquals(12, $this->object->getId());
 	}
 
 }
