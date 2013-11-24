@@ -64,11 +64,12 @@ abstract class AbstractActionController extends Controller {
 
 		foreach ($mth->getParameters() as $parameter) {
 			$name = $parameter->getName();
+
 			$value = null;
-			if ($isPost && substr($name, 0, 5) === 'post_') {
-				$value = $request->postParam(substr($name, 5), null);
-			} else if (substr($name, 0, 4) === 'get_') {
-				$value = $request->getParam(substr($name, 4), null);
+			if ($isPost && substr($name, 0, 4) === 'post') {
+				$value = $request->postParam(lcfirst(substr($name, 4)), null);
+			} else if (substr($name, 0, 3) === 'get') {
+				$value = $request->getParam(lcfirst(substr($name, 3)), null);
 			} else {
 				$value = $request->getOrPostParam($name, null);
 			}
