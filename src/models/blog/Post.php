@@ -11,13 +11,13 @@ use storage\Persistable;
 class Post extends Model implements Persistable {
 
 	/**
-	 *
+	 * @column blogId
 	 * @var integer
 	 */
 	public $blogId;
 
 	/**
-	 *
+	 * @column content
 	 * @var string
 	 */
 	public $content;
