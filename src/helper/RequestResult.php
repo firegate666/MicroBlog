@@ -30,7 +30,7 @@ abstract class RequestResult {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public abstract function getResult();
 
