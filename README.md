@@ -1,6 +1,6 @@
 # Example PHP Framework
 
-## use case "Mirco Blog"
+## use case "Micro Blog"
 
 This is my educational approach on creating a PHP mini framework on my own.
 This all started as concept PHP blog application and continued to be my playground for PHP.
