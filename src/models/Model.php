@@ -31,6 +31,11 @@ class Model {
 	 */
 	public function validate() {
 		$this->validationMessages = array();
+		if (!is_numeric($this->id)) {
+			$this->validationMessages['id'][] = 'id must be numeric';
+		}
+
+		$this->isValid = empty($this->validationMessages);
 	}
 
 	/**
@@ -64,7 +69,7 @@ class Model {
 		} else if (empty($this->validationMessages)) {
 			$this->validate();
 		}
-		$this->isValid = empty($this->validationMessages);
+
 		return $this->isValid;
 	}
 
