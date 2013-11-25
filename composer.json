@@ -1,8 +1,33 @@
 {
+	"name": "firegate666/MicroBlog",
+	"description": "Simple PHP micro framework with blog example",
+	"type": "project",
+	"keywords": ["mvc", "framework", "blog"],
+
+	"license": "CC-BY-NC-SA-3.0",
+
+	"authors": [
+		{
+			"name": "Marco Behnke",
+			"email": "nmarco@behnke.biz",
+			"homepage": "http://www.behnke.biz",
+			"role": "Developer"
+		}
+	],
+
+	"homepage": "https://github.com/firegate666/MicroBlog",
+	"support": {
+		"email": "marco@behnke.biz",
+		"issues": "https://github.com/firegate666/MicroBlog/issues",
+		"wiki": "https://github.com/firegate666/MicroBlog/wiki",
+		"source": "https://github.com/firegate666/MicroBlog"
+	},
+
     "require": {
         "zeptech/annotations": "1.1.0",
 	    "monolog/monolog": "<2.0.0"
     },
+
 	"repositories": [
 		{
 			"type": "vcs",
