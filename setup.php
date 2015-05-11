@@ -6,7 +6,7 @@ use Doctrine\Common\Cache\ArrayCache;
 use Monolog\Handler\StreamHandler;
 
 $builder = new ContainerBuilder();
-$builder->addDefinitions(APP_ROOT . DIRECTORY_SEPARATOR . 'configuration' . DIRECTORY_SEPARATOR . 'config.php');
+$builder->addDefinitions(APP_ROOT . DIRECTORY_SEPARATOR . 'configuration' . DIRECTORY_SEPARATOR . 'di.php');
 $builder->setDefinitionCache(new ArrayCache());
 $container = $builder->build();
 
