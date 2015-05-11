@@ -46,4 +46,12 @@ interface StorageInterface {
 	 * @return array set of models
 	 */
 	public function findAll(Persistable $emptyModel, $order = array());
+
+	/**
+	 * delete all models
+	 *
+	 * @param Persistable $model
+	 * @return boolean
+	 */
+	public function truncate(Persistable $model);
 }

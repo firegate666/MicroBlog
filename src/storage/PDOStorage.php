@@ -135,4 +135,18 @@ class PDOStorage extends Storage {
 		}
 		return $ret;
 	}
+
+	/**
+	 * delete all models
+	 *
+	 * @param Persistable $model
+	 * @return boolean
+	 */
+	public function truncate(Persistable $model) {
+		$table = $this->createTableName($model);
+		$query = 'DELETE FROM ' . $table;
+		$this->pdo->exec($query);
+
+		return true;
+	}
 }

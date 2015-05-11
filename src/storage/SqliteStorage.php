@@ -85,8 +85,9 @@ class SqliteStorage extends Storage {
 
 			if ($clone->isValid()) {
 				$list[] = $clone;
+			} else {
+				$this->getLogger()->warning('loaded invalid model from db, skipped');
 			}
-			// TODO log failures
 		}
 		return $list;
 	}
@@ -122,6 +123,9 @@ class SqliteStorage extends Storage {
 			$isNew = false;
 		}
 
+		$this->getLogger()->debug($query);
+		$this->getLogger()->debug(json_encode($fields));
+
 		$stmt = $this->sqlite->prepare($query);
 		$this->bindValues($stmt, $fields);
 		$ret = $stmt->execute();
@@ -131,5 +135,17 @@ class SqliteStorage extends Storage {
 		}
 
 		return $ret;
+	}
+
+	/**
+	 * delete all models
+	 *
+	 * @param Persistable $model
+	 * @return boolean
+	 */
+	public function truncate(Persistable $model) {
+		$table = $this->createTableName($model);
+		$query = 'DELETE FROM ' . $table;
+		return $this->sqlite->exec($query);
 	}
 }
