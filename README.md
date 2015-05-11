@@ -1,6 +1,6 @@
 # Example PHP Framework
 
-https://travis-ci.org/firegate666/MicroBlog.svg?branch=master
+![alt tag](https://travis-ci.org/firegate666/MicroBlog.svg?branch=master)
 
 ## use case "Micro Blog"
 
