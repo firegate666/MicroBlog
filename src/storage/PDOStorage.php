@@ -112,7 +112,6 @@ class PDOStorage extends Storage {
 
 		$id = $fields['id'];
 		$stmt = null;
-		$isNew = false;
 		if (empty($id)) {
 			unset($fields['id']); // we don't want a null id field
 			// INSERT
