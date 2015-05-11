@@ -3,7 +3,6 @@
 	bootstrap="tests/unit_bootstrap.php"
 	backupGlobals="false"
 	backupStaticAttributes="false"
-	strict="true"
 	verbose="true"
 	colors="true">
 
