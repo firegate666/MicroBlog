@@ -4,14 +4,17 @@ use DI\ContainerBuilder;
 use Doctrine\Common\Cache\ArrayCache;
 
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 $builder = new ContainerBuilder();
 $builder->addDefinitions(APP_ROOT . DIRECTORY_SEPARATOR . 'configuration' . DIRECTORY_SEPARATOR . 'di.php');
 $builder->setDefinitionCache(new ArrayCache());
 $container = $builder->build();
 
+/** @var Logger $logger */
 $logger = $container->get('logger');
 $logger->pushHandler(new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'all.txt'));
+$logger->pushHandler(new StreamHandler(__DIR__ . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . 'error.txt', Logger::ERROR));
 
 /*
  * load application config
