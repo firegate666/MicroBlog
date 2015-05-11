@@ -3,6 +3,7 @@
 .settings
 
 configuration/base.ini
+;configuration/config.php
 
 runtime/*
 !runtime/README
