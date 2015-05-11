@@ -11,13 +11,13 @@ use storage\Persistable;
 class Comment extends Model implements Persistable {
 
 	/**
-	 *
+	 * @column postId
 	 * @var integer
 	 */
 	public $postId;
 
 	/**
-	 *
+	 * @column content
 	 * @var string
 	 */
 	public $content;

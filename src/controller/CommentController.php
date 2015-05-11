@@ -15,16 +15,15 @@ class CommentController extends AbstractActionController {
 	}
 
 	/**
-	 * @param integer $postPostId
-	 * @param string $postContents
+	 * @param string $postModel
 	 * @return JSONResult
 	 */
-	public function actionAjaxComment($postPostId, $postContents) {
-		$comment = new Comment();
-		$comment->postId = $postPostId;
-		$comment->content = $postContents;
-		$response = $this->getStorage()->save($comment);
+	public function actionAjaxUpdate($postModel) {
+		$commentModelData = json_decode($postModel, true);
+		$comment = new Comment($commentModelData);
 
-		return new JSONResult(array($response, $postPostId, $postContents));
+		$this->getStorage()->save($comment);
+
+		return new JSONResult($comment);
 	}
 }

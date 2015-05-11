@@ -16,8 +16,6 @@
 		<input type="button" name="submit" value="Post it!" />
 	</form>
 
-	</p>
-
 	<ul class="posts">
 		<% new Backbone.Collection(posts.where({blogId: blog.getId()})).each(function(post, k) { %>
 			<li class="post">
@@ -28,6 +26,16 @@
 							<%= comment.getContent() %>
 						</li>
 					<% }) %>
+					<li>
+						<form class="new-comment" action="?controller=Blog&action=comment" method="post">
+							<input type="hidden" name="post_id" value="<%= post.id %>" />
+							<label for="contents" class="post-new-commt">Post new comment</label>
+							<div class="comment-area" style="display: none">
+								<textarea name="content"></textarea>
+								<input type="button" name="submit" value="Comment it!" />
+							</div>
+						</form>
+					</li>
 				</ul>
 			</li>
 		<% }) %>

@@ -22,8 +22,9 @@
 		 * @returns {void}
 		 */
 		initialize: function() {
-			this.listenTo(this.model, 'change', this.render); // collection event binder
-			this.listenTo(this.collection.posts, 'add', this.render);
+			this.listenTo(this.model, 'change', this.reRender); // collection event binder
+			this.listenTo(this.collection.posts, 'add', this.reRender);
+			this.listenTo(this.collection.comments, 'add', this.reRender);
 			this.render();
 
 			this.registerViewComponents();
@@ -36,7 +37,28 @@
 		 * @return void
 		 */
 		registerViewComponents: function() {
-			this.$el.find('input[type="button"][name="submit"]').on('click', this.handleSubmit.bind(this));
+			this.$el.find('form.new-post input[type="button"][name="submit"]').on('click', this.handlePost.bind(this));
+			this.$el.find('form.new-comment input[type="button"][name="submit"]').on('click', this.handleComment.bind(this));
+
+			this.$el.find('.new-comment .post-new-commt').on('click', function() {
+				$(this).parent().find('.comment-area').toggle();
+			});
+		},
+
+		handleComment: function(event) {
+			var $el = $(event.currentTarget).parents('form.new-comment:first');
+			var content = $el.find('textarea[name="content"]').val(),
+				postId = parseInt($el.find('input[name="post_id"]').val(), 10),
+				comment = new app.Comment();
+
+			comment.save({
+					postId: postId,
+					content: content
+				},
+				{
+					success: this.handleCommented.bind(this, comment)
+				}
+			);
 		},
 
 		/**
@@ -45,8 +67,8 @@
 		 *
 		 * @return void
 		 */
-		handleSubmit: function() {
-			var content = this.$el.find('textarea[name="content"]').val(),
+		handlePost: function() {
+			var content = this.$el.find('form.new-post textarea[name="content"]').val(),
 				post = new app.Post();
 
 			post.save({
@@ -69,13 +91,23 @@
 			this.collection.posts.add(new_post);
 		},
 
+		handleCommented: function(new_comment) {
+			this.collection.comments.add(new_comment);
+		},
+
+		reRender: function() {
+			console.log('re-render', this.collection);
+			this.$el.html('');
+			this.render();
+			this.registerViewComponents();
+		},
+
 		/**
 		 * render book list
 		 *
 		 * @returns {void}
 		 */
 		render: function() {
-			this.$el.html('');
 			this.$el.append(us.template(app.TM.getTemplate('blog_view'), {
                 blog : this.model,
                 posts : this.collection.posts,

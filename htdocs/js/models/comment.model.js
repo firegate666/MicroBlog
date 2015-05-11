@@ -9,7 +9,7 @@
 		/**
 		 * @property {string}
 		 */
-		urlRoot : '?controller=Comment',
+		urlRoot : '?controller=Comment&action=update',
 
 		/**
 		 * get rest url for this model
