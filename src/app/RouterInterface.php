@@ -3,6 +3,7 @@
 namespace app;
 
 use helper\Request;
+use helper\RequestResult;
 use rendering\RenderingInterface;
 
 interface RouterInterface {

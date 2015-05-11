@@ -3,8 +3,8 @@
 namespace app;
 
 use controller\Controller;
+use DI\Container;
 use helper\ApplicationConfig;
-use helper\FileReader;
 use helper\HTMLResult;
 use helper\RequestResult;
 use helper\Request;
@@ -29,11 +29,17 @@ class Router implements RouterInterface {
 	private $logger;
 
 	/**
-	 * @param ApplicationConfig $config
+	 * @var Container
+	 */
+	private $container;
+
+	/**
+	 * @param Container $container
 	 * @param LoggerInterface $logger
 	 */
-	public function __construct(ApplicationConfig $config, LoggerInterface $logger) {
-		$this->config = $config;
+	public function __construct(Container $container, LoggerInterface $logger) {
+		$this->container = $container;
+		$this->config = $container->get('config');
 		$this->logger = $logger;
 	}
 
@@ -79,24 +85,11 @@ class Router implements RouterInterface {
 	}
 
 	/**
-	 * @return FileReader
-	 */
-	protected function createFileReader() {
-		return new FileReader();
-	}
-
-	/**
 	 * @throws InvalidRendererClassException if renderer is an not existing class
 	 * @return RenderingInterface
 	 */
 	protected function createRenderer() {
-		$renderingClassName = $this->config->getSectionEntry('rendering', 'class');
-
-		if (!class_exists($renderingClassName)) {
-			throw new InvalidRendererClassException('configured renderer is invalid', 404);
-		}
-
-		return new $renderingClassName($this->config->getSection('rendering'), $this->createFileReader());
+		return $this->container->get('renderer');
 	}
 
 	/**
@@ -106,12 +99,15 @@ class Router implements RouterInterface {
 	 */
 	protected function createController(Request $request) {
 		$controllerName = $this->determineControllerName($request);
-		if (!class_exists($controllerName)) {
-			throw new \LogicException('requested controller is invalid', 404);
+		if ($controllerName && class_exists($controllerName)) {
+			/** @var Controller $controller */
+			$controller = new $controllerName($this->config, $this->createRenderer(), $this->container->get('storage'));
+		} else if (!$controllerName) {
+			$controller = $this->container->get('default_controller');
+		} else {
+			throw new \LogicException('requested controller ' . $controllerName . ' is invalid', 404);
 		}
 
-		/** @var Controller $controller */
-		$controller = new $controllerName($this->config, $this->createRenderer());
 		$controller->setLogger($this->logger);
 
 		return $controller;
@@ -124,7 +120,8 @@ class Router implements RouterInterface {
 	 * @return string
 	 */
 	protected function determineControllerName(Request $request) {
-		$controllerName = $this->config->getSectionEntry('general', 'default_controller'); // default
+		$controllerName = null;
+
 		if ($request->hasGetOrPostParam('controller')) {
 			$controllerName = ucfirst($request->getOrPostParam('controller')) . 'Controller';
 			$controllerName = $this->config->getSectionEntry('general', 'default_controller_namespace') . $controllerName;

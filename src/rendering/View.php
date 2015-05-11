@@ -2,6 +2,8 @@
 
 namespace rendering;
 
+use DI\Container;
+use helper\ApplicationConfig;
 use helper\FileReader;
 
 class View implements RenderingInterface {
@@ -19,11 +21,11 @@ class View implements RenderingInterface {
 	private $fileReader;
 
 	/**
-	 * @param array $renderingConfig
+	 * @param ApplicationConfig $config
 	 * @param FileReader $fileReader
 	 */
-	public function __construct(array $renderingConfig, FileReader $fileReader) {
-		$this->renderingConfig = $renderingConfig;
+	public function __construct(ApplicationConfig $config, FileReader $fileReader) {
+		$this->renderingConfig = $config->getSection('rendering');
 		$this->fileReader = $fileReader;
 	}
 

@@ -1,16 +1,22 @@
 <?php
+use helper\Request;
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'setup.php';
+
+/** @var \DI\Container $container */
 
 /*
  * create request object
  */
-$request = new \helper\Request($_SERVER, $_GET, $_POST);
-
-$app_router_class = $config->getSectionEntry('general', 'default_app_router');
+$request = $container->make('request', array(
+	'serverVars' => $_SERVER,
+	'getParams' => $_GET,
+	'postParams' => $_POST
+));
 
 /** @var \app\RouterInterface $app_router */
-$app_router = new $app_router_class($config, $logger);
+$app_router = $container->get('app_router');
 
 /** @var \helper\RequestResult $result */
 $result = $app_router->run($request);

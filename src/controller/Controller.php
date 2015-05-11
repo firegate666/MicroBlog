@@ -46,10 +46,13 @@ abstract class Controller {
 	 *
 	 * @param ApplicationConfig $config
 	 * @param RenderingInterface $view
+	 * @param Storage $storage
 	 */
-	public function __construct(ApplicationConfig $config, RenderingInterface $view) {
+	public function __construct(ApplicationConfig $config, RenderingInterface $view, Storage $storage) {
 		$this->config = $config;
 		$this->view = $view;
+
+		$this->storage = $storage;
 	}
 
 	/**
@@ -75,10 +78,6 @@ abstract class Controller {
 		if (isset($this->storage)) {
 			return $this->storage;
 		}
-		$storageConfig = $this->getConfig('storage');
-		$this->storage = new $storageConfig['class']($storageConfig['identifier']);
-		$this->storage->setLogger($this->getLogger());
-		return $this->storage;
 	}
 
 	/**

@@ -33,6 +33,7 @@ abstract class Storage implements StorageInterface {
 	}
 
 	/**
+	 * @Inject({"logger"})
 	 * @param LoggerInterface $logger
 	 * @return void
 	 */
