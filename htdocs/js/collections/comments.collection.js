@@ -6,7 +6,10 @@
 
 	app.Comments = Backbone.Collection.extend({
 		model: app.Comment,
-		url: '?controller=Comment&action=list'
+		url: '?controller=Comment&action=list',
+		comparator : function(a, b) {
+			return a.getId() > b.getId() ? -1 : 1;
+		}
 	});
 
 }(window, Backbone));
