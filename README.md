@@ -20,6 +20,7 @@ If you want to get this thing running, I have support for Sqlite3 and PDO.
 * Just clone the repository
 * run composer to solve the dependencies
 * set up a base.ini from the sample
+* set up a di.php from the sample
 * read the sample database structure and data in the database
 * point your webroot to the htdocs folder or use bin/server.sh {PORT}
 
