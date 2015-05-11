@@ -2,13 +2,13 @@
 
 namespace storage;
 
-use InvalidArgumentException;
 use SQLite3;
 use SQLite3Stmt;
 
 /**
  * SQLite3 specific implementation of the storage class
  *
+ * @uses SQLite3
  * @package storage
  */
 class SqliteStorage extends Storage {
@@ -107,14 +107,22 @@ class SqliteStorage extends Storage {
 				implode(',', array_keys($fields)),
 				':' . implode(',:', array_keys($fields))
 			);
-			$stmt = $this->sqlite->prepare($query);
 			$isNew = true;
 		} else {
-			// UPDATE
-			// TODO implement
-			throw new InvalidArgumentException(sprintf('storage update not implemented yet for persistable id %d', $id), 500);
+			$query = 'UPDATE ' . $table . ' SET ';
+
+			$keys = array_keys($fields);
+			$setter = array();
+			foreach ($keys as $key) {
+				$setter[] = $key . ' = :' . $key;
+			}
+
+			$query .= implode(', ', $setter) .  ' WHERE id = :id';
+
+			$isNew = false;
 		}
 
+		$stmt = $this->sqlite->prepare($query);
 		$this->bindValues($stmt, $fields);
 		$ret = $stmt->execute();
 
