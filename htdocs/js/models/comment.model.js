@@ -25,14 +25,14 @@
 		},
 
 		/**
-		 * @returns {integer}
+		 * @returns {Number}
 		 */
 		getId : function() {
 			return this.get('id');
 		},
 
 		/**
-		 * @returns {integer}
+		 * @returns {Number}
 		 */
 		getPostId : function() {
 			return this.get('postId');

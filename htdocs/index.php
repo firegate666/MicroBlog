@@ -1,10 +1,13 @@
 <?php
-use helper\Request;
+
+use app\RouterInterface;
+use DI\Container;
+use helper\RequestResult;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'bootstrap.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'setup.php';
 
-/** @var \DI\Container $container */
+/** @var Container $container */
 
 /*
  * create request object
@@ -15,10 +18,10 @@ $request = $container->make('request', array(
 	'postParams' => $_POST
 ));
 
-/** @var \app\RouterInterface $app_router */
+/** @var RouterInterface $app_router */
 $app_router = $container->get('app_router');
 
-/** @var \helper\RequestResult $result */
+/** @var RequestResult $result */
 $result = $app_router->run($request);
 
 if ($config->getSectionEntry('output', 'gzip', false)) {

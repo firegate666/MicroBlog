@@ -62,7 +62,7 @@
 		/**
 		 * Handle successful submit, add new post to collection
 		 *
-		 * @param app.Post new_post
+		 * @param {app.Post} new_post
 		 * @return void
 		 */
 		handleSubmitted: function(new_post) {

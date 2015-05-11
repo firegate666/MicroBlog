@@ -25,7 +25,7 @@
 		},
 
 		/**
-		 * @returns {integer}
+		 * @returns {Number}
 		 */
 		getId : function() {
 			return this.get('id');
