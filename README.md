@@ -9,7 +9,7 @@ This all started as concept PHP blog application and continued to be my playgrou
 
 Over the last 2 years I used to spend more or less time on adding and improving features and refactoring a lot of code.
 
-Somewhen I want to have a framework that fully supports dependency injection and lazy loading factories from top to bottom.
+Eventually I want to have a framework that fully supports dependency injection and lazy loading factories from top to bottom.
 
 Still a lot to do until then, but lets see how far I can go.
 
