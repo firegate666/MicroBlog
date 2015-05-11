@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 23.11.13
- * Time: 22:10
- */
 
 namespace test\storage;
 
+use InvalidArgumentException;
+use PHPUnit_Framework_TestCase;
 use storage\WhereBuilder;
 
-class WhereBuilderTest extends \PHPUnit_Framework_TestCase {
+class WhereBuilderTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var WhereBuilder
@@ -39,7 +35,7 @@ class WhereBuilderTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testWhereInString() {
-		$this->setExpectedException('InvalidArgumentException', 'IN statement with strings is not supported yet');
+		$this->setExpectedException(InvalidArgumentException::class, 'IN statement with strings is not supported yet');
 		$this->builder->build(array(
 			'id' => array(1, 'foo', 3, 4, 5)
 		));

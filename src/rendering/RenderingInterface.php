@@ -2,6 +2,8 @@
 
 namespace rendering;
 
+use InvalidArgumentException;
+
 interface RenderingInterface {
 
 	/**
@@ -10,7 +12,7 @@ interface RenderingInterface {
 	 * @param string $layout
 	 * @param array $parameters
 	 * @param string $wrap
-	 * @throws \InvalidArgumentException if layout is not found
+	 * @throws InvalidArgumentException if layout is not found
 	 * @return string
 	 */
 	public function render($layout, $parameters = array(), $wrap = 'main');

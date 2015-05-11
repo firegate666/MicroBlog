@@ -3,8 +3,9 @@
 namespace test\helper;
 
 use helper\JSONResult;
+use PHPUnit_Framework_TestCase;
 
-class JSONResultTest extends \PHPUnit_Framework_TestCase {
+class JSONResultTest extends PHPUnit_Framework_TestCase {
 
 	public function testResult() {
 		$result = new JSONResult(array('test' => 'test'));

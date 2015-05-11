@@ -3,6 +3,8 @@
 namespace controller;
 
 use helper\Request;
+use LogicException;
+use ReflectionMethod;
 
 abstract class AbstractActionController extends Controller {
 
@@ -11,7 +13,7 @@ abstract class AbstractActionController extends Controller {
 	 *
 	 * @param string $actionName
 	 * @param Request $request
-	 * @throws \LogicException
+	 * @throws LogicException
 	 * @return boolean true
 	 */
 	public function isAllowed($actionName, Request $request) {
@@ -58,7 +60,7 @@ abstract class AbstractActionController extends Controller {
 	 * @return array
 	 */
 	protected function determineActionArgs($actionName, Request $request) {
-		$mth = new \ReflectionMethod($this, $actionName);
+		$mth = new ReflectionMethod($this, $actionName);
 		$funcArgs = array();
 		$isPost = $request->isPost();
 
@@ -84,14 +86,14 @@ abstract class AbstractActionController extends Controller {
 	 * @param array $funcArgs
 	 * @param Request $request
 	 * @return mixed
-	 * @throws \LogicException
+	 * @throws LogicException
 	 */
 	protected function executeAction($actionName, $funcArgs, Request $request) {
 		$beforeAction = 'before' . ucfirst($actionName);
 		$afterAction = 'after' . ucfirst($actionName);
 
 		if (!call_user_func_array(array($this, 'beforeAction'), array($request))) {
-			throw new \LogicException('before action call failed', 500);
+			throw new LogicException('before action call failed', 500);
 		}
 
 		if (method_exists($this, $beforeAction)) {
@@ -105,7 +107,7 @@ abstract class AbstractActionController extends Controller {
 		}
 
 		if (!call_user_func_array(array($this, 'afterAction'), array($request))) {
-			throw new \LogicException('after action call failed', 500);
+			throw new LogicException('after action call failed', 500);
 		}
 
 		return $actionResult;
@@ -121,13 +123,13 @@ abstract class AbstractActionController extends Controller {
 
 		if (is_callable(array($this, $actionName))) {
 			if (!$this->isAllowed($actionName, $request)) {
-				throw new \LogicException('Forbidden', 403);
+				throw new LogicException('Forbidden', 403);
 			}
 
 			$funcArgs = $this->determineActionArgs($actionName, $request);
 
 			return $this->executeAction($actionName, $funcArgs, $request);
 		}
-		throw new \LogicException(sprintf('invalid action "%s" requested', $actionName), 404);
+		throw new LogicException(sprintf('invalid action "%s" requested', $actionName), 404);
 	}
 }

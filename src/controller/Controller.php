@@ -4,6 +4,7 @@ namespace controller;
 
 use helper\ApplicationConfig;
 use helper\Request;
+use LogicException;
 use Psr\Log\LoggerInterface;
 use rendering\RenderingInterface;
 use storage\Storage;
@@ -51,7 +52,6 @@ abstract class Controller {
 	public function __construct(ApplicationConfig $config, RenderingInterface $view, Storage $storage) {
 		$this->config = $config;
 		$this->view = $view;
-
 		$this->storage = $storage;
 	}
 
@@ -75,9 +75,7 @@ abstract class Controller {
 	 * @return Storage
 	 */
 	protected function getStorage() {
-		if (isset($this->storage)) {
-			return $this->storage;
-		}
+		return $this->storage;
 	}
 
 	/**
@@ -93,7 +91,7 @@ abstract class Controller {
 	/**
 	 *
 	 * @param Request $request
-	 * @throws \LogicException
+	 * @throws LogicException
 	 * @return mixed
 	 */
 	public abstract function handle(Request $request);

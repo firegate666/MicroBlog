@@ -30,7 +30,7 @@ class PDOStorage extends Storage {
 	/**
 	 * Bind values to prepared statement
 	 *
-	 * @param \PDOStatement $stmt
+	 * @param PDOStatement $stmt
 	 * @param array $attributes
 	 * @param boolean $skipNull
 	 * @return void

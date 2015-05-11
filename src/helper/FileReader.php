@@ -19,6 +19,9 @@ class FileReader {
 	 * @return string
 	 */
 	public function fileGetContents($filename, $useIncludePath = false, $context = null, $offset = -1, $maxlen = null) {
+		if (!$this->fileExists($filename)) {
+			throw new FileNotFoundException($filename);
+		}
 		return file_get_contents($filename, $useIncludePath, $context, $offset, $maxlen);
 	}
 

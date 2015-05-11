@@ -2,6 +2,7 @@
 
 namespace app;
 
+use Exception;
 use helper\Request;
 use helper\RequestResult;
 use rendering\RenderingInterface;
@@ -20,10 +21,10 @@ interface RouterInterface {
 	 * use view renderer to display error page
 	 * if view is null, exception is dispatched to registered exception handler
 	 *
-	 * @param \Exception $exception
+	 * @param Exception $exception
 	 * @param RenderingInterface $renderer
-	 * @throws \Exception thrown if renderer is null
+	 * @throws Exception thrown if renderer is null
 	 * @return RequestResult
 	 */
-	public function renderError(\Exception $exception, RenderingInterface $renderer = null);
+	public function renderError(Exception $exception, RenderingInterface $renderer = null);
 }

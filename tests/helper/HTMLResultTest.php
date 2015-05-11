@@ -3,8 +3,9 @@
 namespace test\helper;
 
 use helper\HTMLResult;
+use PHPUnit_Framework_TestCase;
 
-class HTMLResultTest extends \PHPUnit_Framework_TestCase {
+class HTMLResultTest extends PHPUnit_Framework_TestCase {
 
 	public function testResult() {
 		$result = new HTMLResult('test');

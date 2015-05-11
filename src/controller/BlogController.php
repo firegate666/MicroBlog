@@ -6,7 +6,6 @@ use helper\HTMLResult;
 
 use helper\JSONResult;
 use models\blog\Blog;
-use models\blog\Comment;
 use models\blog\Post;
 
 class BlogController extends AbstractActionController {

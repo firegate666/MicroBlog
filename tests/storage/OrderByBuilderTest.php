@@ -1,18 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 23.11.13
- * Time: 22:04
- */
 
 namespace test\storage;
 
 use models\blog\Blog;
+use PHPUnit_Framework_TestCase;
 use storage\OrderByBuilder;
 
 
-class OrderByBuilderTest extends \PHPUnit_Framework_TestCase {
+class OrderByBuilderTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var OrderByBuilder

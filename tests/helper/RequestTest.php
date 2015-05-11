@@ -3,8 +3,9 @@
 namespace test\helper;
 
 use helper\Request;
+use PHPUnit_Framework_TestCase;
 
-class RequestTest extends \PHPUnit_Framework_TestCase {
+class RequestTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetPostOrder() {
 		$request = new Request(array('server' => 'baz'), array('foo' => 'get'), array('foo' => 'post'));

@@ -4,6 +4,7 @@ namespace storage;
 
 use InvalidArgumentException;
 use SQLite3;
+use SQLite3Stmt;
 
 /**
  * SQLite3 specific implementation of the storage class
@@ -30,12 +31,12 @@ class SqliteStorage extends Storage {
 	/**
 	 * Bind values to prepared statement
 	 *
-	 * @param \SQLite3Stmt $stmt
+	 * @param SQLite3Stmt $stmt
 	 * @param array $attributes
 	 * @param boolean $skipNull
 	 * @return void
 	 */
-	protected function bindValues(\SQLite3Stmt $stmt, array $attributes, $skipNull = false) {
+	protected function bindValues(SQLite3Stmt $stmt, array $attributes, $skipNull = false) {
 		foreach ($attributes as $column => $data) {
 			$bindType = null;
 			if (is_integer($data)) {

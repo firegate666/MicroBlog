@@ -2,6 +2,8 @@
 
 namespace helper;
 
+use ErrorException;
+
 /**
  * Default error handler
  *
@@ -16,10 +18,10 @@ class ErrorHandler {
 	 * @param string $errstr
 	 * @param string $errfile
 	 * @param integer $errline
-	 * @throws \ErrorException
+	 * @throws ErrorException
 	 * @return void
 	 */
 	function handle($errno, $errstr, $errfile, $errline) {
-		throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+		throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 	}
 }

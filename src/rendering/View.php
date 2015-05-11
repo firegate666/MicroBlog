@@ -2,9 +2,9 @@
 
 namespace rendering;
 
-use DI\Container;
 use helper\ApplicationConfig;
 use helper\FileReader;
+use InvalidArgumentException;
 
 class View implements RenderingInterface {
 
@@ -48,7 +48,7 @@ class View implements RenderingInterface {
 	 * @param string $layout
 	 * @param array $parameters
 	 * @param string $wrap
-	 * @throws \InvalidArgumentException if layout is not found
+	 * @throws InvalidArgumentException if layout is not found
 	 * @return string
 	 */
 	public function render($layout, $parameters = array(), $wrap = 'main') {
@@ -60,7 +60,7 @@ class View implements RenderingInterface {
 
 		$layoutFile = $this->getLayoutBasePath() . $layout . '.php';
 		if (!$this->fileReader->fileExists($layoutFile)) {
-			throw new \InvalidArgumentException(sprintf('selected layout "%s" not found', $layoutFile), 404);
+			throw new InvalidArgumentException(sprintf('selected layout "%s" not found', $layoutFile), 404);
 		}
 
 		extract($parameters);

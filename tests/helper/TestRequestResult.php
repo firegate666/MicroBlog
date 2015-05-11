@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: marcobehnke
- * Date: 24.11.13
- * Time: 00:44
- */
 
 namespace test\helper;
 
 use helper\RequestResult;
+use PHPUnit_Framework_TestCase;
 
-class TestRequestResult extends \PHPUnit_Framework_TestCase {
+class TestRequestResult extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @var RequestResult
@@ -18,7 +13,7 @@ class TestRequestResult extends \PHPUnit_Framework_TestCase {
 	private $result;
 
 	public function setUp() {
-		$this->result = $this->getMockBuilder('helper\RequestResult')
+		$this->result = $this->getMockBuilder(RequestResult::class)
 			->setConstructorArgs(array('foo', 666))
 			->getMockForAbstractClass();
 	}
@@ -30,5 +25,4 @@ class TestRequestResult extends \PHPUnit_Framework_TestCase {
 	public function testValidUntil() {
 		$this->assertFalse($this->result->validUntil());
 	}
-
 }

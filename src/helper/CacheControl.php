@@ -43,18 +43,19 @@ final class CacheControl {
 	/**
 	 * test if filename is not modified since
 	 *
+	 * @param Request $request
 	 * @param String $filename
 	 * @param boolean $sendHeader if true send Last-Modified header
-	 * @return boolean
+	 * @return bool
 	 */
-	public static function isNotModifiedSinceFile($filename, $sendHeader = true) {
+	public static function isNotModifiedSinceFile(Request $request, $filename, $sendHeader = true) {
 		$lastModified = self::lastModified($filename);
 
 		if ($sendHeader) {
 			header("Last-Modified: $lastModified", true);
 		}
 
-		return self::isNotModifiedSince($lastModified);
+		return self::isNotModifiedSince($request, $lastModified);
 	}
 
 	/**

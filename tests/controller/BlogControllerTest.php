@@ -3,8 +3,10 @@ namespace test\controller;
 
 use controller\BlogController;
 use models\blog\Blog;
+use PHPUnit_Framework_TestCase;
+use storage\Storage;
 
-class BlogControllerTest extends \PHPUnit_Framework_TestCase {
+class BlogControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function testActionAjaxList() {
 		$blog = new Blog();
@@ -14,12 +16,12 @@ class BlogControllerTest extends \PHPUnit_Framework_TestCase {
 		));
 		$blogs = array($blog);
 
-		$storagemock = $this->getMockBuilder('storage\Storage')
+		$storagemock = $this->getMockBuilder(Storage::class)
 			->disableOriginalConstructor()
 			->setMethods(array('findAll'))
 			->getMockForAbstractClass();
 
-		$blog_controller = $this->getMockBuilder('controller\BlogController')
+		$blog_controller = $this->getMockBuilder(BlogController::class)
 			->disableOriginalConstructor()
 			->setMethods(array('getStorage'))
 			->getMock();
@@ -32,6 +34,7 @@ class BlogControllerTest extends \PHPUnit_Framework_TestCase {
 			->method('findAll')
 			->will($this->returnValue($blogs));
 
+		/** @var BlogController $blog_controller */
 		$result = $blog_controller->actionAjaxList();
 		$this->assertInstanceOf('helper\JSONResult', $result);
 		$this->assertEquals('[{"title":"Titel","posts":[],"id":1}]', $result->getResult());

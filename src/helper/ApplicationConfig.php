@@ -54,8 +54,8 @@ class ApplicationConfig {
 
 		foreach ($this->getSection('app_env', array()) as $envKey => $envValue) {
 			$constant = 'APP_ENV_' . strtoupper($envKey);
-			if (!\defined($constant)) {
-				\define($constant, $envValue);
+			if (!defined($constant)) {
+				define($constant, $envValue);
 			}
 		}
 	}

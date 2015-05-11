@@ -23,5 +23,4 @@ class Sanitizer {
 
 		return true;
 	}
-
 }

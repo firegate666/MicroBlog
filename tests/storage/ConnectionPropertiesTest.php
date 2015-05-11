@@ -1,9 +1,10 @@
 <?php
 namespace test\storage;
 
+use PHPUnit_Framework_TestCase;
 use storage\ConnectionProperties;
 
-class ConnectionPropertiesTest extends \PHPUnit_Framework_TestCase {
+class ConnectionPropertiesTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Test if connection string is properly split up
