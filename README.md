@@ -1,5 +1,7 @@
 # Example PHP Framework
 
+![alt tag](https://travis-ci.org/firegate666/MicroBlog.svg?branch=master)
+
 ## use case "Micro Blog"
 
 This is my educational approach on creating a PHP mini framework on my own.
