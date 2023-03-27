@@ -2,10 +2,11 @@
 
 namespace app;
 
+use controller\BlogController;
 use controller\Controller;
-use DI\Container;
 use Exception;
 use helper\ApplicationConfig;
+use helper\FileReader;
 use helper\HTMLResult;
 use helper\RequestResult;
 use helper\Request;
@@ -13,6 +14,8 @@ use LogicException;
 use Psr\Log\LoggerInterface;
 use rendering\RenderingInterface;
 use rendering\InvalidRendererClassException;
+use rendering\View;
+use storage\SqliteStorage;
 
 /**
  * handle routing for application in regards of controller and action
@@ -25,24 +28,28 @@ class Router implements RouterInterface {
 	 */
 	private $config;
 
+    private $renderer;
+    private $file_renderer;
+    private $storage;
+    private $default_controller;
+
 	/**
 	 * @var LoggerInterface
 	 */
 	private $logger;
 
 	/**
-	 * @var Container
-	 */
-	private $container;
-
-	/**
-	 * @param Container $container
 	 * @param LoggerInterface $logger
 	 */
-	public function __construct(Container $container, LoggerInterface $logger) {
-		$this->container = $container;
-		$this->config = $container->get('config');
-		$this->logger = $logger;
+	public function __construct(LoggerInterface $logger) {
+        $this->logger = $logger;
+
+        $this->config = new ApplicationConfig(CONFIGURATION_DEFAULT . '/base.ini', CONFIGURATION_DEFAULT . '/default.ini');
+        $this->file_renderer = new FileReader();
+        $this->renderer = new View($this->config, $this->file_renderer);
+        $this->storage = new SqliteStorage('microblog.db');
+        $this->storage->setLogger($this->logger);
+        $this->default_controller = new BlogController($this->config, $this->renderer, $this->storage);
 	}
 
 	/**
@@ -82,7 +89,7 @@ class Router implements RouterInterface {
 		} catch (InvalidRendererClassException $e) {
 			return $this->renderError($e, null);
 		} catch (Exception $e) {
-			return $this->renderError($e, $this->container->get('renderer'));
+			return $this->renderError($e, $this->renderer);
 		}
 	}
 
@@ -97,11 +104,11 @@ class Router implements RouterInterface {
 			/** @var Controller $controller */
 			$controller = new $controllerName(
 				$this->config,
-				$this->container->get('renderer'),
-				$this->container->get('storage')
+				$this->renderer,
+				$this->storage
 			);
 		} else if (!$controllerName) {
-			$controller = $this->container->get('default_controller');
+			$controller = $this->default_controller;
 		} else {
 			throw new LogicException('requested controller ' . $controllerName . ' is invalid', 404);
 		}
