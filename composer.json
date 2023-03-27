@@ -1,5 +1,5 @@
 {
-	"name": "firegate666/MicroBlog",
+	"name": "firegate666/microblog",
 	"description": "Simple PHP micro framework with blog example",
 	"type": "project",
 	"keywords": ["mvc", "framework", "blog"],
