@@ -46,10 +46,10 @@ class ApplicationConfig {
 	 * @return void
 	 */
 	protected function init() {
-		$this->defaultConfig = parse_ini_string($this->defaultConfigString, true);
+        $this->defaultConfig = parse_ini_file($this->defaultConfigString, true);
 
-		if ($this->baseConfigString) {
-			$this->config = parse_ini_string($this->baseConfigString, true);
+        if ($this->baseConfigString) {
+			$this->config = parse_ini_file($this->baseConfigString, true);
 		}
 
 		foreach ($this->getSection('app_env', array()) as $envKey => $envValue) {
