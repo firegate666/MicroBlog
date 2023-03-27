@@ -54,7 +54,10 @@ class View implements RenderingInterface {
 	public function render($layout, $parameters = array(), $wrap = 'main') {
 		static $clearBuffer;
 		if ($clearBuffer === null) {
-			ob_clean();
+            if (ob_get_length() > 0) {
+                ob_clean();
+            }
+
 			$clearBuffer = false;
 		}
 
