@@ -5,7 +5,7 @@ services:
   web:
     image: nginx:latest
     ports:
-      - '8080:80'
+      - '8765:80'
     domainname: microblog.localhost
     volumes:
       - .:/var/www
